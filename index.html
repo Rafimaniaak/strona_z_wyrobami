@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Skarby Regionów Polski - Tradycyjne produkty od lokalnych wytwórców</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="page-wrapper">
+    <header class="header">
+        <div class="container header-container">
+            <div class="footer-logo" style="margin-bottom: 0;"><a href="index.html" style="text-decoration: none; color: inherit;">Skarby Regionów Polski</a></div>
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link active">Strona Główna</a></li>
+                    <li><a href="#" class="nav-link">Logowanie</a></li>
+                    <li><a href="#" class="nav-link">O nas</a></li>
+                    <li><a href="#" class="nav-link">Ulubione</a></li>
+                    <li><a href="#" class="nav-link">Koszyk</a></li>
+                    <li class="search-nav-item">
+                        <button class="search-toggle" aria-label="Szukaj">
+                            <svg width="24" height="24" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M26.25 26.25L20.8125 20.8125M23.75 13.75C23.75 19.2728 19.2728 23.75 13.75 23.75C8.22715 23.75 3.75 19.2728 3.75 13.75C3.75 8.22715 8.22715 3.75 13.75 3.75C19.2728 3.75 23.75 8.22715 23.75 13.75Z" stroke="#A5A39D" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Szukaj</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+            <div class="search-input-container">
+                <input type="text" id="searchInput" placeholder="Szukaj produktów...">
+                <button id="clearSearch">✕</button>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Menu">☰</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <h1 class="hero-title">Odkryj smaki polskich regionów</h1>
+                    <p class="hero-subtitle">Tradycyjne produkty od lokalnych wytwórców. Autentyczny smak, jakość i historia w każdym kawałku.</p>
+                </div>
+                <div class="hero-categories">
+                    <div class="categories-grid">
+                        <div class="category-card rounded-bottom" data-category="sery" onclick="window.location.href='sery.html'">
+                            <div class="category-inner">
+                                <img src="images/icons8-cheese-color/icons8-cheese-90.png" alt="Sery" class="category-icon">
+                                <h3>Sery</h3>
+                            </div>
+                        </div>
+                        <div class="category-card rounded-top" data-category="nalewki">
+                            <div class="category-inner">
+                                <img src="images/icons8-wine-90.png" alt="Nalewki" class="category-icon">
+                                <h3>Nalewki</h3>
+                            </div>
+                        </div>
+                        <div class="category-card rounded-bottom" data-category="przetwory">
+                            <div class="category-inner">
+                                <img src="images/icons8-jam-pastel-color/icons8-jam-90.png" alt="Przetwory" class="category-icon">
+                                <h3>Przetwory</h3>
+                            </div>
+                        </div>
+                        <div class="category-card rounded-top" data-category="wedliny">
+                            <div class="category-inner">
+                                <img src="images/icons8-ham-doodle/icons8-ham-90.png" alt="Wędliny" class="category-icon">
+                                <h3>Wędliny</h3>
+                            </div>
+                        </div>
+                        <div class="category-card rounded-bottom" data-category="miody">
+                            <div class="category-inner">
+                                <img src="images/icons8-honey-pastel-color/icons8-honey-96.png" alt="Miody" class="category-icon">
+                                <h3>Miody</h3>
+                            </div>
+                        </div>
+                        <div class="category-card rounded-top" data-category="rekodzielo">
+                            <div class="category-inner">
+                                <img src="images/icons8-paint-palette-80.png" alt="Rękodzieło" class="category-icon">
+                                <h3>Rękodzieło</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="popular-sellers">
+            <div class="container">
+                <h2 class="section-title">Popularni Sprzedawcy</h2>
+                <div class="sellers-grid">
+                    <div class="seller-card">
+                        <div class="seller-avatar"></div>
+                        <span class="seller-name">Bacówka u Wojtka ></span>
+                    </div>
+                    <div class="seller-card">
+                        <div class="seller-avatar"></div>
+                        <span class="seller-name">Adam Nowak ></span>
+                    </div>
+                    <div class="seller-card">
+                        <div class="seller-avatar"></div>
+                        <span class="seller-name">Spiżarnia Babci ></span>
+                    </div>
+                    <div class="seller-card">
+                        <div class="seller-avatar"></div>
+                        <span class="seller-name">Lokalne Sery Sp. z o.o. ></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="popular-products">
+            <div class="container">
+                <h2 class="section-title">Popularne produkty</h2>
+                <div class="carousel-wrapper">
+                    <button class="carousel-btn prev-btn" aria-label="Poprzednie">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+
+                    <div class="products-carousel" id="productsGrid">
+                        <div class="product-card" data-name="Oscypek Góralski">
+                            <div class="product-image-wrapper">
+                                <img src="images/Oscypek-goralski.jpg" alt="Oscypek Góralski" class="product-img">
+                                <button class="favorite-btn" aria-label="Dodaj do ulubionych">
+                                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M34.7333 7.68345C33.8821 6.83179 32.8714 6.15619 31.7589 5.69525C30.6465 5.23432 29.4541 4.99707 28.25 4.99707C27.0459 4.99707 25.8535 5.23432 24.7411 5.69525C23.6286 6.15619 22.6179 6.83179 21.7667 7.68345L20 9.45011L18.2333 7.68345C16.5138 5.96396 14.1817 4.99796 11.75 4.99796C9.31827 4.99796 6.98615 5.96396 5.26666 7.68345C3.54717 9.40293 2.58118 11.7351 2.58118 14.1668C2.58118 16.5985 3.54717 18.9306 5.26666 20.6501L20 35.3834L34.7333 20.6501C35.585 19.7989 36.2606 18.7881 36.7215 17.6757C37.1825 16.5633 37.4197 15.3709 37.4197 14.1668C37.4197 12.9626 37.1825 11.7703 36.7215 10.6579C36.2606 9.54542 35.585 8.53471 34.7333 7.68345Z" stroke="#FEFDF7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                                <div class="product-rating">
+                                    <span class="rating-star">★</span>
+                                    <span class="rating-value">5.0</span>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">Oscypek Góralski</h3>
+                                <div class="product-seller">Bacówka u Wojtka</div>
+                                <div class="product-price">21.00 zł</div>
+                                <button class="add-to-cart">Dodaj do koszyka</button>
+                            </div>
+                        </div>
+                        <div class="product-card" data-name="Nalewka Wiśniowa">
+                            <div class="product-image-wrapper">
+                                <img src="images/gorzelnia-dlugie-nalewka-wisniowa.png" alt="Nalewka Wiśniowa" class="product-img">
+                                <button class="favorite-btn" aria-label="Dodaj do ulubionych">
+                                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M34.7333 7.68345C33.8821 6.83179 32.8714 6.15619 31.7589 5.69525C30.6465 5.23432 29.4541 4.99707 28.25 4.99707C27.0459 4.99707 25.8535 5.23432 24.7411 5.69525C23.6286 6.15619 22.6179 6.83179 21.7667 7.68345L20 9.45011L18.2333 7.68345C16.5138 5.96396 14.1817 4.99796 11.75 4.99796C9.31827 4.99796 6.98615 5.96396 5.26666 7.68345C3.54717 9.40293 2.58118 11.7351 2.58118 14.1668C2.58118 16.5985 3.54717 18.9306 5.26666 20.6501L20 35.3834L34.7333 20.6501C35.585 19.7989 36.2606 18.7881 36.7215 17.6757C37.1825 16.5633 37.4197 15.3709 37.4197 14.1668C37.4197 12.9626 37.1825 11.7703 36.7215 10.6579C36.2606 9.54542 35.585 8.53471 34.7333 7.68345Z" stroke="#FEFDF7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                                <div class="product-rating">
+                                    <span class="rating-star">★</span>
+                                    <span class="rating-value">4.8</span>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">Nalewka Wiśniowa</h3>
+                                <div class="product-seller">Gorzelnia Długie</div>
+                                <div class="product-price">123.00 zł</div>
+                                <button class="add-to-cart">Dodaj do koszyka</button>
+                            </div>
+                        </div>
+                        <div class="product-card" data-name="Miód lipowy">
+                            <div class="product-image-wrapper">
+                                <img src="images/miod-test.png" alt="Miód lipowy" class="product-img">
+                                <button class="favorite-btn" aria-label="Dodaj do ulubionych">
+                                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M34.7333 7.68345C33.8821 6.83179 32.8714 6.15619 31.7589 5.69525C30.6465 5.23432 29.4541 4.99707 28.25 4.99707C27.0459 4.99707 25.8535 5.23432 24.7411 5.69525C23.6286 6.15619 22.6179 6.83179 21.7667 7.68345L20 9.45011L18.2333 7.68345C16.5138 5.96396 14.1817 4.99796 11.75 4.99796C9.31827 4.99796 6.98615 5.96396 5.26666 7.68345C3.54717 9.40293 2.58118 11.7351 2.58118 14.1668C2.58118 16.5985 3.54717 18.9306 5.26666 20.6501L20 35.3834L34.7333 20.6501C35.585 19.7989 36.2606 18.7881 36.7215 17.6757C37.1825 16.5633 37.4197 15.3709 37.4197 14.1668C37.4197 12.9626 37.1825 11.7703 36.7215 10.6579C36.2606 9.54542 35.585 8.53471 34.7333 7.68345Z" stroke="#FEFDF7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                                <div class="product-rating">
+                                    <span class="rating-star">★</span>
+                                    <span class="rating-value">4.9</span>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">Miód lipowy</h3>
+                                <div class="product-seller">Pszczelarz Jan</div>
+                                <div class="product-price">78.00 zł</div>
+                                <button class="add-to-cart">Dodaj do koszyka</button>
+                            </div>
+                        </div>
+                        <div class="product-card" data-name="Ciupaga Góralska">
+                            <div class="product-image-wrapper">
+                                <img src="images/ciupaga-test.png" alt="Ciupaga Góralska" class="product-img">
+                                <button class="favorite-btn" aria-label="Dodaj do ulubionych">
+                                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M34.7333 7.68345C33.8821 6.83179 32.8714 6.15619 31.7589 5.69525C30.6465 5.23432 29.4541 4.99707 28.25 4.99707C27.0459 4.99707 25.8535 5.23432 24.7411 5.69525C23.6286 6.15619 22.6179 6.83179 21.7667 7.68345L20 9.45011L18.2333 7.68345C16.5138 5.96396 14.1817 4.99796 11.75 4.99796C9.31827 4.99796 6.98615 5.96396 5.26666 7.68345C3.54717 9.40293 2.58118 11.7351 2.58118 14.1668C2.58118 16.5985 3.54717 18.9306 5.26666 20.6501L20 35.3834L34.7333 20.6501C35.585 19.7989 36.2606 18.7881 36.7215 17.6757C37.1825 16.5633 37.4197 15.3709 37.4197 14.1668C37.4197 12.9626 37.1825 11.7703 36.7215 10.6579C36.2606 9.54542 35.585 8.53471 34.7333 7.68345Z" stroke="#FEFDF7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                                <div class="product-rating">
+                                    <span class="rating-star">★</span>
+                                    <span class="rating-value">4.8</span>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">Ciupaga Góralska</h3>
+                                <div class="product-seller">Rękodzieło Tatrzańskie</div>
+                                <div class="product-price">189.00 zł</div>
+                                <button class="add-to-cart">Dodaj do koszyka</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="carousel-btn next-btn" aria-label="Następne">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="reviews">
+            <div class="container">
+                <h2 class="section-title reviews-title">Opinie naszych klientów</h2>
+                <div class="reviews-grid">
+                    <div class="review-card">
+                        <p class="review-text">"Najlepszy oscypek jaki jadłam od lat. Prawdziwy, wędzony, po prostu pycha!"</p>
+                        <div class="review-author">Anna Kowalska</div>
+                        <div class="review-location">Kraków</div>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                    <div class="review-card">
+                        <p class="review-text">"Szybka dostawa i produkty świetnie zabezpieczone. Nalewka rewelacyjna, polecam każdemu."</p>
+                        <div class="review-author">Marek Nowak</div>
+                        <div class="review-location">Warszawa</div>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                    <div class="review-card">
+                        <p class="review-text">"Wspaniale, że mogę kupić autentyczne produkty regionalne bez wychodzenia z domu. Polecam!"</p>
+                        <div class="review-author">Maria Anna</div>
+                        <div class="review-location">Gdańsk</div>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container features-grid">
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg width="55" height="55" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M27.5 50.4168C27.5 50.4168 45.8333 41.2502 45.8333 27.5002V11.4585L27.5 4.5835L9.16667 11.4585V27.5002C9.16667 41.2502 27.5 50.4168 27.5 50.4168Z" stroke="#3B376C" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>100% Oryginalne</h3>
+                    <p>Tylko autentyczne produkty</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg width="55" height="55" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M36.6667 36.6667V6.875H2.29169V36.6667H36.6667ZM36.6667 36.6667H52.7084V25.2083L45.8334 18.3333H36.6667L36.6667 36.6667ZM18.3334 42.3958C18.3334 45.56 15.7683 48.125 12.6042 48.125C9.44006 48.125 6.87502 45.56 6.87502 42.3958C6.87502 39.2317 9.44006 36.6667 12.6042 36.6667C15.7683 36.6667 18.3334 39.2317 18.3334 42.3958ZM48.125 42.3958C48.125 45.56 45.56 48.125 42.3959 48.125C39.2317 48.125 36.6667 45.56 36.6667 42.3958C36.6667 39.2317 39.2317 36.6667 42.3959 36.6667C45.56 36.6667 48.125 39.2317 48.125 42.3958Z" stroke="#3B376C" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Szybka dostawa</h3>
+                    <p>W całej Polsce</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg width="55" height="55" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M52.7084 13.75L30.9375 35.5208L19.4792 24.0625L2.29169 41.25M52.7084 13.75H38.9584M52.7084 13.75V27.5" stroke="#3B376C" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Zwrot do 14 dni</h3>
+                    <p>Na wybrane produkty</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg width="55" height="55" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.875 41.25V27.5C6.875 22.0299 9.04798 16.7839 12.9159 12.9159C16.7839 9.04799 22.0299 6.875 27.5 6.875C32.9701 6.875 38.2161 9.04799 42.0841 12.9159C45.952 16.7839 48.125 22.0299 48.125 27.5V41.25M48.125 43.5417C48.125 44.7572 47.6421 45.923 46.7826 46.7826C45.923 47.6421 44.7572 48.125 43.5417 48.125H41.25C40.0344 48.125 38.8686 47.6421 38.0091 46.7826C37.1496 45.923 36.6667 44.7572 36.6667 43.5417V36.6667C36.6667 35.4511 37.1496 34.2853 38.0091 33.4258C38.8686 32.5662 40.0344 32.0833 41.25 32.0833H48.125V43.5417ZM6.875 43.5417C6.875 44.7572 7.35789 45.923 8.21743 46.7826C9.07697 47.6421 10.2428 48.125 11.4583 48.125H13.75C14.9656 48.125 16.1314 47.6421 16.9909 46.7826C17.8504 45.923 18.3333 44.7572 18.3333 43.5417V36.6667C18.3333 35.4511 17.8504 34.2853 16.9909 33.4258C16.1314 32.5662 14.9656 32.0833 13.75 32.0833H6.875V43.5417Z" stroke="#3B376C" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Wsparcie 24/7</h3>
+                    <p>Zawsze do Twojej dyspozycji</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="producer-cta">
+            <div class="container cta-container">
+                <h2>Jesteś producentem?</h2>
+                <p>Dołącz do naszej platformy i sprzedawaj swoje produkty klientom z całej Polski.</p>
+                <button class="btn-cta" id="becomeSellerBtn">Zostań sprzedawcą</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">Skarby Regionów Polski</div>
+                <p>Łączymy tradycyjnych producentów z klientami ceniącymi autentyczne produkty regionalne.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Informacje</h4>
+                    <ul>
+                        <li><a href="#">O nas</a></li>
+                        <li><a href="#">Nasi producenci</a></li>
+                        <li><a href="#">Regulamin</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Obsługa klienta</h4>
+                    <ul>
+                        <li><a href="#">Zwroty (14 dni)</a></li>
+                        <li><a href="#">Twoje zamówienia</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Kontakt</h4>
+                    <ul>
+                        <li><a href="mailto:kontakt123@gmail.com">kontakt123@gmail.com</a></li>
+                        <li><a href="tel:+48123456789">+48 123 456 789</a></li>
+                        <li>ul. Regionalna 12<br>34-500 Zakopane</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script>
+    (function() {
+        const searchInput = document.getElementById('searchInput');
+        const clearBtn = document.getElementById('clearSearch');
+        const products = document.querySelectorAll('.product-card');
+        const searchToggle = document.querySelector('.search-toggle');
+        const searchContainer = document.querySelector('.search-input-container');
+
+        if(searchToggle && searchContainer) {
+            searchToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                searchContainer.classList.toggle('active');
+                if(searchContainer.classList.contains('active')) {
+                    searchInput.focus();
+                }
+            });
+        }
+
+        function filterProducts() {
+            const term = searchInput ? searchInput.value.toLowerCase().trim() : '';
+            products.forEach(product => {
+                const name = product.getAttribute('data-name') || '';
+                if(term === '' || name.toLowerCase().includes(term)) {
+                    product.style.display = '';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        if(searchInput) {
+            searchInput.addEventListener('input', filterProducts);
+        }
+        if(clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                if(searchInput) searchInput.value = '';
+                filterProducts();
+            });
+        }
+
+        const addButtons = document.querySelectorAll('.add-to-cart');
+        addButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('🛒 Produkt dodany do koszyka!');
+            });
+        });
+
+        const favBtns = document.querySelectorAll('.favorite-btn');
+        favBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                btn.classList.toggle('active');
+                const svg = btn.querySelector('svg');
+                if(btn.classList.contains('active')) {
+                    svg.style.fill = '#FEFDF7';
+                    svg.style.stroke = '#FEFDF7';
+                    alert('❤️ Dodano do ulubionych');
+                } else {
+                    svg.style.fill = 'none';
+                    svg.style.stroke = '#FEFDF7';
+                    alert('💔 Usunięto z ulubionych');
+                }
+            });
+        });
+
+        const sellerBtn = document.getElementById('becomeSellerBtn');
+        if(sellerBtn) {
+            sellerBtn.addEventListener('click', () => {
+                alert('Dziękujemy! Skontaktujemy się z Tobą w sprawie dołączenia do platformy.');
+            });
+        }
+
+        const mobileBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        if(mobileBtn && navMenu) {
+            mobileBtn.addEventListener('click', () => {
+                navMenu.classList.toggle('open');
+            });
+        }
+
+        document.addEventListener('click', function(e) {
+            if(searchContainer && searchContainer.classList.contains('active')) {
+                if(!searchContainer.contains(e.target) && !searchToggle.contains(e.target)) {
+                    searchContainer.classList.remove('active');
+                    if(searchInput) searchInput.value = '';
+                    filterProducts();
+                }
+            }
+        });
+
+        const carousel = document.querySelector('.products-carousel');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+
+        if(carousel && prevBtn && nextBtn) {
+            const getScrollAmount = () => {
+                const cardWidth = carousel.querySelector('.product-card').offsetWidth;
+                return cardWidth + 30;
+            };
+
+            prevBtn.addEventListener('click', () => {
+                carousel.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+            });
+
+            nextBtn.addEventListener('click', () => {
+                carousel.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+            });
+        }
+    })();
+</script>
+</body>
+</html>
