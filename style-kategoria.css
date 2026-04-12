@@ -860,6 +860,18 @@ a {
     gap: 8px 10px;
 }
 
+.cart-item-actions .favorite-button {
+    position: static;
+    top: auto;
+    right: auto;
+    z-index: auto;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .cart-trash {
     width: 28px;
     height: 28px;

@@ -18,21 +18,27 @@
                     <li><a href="#" class="nav-link">Logowanie</a></li>
                     <li><a href="about.html" class="nav-link">O nas</a></li>
                     <li><a href="ulubione.html" class="nav-link">Ulubione</a></li>
-                    <li><a href="koszyk.html" class="nav-link">Koszyk</a></li>
-                    <li class="search-nav-item">
-                        <button class="search-toggle" aria-label="Szukaj">
+                    <li>
+                        <a href="koszyk.html" class="nav-link cart-link">
+                            <span>Koszyk</span>
+                            <span class="nav-counter" data-cart-count hidden>0</span>
+                        </a>
+                    </li>
+                    <li class="search-slot">
+                        <button class="search-trigger" type="button" aria-label="Szukaj" aria-expanded="false" aria-controls="searchInline">
                             <svg width="24" height="24" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M26.25 26.25L20.8125 20.8125M23.75 13.75C23.75 19.2728 19.2728 23.75 13.75 23.75C8.22715 23.75 3.75 19.2728 3.75 13.75C3.75 8.22715 8.22715 3.75 13.75 3.75C19.2728 3.75 23.75 8.22715 23.75 13.75Z" stroke="#A5A39D" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                             <span>Szukaj</span>
                         </button>
+                        <div class="search-inline" id="searchInline">
+                            <label class="sr-only" for="searchInput">Szukaj produkt&oacute;w</label>
+                            <input type="search" id="searchInput" placeholder="Szukaj produkt&oacute;w...">
+                            <button class="search-clear" id="clearSearch" type="button" aria-label="Wyczy&#347;&#263; wyszukiwanie">&times;</button>
+                        </div>
                     </li>
                 </ul>
             </nav>
-            <div class="search-input-container">
-                <input type="text" id="searchInput" placeholder="Szukaj produktów...">
-                <button id="clearSearch">✕</button>
-            </div>
             <button class="mobile-menu-btn" aria-label="Menu">☰</button>
         </div>
     </header>
@@ -206,6 +212,7 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </button>
                 </div>
+                <p class="products-search-status" id="productsSearchStatus" hidden>Brak pasuj&#261;cych produkt&oacute;w.</p>
             </div>
         </section>
 
@@ -319,78 +326,246 @@
             </div>
         </div>
     </footer>
+    <div class="toast" id="pageToast" aria-live="polite" aria-atomic="true"></div>
 </div>
 
+<script src="favorites-storage.js"></script>
+<script src="cart-storage.js"></script>
 <script>
     (function() {
+        const favoriteStore = window.favoriteStore;
+        const cartStore = window.cartStore;
         const searchInput = document.getElementById('searchInput');
         const clearBtn = document.getElementById('clearSearch');
-        const products = document.querySelectorAll('.product-card');
-        const searchToggle = document.querySelector('.search-toggle');
-        const searchContainer = document.querySelector('.search-input-container');
+        const products = Array.from(document.querySelectorAll('.products-carousel .product-card'));
+        const searchSlot = document.querySelector('.search-slot');
+        const searchTrigger = document.querySelector('.search-trigger');
+        const searchStatus = document.getElementById('productsSearchStatus');
+        const pageToast = document.getElementById('pageToast');
+        const cartCounters = Array.from(document.querySelectorAll('[data-cart-count]'));
+        const categoryByName = {
+            'oscypek goralski': 'sery',
+            'nalewka wisniowa': 'nalewki',
+            'miod lipowy': 'miody',
+            'ciupaga goralska': 'rekodzielo'
+        };
+        let toastTimer = null;
 
-        if(searchToggle && searchContainer) {
-            searchToggle.addEventListener('click', (e) => {
-                e.preventDefault();
-                searchContainer.classList.toggle('active');
-                if(searchContainer.classList.contains('active')) {
-                    searchInput.focus();
+        function normalize(value) {
+            return (value || '')
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '');
+        }
+
+        function slugify(value) {
+            return normalize(value)
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+        }
+
+        function showToast(message) {
+            if(!pageToast) {
+                return;
+            }
+
+            pageToast.textContent = message;
+            pageToast.classList.add('is-visible');
+
+            if(toastTimer) {
+                window.clearTimeout(toastTimer);
+            }
+
+            toastTimer = window.setTimeout(() => {
+                pageToast.classList.remove('is-visible');
+            }, 1800);
+        }
+
+        function inferCategory(card) {
+            const normalizedName = normalize(card.dataset.name || '');
+            return card.dataset.category || categoryByName[normalizedName] || 'home';
+        }
+
+        function parsePrice(value) {
+            const match = String(value || '').replace(',', '.').match(/[\d.]+/);
+            return match ? Number(match[0]).toFixed(2) : '0.00';
+        }
+
+        function productId(card) {
+            return card.dataset.productId || inferCategory(card) + '-' + slugify(card.dataset.name || '');
+        }
+
+        function productPayload(card) {
+            const image = card.querySelector('.product-img');
+            const seller = card.querySelector('.product-seller');
+            const title = card.querySelector('.product-title');
+            const price = card.querySelector('.product-price');
+
+            return {
+                id: productId(card),
+                name: title ? title.textContent.trim() : (card.dataset.name || ''),
+                seller: seller ? seller.textContent.trim() : '',
+                price: parsePrice(price ? price.textContent : ''),
+                image: image ? image.getAttribute('src') : '',
+                alt: image ? image.getAttribute('alt') : '',
+                category: inferCategory(card),
+                page: window.location.pathname.split('/').pop() || 'index.html'
+            };
+        }
+
+        function syncFavoriteButtonsFromStore() {
+            if(!favoriteStore) {
+                return;
+            }
+
+            products.forEach((card) => {
+                const button = card.querySelector('.favorite-btn');
+
+                if(!button) {
+                    return;
                 }
+
+                const isActive = favoriteStore.exists(productId(card));
+                button.classList.toggle('active', isActive);
+                button.setAttribute('aria-pressed', String(isActive));
+                button.setAttribute('aria-label', isActive ? 'Usun z ulubionych' : 'Dodaj do ulubionych');
             });
         }
 
+        function syncCartCounters() {
+            if(!cartStore || cartCounters.length === 0) {
+                return;
+            }
+
+            const count = cartStore.count();
+            cartCounters.forEach((counter) => {
+                counter.textContent = String(count);
+                counter.hidden = count === 0;
+            });
+        }
+
+        function setSearchOpen(isOpen) {
+            if(!searchSlot || !searchTrigger) {
+                return;
+            }
+
+            searchSlot.classList.toggle('is-open', isOpen);
+            searchTrigger.setAttribute('aria-expanded', String(isOpen));
+
+            if(isOpen && searchInput) {
+                searchInput.focus();
+            }
+        }
+
         function filterProducts() {
-            const term = searchInput ? searchInput.value.toLowerCase().trim() : '';
-            products.forEach(product => {
-                const name = product.getAttribute('data-name') || '';
-                if(term === '' || name.toLowerCase().includes(term)) {
-                    product.style.display = '';
-                } else {
-                    product.style.display = 'none';
+            const term = normalize(searchInput ? searchInput.value.trim() : '');
+            let visibleCount = 0;
+
+            products.forEach((product) => {
+                const seller = product.querySelector('.product-seller');
+                const searchable = normalize([
+                    product.getAttribute('data-name') || '',
+                    seller ? seller.textContent : '',
+                    product.textContent
+                ].join(' '));
+                const matches = term === '' || searchable.includes(term);
+
+                product.hidden = !matches;
+
+                if(matches) {
+                    visibleCount += 1;
                 }
+            });
+
+            if(searchSlot && searchInput) {
+                searchSlot.classList.toggle('has-value', searchInput.value.trim() !== '');
+            }
+
+            if(searchStatus) {
+                searchStatus.hidden = visibleCount !== 0;
+            }
+        }
+
+        if(searchTrigger) {
+            searchTrigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                setSearchOpen(!searchSlot.classList.contains('is-open'));
             });
         }
 
         if(searchInput) {
             searchInput.addEventListener('input', filterProducts);
+            searchInput.addEventListener('keydown', (e) => {
+                if(e.key === 'Escape') {
+                    if(searchInput.value) {
+                        searchInput.value = '';
+                        filterProducts();
+                    } else {
+                        setSearchOpen(false);
+                    }
+                }
+            });
         }
+
         if(clearBtn) {
             clearBtn.addEventListener('click', () => {
-                if(searchInput) searchInput.value = '';
+                if(searchInput) {
+                    searchInput.value = '';
+                    searchInput.focus();
+                }
                 filterProducts();
             });
         }
 
-        const addButtons = document.querySelectorAll('.add-to-cart');
-        addButtons.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                alert('🛒 Produkt dodany do koszyka!');
+        Array.from(document.querySelectorAll('.add-to-cart')).forEach((button) => {
+            button.addEventListener('click', () => {
+                const card = button.closest('.product-card');
+                const originalText = button.textContent;
+                button.classList.add('is-added');
+                button.textContent = 'Dodano';
+
+                if(cartStore && card) {
+                    cartStore.add(productPayload(card));
+                    syncCartCounters();
+                }
+
+                window.setTimeout(() => {
+                    button.classList.remove('is-added');
+                    button.textContent = originalText;
+                }, 1200);
+
+                showToast('Produkt dodany do koszyka.');
             });
         });
 
-        const favBtns = document.querySelectorAll('.favorite-btn');
-        favBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                btn.classList.toggle('active');
-                const svg = btn.querySelector('svg');
-                if(btn.classList.contains('active')) {
-                    svg.style.fill = '#FEFDF7';
-                    svg.style.stroke = '#FEFDF7';
-                    alert('❤️ Dodano do ulubionych');
+        Array.from(document.querySelectorAll('.favorite-btn')).forEach((button) => {
+            button.addEventListener('click', () => {
+                const card = button.closest('.product-card');
+                let isActive;
+
+                if(favoriteStore && card) {
+                    if(favoriteStore.exists(productId(card))) {
+                        favoriteStore.remove(productId(card));
+                        isActive = false;
+                    } else {
+                        favoriteStore.add(productPayload(card));
+                        isActive = true;
+                    }
                 } else {
-                    svg.style.fill = 'none';
-                    svg.style.stroke = '#FEFDF7';
-                    alert('💔 Usunięto z ulubionych');
+                    isActive = button.classList.toggle('active');
                 }
+
+                button.classList.toggle('active', isActive);
+                button.setAttribute('aria-pressed', String(isActive));
+                button.setAttribute('aria-label', isActive ? 'Usun z ulubionych' : 'Dodaj do ulubionych');
+                showToast(isActive ? 'Dodano do ulubionych.' : 'Usunieto z ulubionych.');
             });
         });
 
         const sellerBtn = document.getElementById('becomeSellerBtn');
         if(sellerBtn) {
             sellerBtn.addEventListener('click', () => {
-                alert('Dziękujemy! Skontaktujemy się z Tobą w sprawie dołączenia do platformy.');
+                showToast('Dziekujemy! Skontaktujemy sie w sprawie dolaczenia.');
             });
         }
 
@@ -403,12 +578,8 @@
         }
 
         document.addEventListener('click', function(e) {
-            if(searchContainer && searchContainer.classList.contains('active')) {
-                if(!searchContainer.contains(e.target) && !searchToggle.contains(e.target)) {
-                    searchContainer.classList.remove('active');
-                    if(searchInput) searchInput.value = '';
-                    filterProducts();
-                }
+            if(searchSlot && searchSlot.classList.contains('is-open') && !searchSlot.contains(e.target)) {
+                setSearchOpen(false);
             }
         });
 
@@ -418,8 +589,8 @@
 
         if(carousel && prevBtn && nextBtn) {
             const getScrollAmount = () => {
-                const cardWidth = carousel.querySelector('.product-card').offsetWidth;
-                return cardWidth + 30;
+                const firstVisibleCard = products.find((product) => !product.hidden);
+                return firstVisibleCard ? firstVisibleCard.offsetWidth + 30 : 0;
             };
 
             prevBtn.addEventListener('click', () => {
@@ -430,6 +601,9 @@
                 carousel.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
             });
         }
+
+        syncFavoriteButtonsFromStore();
+        syncCartCounters();
     })();
 </script>
 </body>
