@@ -28,26 +28,28 @@
                 <a href="#">O nas</a>
                 <a href="#">Ulubione</a>
                 <a href="#">Koszyk</a>
-                <button class="search-trigger" type="button" aria-expanded="false" aria-controls="searchPanel">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <circle cx="11" cy="11" r="6.5"></circle>
-                        <path d="M16 16L21 21"></path>
-                    </svg>
-                    <span>Szukaj</span>
-                </button>
-            </nav>
-        </div>
 
-        <div class="container search-panel" id="searchPanel" hidden>
-            <label class="search-field">
-                <span class="sr-only">Szukaj produkt&oacute;w</span>
-                <input type="search" id="productSearch" placeholder="Szukaj produkt&oacute;w...">
-            </label>
+                <div class="search-slot">
+                    <button class="search-trigger" type="button" aria-expanded="false" aria-controls="searchInline">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="11" cy="11" r="6.5"></circle>
+                            <path d="M16 16L21 21"></path>
+                        </svg>
+                        <span>Szukaj</span>
+                    </button>
+
+                    <div class="search-inline" id="searchInline">
+                        <label class="sr-only" for="productSearch">Szukaj produkt&oacute;w</label>
+                        <input type="search" id="productSearch" placeholder="Szukaj produkt&oacute;w...">
+                        <button class="search-clear" type="button" aria-label="Wyczy&#347;&#263; wyszukiwanie">&times;</button>
+                    </div>
+                </div>
+            </nav>
         </div>
     </header>
 
     <main class="category-page">
-        <div class="container">
+        <div class="container category-stage">
             <section class="category-hero" aria-label="Nag&#322;&oacute;wek kategorii">
                 <div class="category-badge">
                     <img src="images/icons8-cheese-color/icons8-cheese-90.png" alt="" width="62" height="62">
@@ -56,7 +58,7 @@
 
                 <div class="category-toolbar">
                     <div class="sort-actions" aria-label="Sortowanie">
-                        <button class="icon-button filter-button" type="button" aria-label="Filtry">
+                        <button class="icon-button filter-button" type="button" aria-expanded="false" aria-controls="filterPanel" aria-label="Filtry">
                             <img src="images/icons8-slider-badges/icons8-slider-40.png" alt="">
                         </button>
                         <button class="sort-button active" type="button" data-sort="name">
@@ -71,64 +73,130 @@
                 </div>
             </section>
 
-            <section class="category-shortcuts" id="shortcutBar" aria-label="Pozosta&#322;e kategorie">
-                <a class="shortcut-pill" href="#" data-label="Nalewki">
+            <section class="category-shortcuts" aria-label="Pozosta&#322;e kategorie">
+                <a class="shortcut-pill is-current" href="sery.html" aria-current="page">
                     <span class="shortcut-icon">
-                        <img src="images/icons8-wine-90.png" alt="" width="26" height="26">
+                        <img src="images/icons8-cheese-color/icons8-cheese-48.png" alt="" width="22" height="22">
+                    </span>
+                    <span>Sery</span>
+                </a>
+                <a class="shortcut-pill" href="#" data-toast="Kategoria Nalewki jest jeszcze w przygotowaniu.">
+                    <span class="shortcut-icon">
+                        <img src="images/icons8-wine-90.png" alt="" width="24" height="24">
                     </span>
                     <span>Nalewki</span>
                 </a>
-                <a class="shortcut-pill" href="#" data-label="Przetwory">
+                <a class="shortcut-pill" href="przetwory.html">
                     <span class="shortcut-icon">
-                        <img src="images/icons8-jam-pastel-color/icons8-jam-64.png" alt="" width="24" height="24">
+                        <img src="images/icons8-jam-pastel-color/icons8-jam-64.png" alt="" width="22" height="22">
                     </span>
                     <span>Przetwory</span>
                 </a>
-                <a class="shortcut-pill" href="#" data-label="Wedliny">
+                <a class="shortcut-pill" href="#" data-toast="Kategoria W&#281;dliny jest jeszcze w przygotowaniu.">
                     <span class="shortcut-icon">
-                        <img src="images/icons8-ham-doodle/icons8-ham-48.png" alt="" width="25" height="25">
+                        <img src="images/icons8-ham-doodle/icons8-ham-48.png" alt="" width="22" height="22">
                     </span>
                     <span>W&#281;dliny</span>
                 </a>
-                <a class="shortcut-pill" href="#" data-label="Miody">
+                <a class="shortcut-pill" href="#" data-toast="Kategoria Miody jest jeszcze w przygotowaniu.">
                     <span class="shortcut-icon">
-                        <img src="images/icons8-honey-pastel-color/icons8-honey-64.png" alt="" width="24" height="24">
+                        <img src="images/icons8-honey-pastel-color/icons8-honey-64.png" alt="" width="22" height="22">
                     </span>
                     <span>Miody</span>
                 </a>
-                <a class="shortcut-pill" href="#" data-label="Rekodzielo">
+                <a class="shortcut-pill" href="#" data-toast="Kategoria R&#281;kodzie&#322;o jest jeszcze w przygotowaniu.">
                     <span class="shortcut-icon">
-                        <img src="images/icons8-paint-palette-80.png" alt="" width="25" height="25">
+                        <img src="images/icons8-paint-palette-80.png" alt="" width="22" height="22">
                     </span>
                     <span>R&#281;kodzie&#322;o</span>
                 </a>
             </section>
 
-            <section aria-label="Produkty">
+            <section class="products-section" aria-label="Produkty">
+                <div class="filter-popover" id="filterPanel" hidden>
+                    <div class="filter-group">
+                        <h2>Mleko :</h2>
+                        <div class="filter-options">
+                            <button class="filter-chip" type="button" data-group="milk" data-value="owcze">
+                                <span class="filter-chip-icon">
+                                    <img src="images/icons8-cheese-color/icons8-cheese-48.png" alt="">
+                                </span>
+                                <span>Owcze</span>
+                            </button>
+                            <button class="filter-chip" type="button" data-group="milk" data-value="krowie">
+                                <span class="filter-chip-icon">
+                                    <img src="images/icons8-cheese-color/icons8-cheese-48.png" alt="">
+                                </span>
+                                <span>Krowie</span>
+                            </button>
+                            <button class="filter-chip" type="button" data-group="milk" data-value="mieszane">
+                                <span class="filter-chip-icon">
+                                    <img src="images/icons8-cheese-color/icons8-cheese-48.png" alt="">
+                                </span>
+                                <span>Mieszane</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <h2>Rodzaj :</h2>
+                        <div class="filter-options">
+                            <button class="filter-chip" type="button" data-group="kind" data-value="wedzone">
+                                <span class="filter-chip-icon">
+                                    <img src="images/icons8-cheese-color/icons8-cheese-48.png" alt="">
+                                </span>
+                                <span>W&#281;dzone</span>
+                            </button>
+                            <button class="filter-chip" type="button" data-group="kind" data-value="swieze">
+                                <span class="filter-chip-icon">
+                                    <img src="images/icons8-cheese-color/icons8-cheese-48.png" alt="">
+                                </span>
+                                <span>&#346;wie&#380;e</span>
+                            </button>
+                            <button class="filter-chip" type="button" data-group="kind" data-value="pdo">
+                                <span class="filter-chip-icon">
+                                    <img src="images/icons8-cheese-color/icons8-cheese-48.png" alt="">
+                                </span>
+                                <span>PDO</span>
+                            </button>
+                            <button class="filter-chip" type="button" data-group="kind" data-value="regionalne">
+                                <span class="filter-chip-icon">
+                                    <img src="images/icons8-cheese-color/icons8-cheese-48.png" alt="">
+                                </span>
+                                <span>Regionalne</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="filter-footer">
+                        <button class="filter-apply" type="button">Filtruj</button>
+                    </div>
+                </div>
+
                 <div class="products-grid" id="productsGrid">
-                    <article class="product-card" data-name="Oscypek Goralski" data-price="78.00">
-                        <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych">
+                    <article class="product-card" data-name="Oscypek G&oacute;ralski" data-price="78.00" data-search="oscypek goralski jakis sprzedawca" data-milk="owcze" data-kind="wedzone">
+                        <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych" aria-pressed="false">
                             <svg viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path>
                             </svg>
                         </button>
                         <div class="product-media">
-                            <img src="images/Oscypek-goralski.jpg" alt="Oscypek G&#243;ralski">
+                            <img src="images/Oscypek-goralski.jpg" alt="Oscypek G&oacute;ralski">
                             <div class="rating-badge">
                                 <span class="rating-star">&#9734;</span>
                                 <span>5.0</span>
                             </div>
                         </div>
                         <div class="product-content">
-                            <h2>Oscypek G&#243;ralski</h2>
+                            <h2>Oscypek G&oacute;ralski</h2>
                             <p class="seller-name">Jaki&#347; sprzedawca</p>
                             <p class="product-price">78.00</p>
                             <button class="cart-button" type="button">Dodaj do koszyka</button>
                         </div>
                     </article>
 
-                    <article class="product-card" data-name="Bundz" data-price="78.00">
-                        <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych">
+                    <article class="product-card" data-name="Bundz" data-price="78.00" data-search="bundz jakis sprzedawca" data-milk="owcze" data-kind="swieze">
+                        <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych" aria-pressed="false">
                             <svg viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path>
                             </svg>
@@ -148,14 +216,14 @@
                         </div>
                     </article>
 
-                    <article class="product-card" data-name="Bryndza" data-price="78.00">
-                        <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych">
+                    <article class="product-card" data-name="Bryndza" data-price="78.00" data-search="bryndza jakis sprzedawca" data-milk="owcze" data-kind="regionalne">
+                        <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych" aria-pressed="false">
                             <svg viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path>
                             </svg>
                         </button>
                         <div class="product-media">
-                            <img src="images/Bryndza+Podhalańska.webp" alt="Bryndza">
+                            <img src="images/Bryndza+Podhala%C5%84ska.webp" alt="Bryndza">
                             <div class="rating-badge">
                                 <span class="rating-star">&#9734;</span>
                                 <span>5.0</span>
@@ -169,14 +237,14 @@
                         </div>
                     </article>
 
-                    <article class="product-card" data-name="Redykolka" data-price="78.00">
-                        <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych">
+                    <article class="product-card" data-name="Redyko&#322;ka" data-price="78.00" data-search="redykolka jakis sprzedawca" data-milk="owcze" data-kind="regionalne">
+                        <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych" aria-pressed="false">
                             <svg viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path>
                             </svg>
                         </button>
                         <div class="product-media">
-                            <img src="images/Redykołka.webp" alt="Redyko&#322;ka">
+                            <img src="images/Redyko%C5%82ka.webp" alt="Redyko&#322;ka">
                             <div class="rating-badge">
                                 <span class="rating-star">&#9734;</span>
                                 <span>5.0</span>
@@ -190,8 +258,8 @@
                         </div>
                     </article>
 
-                    <article class="product-card" data-name="Oscypek PDO" data-price="78.00">
-                        <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych">
+                    <article class="product-card" data-name="Oscypek PDO" data-price="78.00" data-search="oscypek pdo jakis sprzedawca" data-milk="mieszane" data-kind="pdo">
+                        <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych" aria-pressed="false">
                             <svg viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path>
                             </svg>
@@ -211,8 +279,8 @@
                         </div>
                     </article>
 
-                    <article class="product-card" data-name="Golka" data-price="78.00">
-                        <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych">
+                    <article class="product-card" data-name="Go&#322;ka" data-price="78.00" data-search="golka jakis sprzedawca" data-milk="krowie" data-kind="swieze">
+                        <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych" aria-pressed="false">
                             <svg viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path>
                             </svg>
@@ -233,7 +301,7 @@
                     </article>
                 </div>
 
-                <p class="empty-state" id="emptyState" hidden>Nie znaleziono produkt&oacute;w dla podanej frazy.</p>
+                <p class="empty-state" id="emptyState" hidden>Nie znaleziono produkt&oacute;w dla podanych filtr&oacute;w.</p>
             </section>
         </div>
     </main>
@@ -271,170 +339,10 @@
             </div>
         </div>
     </footer>
+
+    <div class="toast" id="pageToast" aria-live="polite" aria-atomic="true"></div>
 </div>
 
-<div class="toast" id="pageToast" aria-live="polite" aria-atomic="true"></div>
-
-<script>
-    (function () {
-        const navToggle = document.querySelector('.mobile-nav-toggle');
-        const primaryNav = document.querySelector('.primary-nav');
-        const searchTrigger = document.querySelector('.search-trigger');
-        const searchPanel = document.getElementById('searchPanel');
-        const searchInput = document.getElementById('productSearch');
-        const filterButton = document.querySelector('.filter-button');
-        const shortcutBar = document.getElementById('shortcutBar');
-        const shortcutPills = document.querySelectorAll('.shortcut-pill');
-        const pageToast = document.getElementById('pageToast');
-        const productsGrid = document.getElementById('productsGrid');
-        const emptyState = document.getElementById('emptyState');
-        const sortButtons = document.querySelectorAll('.sort-button');
-        const favoriteButtons = document.querySelectorAll('.favorite-button');
-        const cartButtons = document.querySelectorAll('.cart-button');
-        let toastTimer = null;
-        let currentSort = { mode: 'name', direction: 1 };
-
-        function showToast(message) {
-            if (!pageToast) {
-                return;
-            }
-
-            pageToast.textContent = message;
-            pageToast.classList.add('is-visible');
-
-            if (toastTimer) {
-                window.clearTimeout(toastTimer);
-            }
-
-            toastTimer = window.setTimeout(function () {
-                pageToast.classList.remove('is-visible');
-            }, 1800);
-        }
-
-        function syncEmptyState() {
-            const visibleCards = productsGrid.querySelectorAll('.product-card:not([hidden])');
-            emptyState.hidden = visibleCards.length !== 0;
-        }
-
-        function filterProducts() {
-            const query = (searchInput.value || '').trim().toLowerCase();
-            const cards = productsGrid.querySelectorAll('.product-card');
-
-            cards.forEach((card) => {
-                const name = (card.dataset.name || '').toLowerCase();
-                card.hidden = query !== '' && !name.includes(query);
-            });
-
-            syncEmptyState();
-        }
-
-        function sortProducts(mode, direction) {
-            const cards = Array.from(productsGrid.querySelectorAll('.product-card'));
-
-            cards.sort((left, right) => {
-                if (mode === 'price') {
-                    return (Number(left.dataset.price) - Number(right.dataset.price)) * direction;
-                }
-
-                return (left.dataset.name || '').localeCompare(right.dataset.name || '', 'pl') * direction;
-            });
-
-            cards.forEach((card) => productsGrid.appendChild(card));
-
-            sortButtons.forEach((button) => {
-                const isActive = button.dataset.sort === mode;
-                button.classList.toggle('active', isActive);
-                button.classList.toggle('desc', isActive && direction === -1);
-            });
-        }
-
-        if (navToggle && primaryNav) {
-            navToggle.addEventListener('click', function () {
-                const isOpen = primaryNav.classList.toggle('is-open');
-                navToggle.setAttribute('aria-expanded', String(isOpen));
-            });
-        }
-
-        if (searchTrigger && searchPanel) {
-            searchTrigger.addEventListener('click', function () {
-                const isHidden = searchPanel.hasAttribute('hidden');
-                if (isHidden) {
-                    searchPanel.removeAttribute('hidden');
-                    searchTrigger.setAttribute('aria-expanded', 'true');
-                    searchInput.focus();
-                } else {
-                    searchPanel.setAttribute('hidden', '');
-                    searchTrigger.setAttribute('aria-expanded', 'false');
-                    searchInput.value = '';
-                    filterProducts();
-                }
-            });
-        }
-
-        if (searchInput) {
-            searchInput.addEventListener('input', filterProducts);
-        }
-
-        if (filterButton && shortcutBar) {
-            filterButton.addEventListener('click', function () {
-                const isCollapsed = shortcutBar.classList.toggle('is-collapsed');
-                filterButton.classList.toggle('active', !isCollapsed);
-                filterButton.setAttribute('aria-pressed', String(!isCollapsed));
-            });
-        }
-
-        sortButtons.forEach((button) => {
-            button.addEventListener('click', function () {
-                const selectedMode = button.dataset.sort || 'name';
-                const nextDirection =
-                    currentSort.mode === selectedMode ? currentSort.direction * -1 : 1;
-
-                currentSort = {
-                    mode: selectedMode,
-                    direction: nextDirection
-                };
-
-                sortProducts(currentSort.mode, currentSort.direction);
-                filterProducts();
-            });
-        });
-
-        shortcutPills.forEach((pill) => {
-            pill.addEventListener('click', function (event) {
-                event.preventDefault();
-                showToast('Kategoria "' + (pill.dataset.label || 'Ta') + '" jest jeszcze w przygotowaniu.');
-            });
-        });
-
-        favoriteButtons.forEach((button) => {
-            button.addEventListener('click', function () {
-                const isActive = button.classList.toggle('is-active');
-                button.setAttribute(
-                    'aria-label',
-                    isActive ? 'Usun z ulubionych' : 'Dodaj do ulubionych'
-                );
-                showToast(isActive ? 'Dodano do ulubionych.' : 'Usunieto z ulubionych.');
-            });
-        });
-
-        cartButtons.forEach((button) => {
-            button.addEventListener('click', function () {
-                const originalLabel = button.textContent;
-                button.classList.add('is-added');
-                button.textContent = 'Dodano';
-
-                window.setTimeout(function () {
-                    button.classList.remove('is-added');
-                    button.textContent = originalLabel;
-                }, 1300);
-
-                showToast('Produkt dodany do koszyka.');
-            });
-        });
-
-        sortProducts(currentSort.mode, currentSort.direction);
-        syncEmptyState();
-    })();
-</script>
+<script src="category-page.js"></script>
 </body>
 </html>
