@@ -7,6 +7,7 @@
 
     var pageCategory = body.dataset.category || 'produkty';
     var favoriteStore = window.favoriteStore;
+    var cartStore = window.cartStore;
     var navToggle = document.querySelector('.mobile-nav-toggle');
     var primaryNav = document.querySelector('.primary-nav');
     var searchSlot = document.querySelector('.search-slot');
@@ -23,6 +24,7 @@
     var sortButtons = Array.prototype.slice.call(document.querySelectorAll('.sort-button'));
     var favoriteButtons = Array.prototype.slice.call(document.querySelectorAll('.favorite-button'));
     var cartButtons = Array.prototype.slice.call(document.querySelectorAll('.cart-button'));
+    var cartCounters = Array.prototype.slice.call(document.querySelectorAll('[data-cart-count]'));
     var shortcutPills = Array.prototype.slice.call(document.querySelectorAll('.shortcut-pill[data-toast]'));
     var pageToast = document.getElementById('pageToast');
     var toastTimer = null;
@@ -92,6 +94,19 @@
             button.classList.toggle('is-active', isActive);
             button.setAttribute('aria-pressed', String(isActive));
             button.setAttribute('aria-label', isActive ? 'Usun z ulubionych' : 'Dodaj do ulubionych');
+        });
+    }
+
+    function syncCartCounters() {
+        if (!cartStore || cartCounters.length === 0) {
+            return;
+        }
+
+        var count = cartStore.count();
+
+        cartCounters.forEach(function (counter) {
+            counter.textContent = String(count);
+            counter.hidden = count === 0;
         });
     }
 
@@ -325,8 +340,14 @@
     cartButtons.forEach(function (button) {
         button.addEventListener('click', function () {
             var originalText = button.textContent;
+            var card = button.closest('.product-card');
             button.classList.add('is-added');
             button.textContent = 'Dodano';
+
+            if (cartStore && card) {
+                cartStore.add(productPayload(card));
+                syncCartCounters();
+            }
 
             window.setTimeout(function () {
                 button.classList.remove('is-added');
@@ -360,4 +381,5 @@
     filterProducts();
     updateFilterButtonState(false);
     syncFavoriteButtonsFromStore();
+    syncCartCounters();
 })();

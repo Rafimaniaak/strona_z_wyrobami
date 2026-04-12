@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>O nas</title>
+    <title>Koszyk</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style-kategoria.css">
 </head>
-<body data-page="about">
-<div class="page-shell about-shell">
+<body data-page="cart">
+<div class="page-shell cart-shell">
     <header class="topbar topbar-simple">
         <div class="container topbar-inner">
-            <div class="nav-spacer" aria-hidden="true"></div>
+            <div class="page-label">Koszyk</div>
 
             <button class="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="primaryNav">
                 <span></span>
@@ -25,9 +25,9 @@
             <nav class="primary-nav" id="primaryNav" aria-label="G&#322;&oacute;wne">
                 <a href="index.html">Strona G&#322;&oacute;wna</a>
                 <a href="#">Profil</a>
-                <a href="about.html" aria-current="page">O nas</a>
+                <a href="about.html">O nas</a>
                 <a href="ulubione.html">Ulubione</a>
-                <a class="cart-link" href="koszyk.html">
+                <a class="cart-link" href="koszyk.html" aria-current="page">
                     <span>Koszyk</span>
                     <span class="nav-counter" data-cart-count hidden>0</span>
                 </a>
@@ -42,8 +42,8 @@
                     </button>
 
                     <div class="search-inline" id="searchInline">
-                        <label class="sr-only" for="productSearch">Szukaj</label>
-                        <input type="search" id="productSearch" placeholder="Szukaj...">
+                        <label class="sr-only" for="cartSearch">Szukaj w koszyku</label>
+                        <input type="search" id="cartSearch" placeholder="Szukaj w koszyku...">
                         <button class="search-clear" type="button" aria-label="Wyczy&#347;&#263; wyszukiwanie">&times;</button>
                     </div>
                 </div>
@@ -51,41 +51,60 @@
         </div>
     </header>
 
-    <main class="about-main">
-        <div class="container about-layout">
-            <section class="about-hero">
-                <h1>&#321;&#261;czymy tradycyjnych producent&oacute;w z mi&#322;o&#347;nikami autentycznych smak&oacute;w Polski</h1>
-            </section>
+    <main class="cart-main">
+        <div class="container cart-layout">
+            <section class="cart-products-panel" aria-label="Produkty w koszyku">
+                <div class="cart-toolbar">
+                    <label class="cart-select-all">
+                        <input type="checkbox" id="selectAllCart">
+                        <span class="check-visual"></span>
+                        <span>wybierz wszystkie produkty</span>
+                    </label>
 
-            <section class="about-copy">
-                <div class="about-copy-panel">
-                    <p>Nasza strona to platforma stworzona z pasji do tradycji i lokalnych smak&oacute;w. Naszym celem jest wspieranie ma&#322;ych producent&oacute;w regionalnych oraz umo&#380;liwienie klientom z ca&#322;ej Polski dost&#281;pu do autentycznych, wysokiej jako&#347;ci produkt&oacute;w.</p>
-                    <p>Wierzymy, &#380;e ka&#380;dy region Polski ma swoje unikalne skarby kulinarne i rzemie&#347;lnicze, kt&oacute;re zas&#322;uguj&#261; na to, aby by&#263; docenione i dost&#281;pne dla szerszego grona odbiorc&oacute;w. Dlatego stworzyli&#347;my przestrze&#324;, w kt&oacute;rej lokalni wytw&oacute;rcy mog&#261; prezentowa&#263; swoje produkty, a klienci mog&#261; odkrywa&#263; smaki i tradycje r&oacute;&#380;nych zak&#261;tk&oacute;w naszego kraju.</p>
-                    <p>Wsp&oacute;&#322;pracujemy tylko z zweryfikowanymi producentami, kt&oacute;rzy dbaj&#261; o jako&#347;&#263; swoich wyrob&oacute;w i kultywuj&#261; tradycyjne metody produkcji. Ka&#380;dy produkt w naszej ofercie ma swoj&#261; histori&#281; i jest efektem wieloletniej pracy oraz pasji.</p>
+                    <button class="cart-remove-selected" id="removeSelectedBtn" type="button">Usu&#324; wybrane produkty</button>
+                </div>
+
+                <div class="cart-items" id="cartItems"></div>
+
+                <div class="cart-empty" id="cartEmpty" hidden>
+                    <p>Tw&oacute;j koszyk jest jeszcze pusty.</p>
+                    <a href="sery.html">Dodaj produkty z kategorii.</a>
                 </div>
             </section>
 
-            <section class="faq-list" aria-label="Najczesciej zadawane pytania">
-                <article class="faq-item">
-                    <h2>Czy produkty s&#261; zawsze &#347;wie&#380;e?</h2>
-                    <p>Tak! Wszystkie produkty s&#261; przygotowywane na bie&#380;&#261;co przez naszych producent&oacute;w. Produkty spo&#380;ywcze s&#261; wysy&#322;ane bezpo&#347;rednio po produkcji, aby zapewni&#263; maksymaln&#261; &#347;wie&#380;o&#347;&#263;.</p>
-                </article>
+            <aside class="cart-summary-panel" aria-label="Podsumowanie zamowienia">
+                <div class="cart-summary-card">
+                    <div class="cart-summary-icon" aria-hidden="true">
+                        <svg viewBox="0 0 64 64">
+                            <path d="M10 14H18L24 38H46L54 20H22" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <circle cx="26" cy="50" r="4"></circle>
+                            <circle cx="44" cy="50" r="4"></circle>
+                        </svg>
+                    </div>
 
-                <article class="faq-item">
-                    <h2>Jak d&#322;ugo trwa dostawa?</h2>
-                    <p>Standardowy czas dostawy to 2-3 dni robocze dla kuriera DPD i 1-2 dni dla Paczkomatu InPost.</p>
-                </article>
+                    <dl class="cart-summary-list">
+                        <div>
+                            <dt>Suma za produkty</dt>
+                            <dd id="summarySubtotal">0.00 z&#322;</dd>
+                        </div>
+                        <div>
+                            <dt>Zni&#380;ka na produkty</dt>
+                            <dd id="summaryDiscount">0.00 z&#322;</dd>
+                        </div>
+                        <div>
+                            <dt>Wysy&#322;ka</dt>
+                            <dd id="summaryShipping">0.00 z&#322;</dd>
+                        </div>
+                    </dl>
 
-                <article class="faq-item">
-                    <h2>Czy mog&#281; zwr&oacute;ci&#263; produkt?</h2>
-                    <p>Produkty nie&#380;ywno&#347;ciowe oznaczone "Zwrot do 14 dni" mo&#380;na zwr&oacute;ci&#263; w ci&#261;gu 14 dni od zakupu. Produkty spo&#380;ywcze ze wzgl&#281;d&oacute;w sanitarnych nie podlegaj&#261; zwrotowi.</p>
-                </article>
+                    <div class="cart-summary-total">
+                        <span>Za wszystko</span>
+                        <strong id="summaryTotal">0.00 z&#322;</strong>
+                    </div>
 
-                <article class="faq-item">
-                    <h2>Jak mog&#281; zosta&#263; sprzedawc&#261;?</h2>
-                    <p>Wystarczy utworzy&#263; konto sprzedawcy, przes&#322;a&#263; dokumenty weryfikacyjne i po zatwierdzeniu mo&#380;esz rozpocz&#261;&#263; sprzeda&#380; swoich produkt&oacute;w!</p>
-                </article>
-            </section>
+                    <button class="cart-pay-button" id="payButton" type="button">Zap&#322;a&#263;</button>
+                </div>
+            </aside>
         </div>
     </main>
 
@@ -128,6 +147,6 @@
 
 <script src="favorites-storage.js"></script>
 <script src="cart-storage.js"></script>
-<script src="category-page.js"></script>
+<script src="cart-page.js"></script>
 </body>
 </html>

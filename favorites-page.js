@@ -1,5 +1,6 @@
 (function () {
     var favoriteStore = window.favoriteStore;
+    var cartStore = window.cartStore;
     var body = document.body;
 
     if (!body || !favoriteStore) {
@@ -17,6 +18,7 @@
     var favoritesGrid = document.getElementById('favoritesGrid');
     var favoritesEmpty = document.getElementById('favoritesEmpty');
     var pageToast = document.getElementById('pageToast');
+    var cartCounters = Array.prototype.slice.call(document.querySelectorAll('[data-cart-count]'));
     var toastTimer = null;
     var currentSort = { mode: 'name', direction: 1 };
     var searchTerm = '';
@@ -43,6 +45,19 @@
         toastTimer = window.setTimeout(function () {
             pageToast.classList.remove('is-visible');
         }, 1800);
+    }
+
+    function syncCartCounters() {
+        if (!cartStore || cartCounters.length === 0) {
+            return;
+        }
+
+        var count = cartStore.count();
+
+        cartCounters.forEach(function (counter) {
+            counter.textContent = String(count);
+            counter.hidden = count === 0;
+        });
     }
 
     function escapeHtml(text) {
@@ -111,9 +126,19 @@
 
         Array.prototype.slice.call(favoritesGrid.querySelectorAll('.cart-button')).forEach(function (button) {
             button.addEventListener('click', function () {
+                var card = button.closest('.product-card');
+                var id = card ? card.dataset.productId : '';
+                var favorite = favoriteStore.read().find(function (item) {
+                    return item.id === id;
+                });
                 var originalText = button.textContent;
                 button.classList.add('is-added');
                 button.textContent = 'Dodano';
+
+                if (cartStore && favorite) {
+                    cartStore.add(favorite);
+                    syncCartCounters();
+                }
 
                 window.setTimeout(function () {
                     button.classList.remove('is-added');
@@ -210,4 +235,5 @@
     });
 
     renderFavorites();
+    syncCartCounters();
 })();
