@@ -5,6 +5,8 @@
         return;
     }
 
+    var pageCategory = body.dataset.category || 'produkty';
+    var favoriteStore = window.favoriteStore;
     var navToggle = document.querySelector('.mobile-nav-toggle');
     var primaryNav = document.querySelector('.primary-nav');
     var searchSlot = document.querySelector('.search-slot');
@@ -48,6 +50,49 @@
         toastTimer = window.setTimeout(function () {
             pageToast.classList.remove('is-visible');
         }, 1800);
+    }
+
+    function slugify(text) {
+        return normalize(text)
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+    }
+
+    function productId(card) {
+        return card.dataset.productId || pageCategory + '-' + slugify(card.dataset.name || '');
+    }
+
+    function productPayload(card) {
+        var image = card.querySelector('.product-media img');
+        var seller = card.querySelector('.seller-name');
+        var title = card.querySelector('.product-content h2');
+        var price = card.querySelector('.product-price');
+
+        return {
+            id: productId(card),
+            name: title ? title.textContent.trim() : (card.dataset.name || ''),
+            seller: seller ? seller.textContent.trim() : '',
+            price: price ? price.textContent.trim() : (card.dataset.price || ''),
+            image: image ? image.getAttribute('src') : '',
+            alt: image ? image.getAttribute('alt') : '',
+            category: pageCategory,
+            page: window.location.pathname.split('/').pop() || ''
+        };
+    }
+
+    function syncFavoriteButtonsFromStore() {
+        if (!favoriteStore) {
+            return;
+        }
+
+        favoriteButtons.forEach(function (button) {
+            var card = button.closest('.product-card');
+            var isActive = card ? favoriteStore.exists(productId(card)) : false;
+
+            button.classList.toggle('is-active', isActive);
+            button.setAttribute('aria-pressed', String(isActive));
+            button.setAttribute('aria-label', isActive ? 'Usun z ulubionych' : 'Dodaj do ulubionych');
+        });
     }
 
     function visibleCards() {
@@ -255,7 +300,22 @@
 
     favoriteButtons.forEach(function (button) {
         button.addEventListener('click', function () {
-            var isActive = button.classList.toggle('is-active');
+            var card = button.closest('.product-card');
+            var isActive;
+
+            if (favoriteStore && card) {
+                if (favoriteStore.exists(productId(card))) {
+                    favoriteStore.remove(productId(card));
+                    isActive = false;
+                } else {
+                    favoriteStore.add(productPayload(card));
+                    isActive = true;
+                }
+            } else {
+                isActive = button.classList.toggle('is-active');
+            }
+
+            button.classList.toggle('is-active', isActive);
             button.setAttribute('aria-pressed', String(isActive));
             button.setAttribute('aria-label', isActive ? 'Usun z ulubionych' : 'Dodaj do ulubionych');
             showToast(isActive ? 'Dodano do ulubionych.' : 'Usunieto z ulubionych.');
@@ -299,4 +359,5 @@
     sortProducts(currentSort.mode, currentSort.direction);
     filterProducts();
     updateFilterButtonState(false);
+    syncFavoriteButtonsFromStore();
 })();

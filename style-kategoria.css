@@ -87,6 +87,13 @@ a {
     gap: 20px;
 }
 
+.page-label {
+    min-width: 135px;
+    color: var(--text);
+    font-size: 1.04rem;
+    font-weight: 700;
+}
+
 .section-chip {
     min-width: 135px;
     padding: 15px 18px 12px;
@@ -544,9 +551,14 @@ a {
     transition: fill 0.2s ease, transform 0.2s ease;
 }
 
-.favorite-button:hover svg,
-.favorite-button.is-active svg {
+.favorite-button:hover svg {
     fill: rgba(71, 64, 127, 0.14);
+    transform: scale(1.04);
+}
+
+.favorite-button.is-active svg {
+    fill: var(--text);
+    stroke: var(--text);
     transform: scale(1.04);
 }
 
@@ -628,6 +640,49 @@ a {
 .empty-state {
     padding: 32px 0 0;
     color: var(--muted);
+}
+
+.favorites-shell .topbar {
+    padding-bottom: 10px;
+}
+
+.favorites-main {
+    flex: 1;
+    padding: 16px 0 34px;
+}
+
+.favorites-shortcuts-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding-bottom: 16px;
+}
+
+.favorites-shortcuts {
+    padding: 0;
+}
+
+.favorites-sort {
+    padding-top: 56px;
+}
+
+.favorites-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.favorites-empty {
+    padding: 44px 0 18px;
+    color: var(--text);
+}
+
+.favorites-empty p {
+    margin-bottom: 10px;
+}
+
+.favorites-empty a {
+    color: var(--footer);
+    text-decoration: underline;
 }
 
 .footer {
@@ -767,6 +822,14 @@ a {
         gap: 20px;
     }
 
+    .favorites-shortcuts-row {
+        flex-direction: column;
+    }
+
+    .favorites-sort {
+        padding-top: 0;
+    }
+
     .category-toolbar {
         width: 100%;
         justify-content: flex-start;
@@ -774,6 +837,10 @@ a {
     }
 
     .products-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .favorites-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
@@ -837,6 +904,10 @@ a {
         gap: 16px 12px;
     }
 
+    .favorites-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .product-card {
         min-height: 248px;
         padding: 12px;
@@ -891,6 +962,10 @@ a {
         grid-template-columns: 1fr 1fr;
     }
 
+    .favorites-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
     .product-media {
         min-height: 108px;
     }
@@ -924,6 +999,10 @@ a {
 
 @media (max-width: 390px) {
     .products-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .favorites-grid {
         grid-template-columns: 1fr;
     }
 

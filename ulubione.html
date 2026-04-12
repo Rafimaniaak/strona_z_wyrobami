@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Ulubione</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-kategoria.css">
+</head>
+<body data-page="favorites">
+<div class="page-shell favorites-shell">
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <div class="page-label">Ulubione</div>
+
+            <button class="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="primaryNav">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span class="sr-only">Otw&oacute;rz menu</span>
+            </button>
+
+            <nav class="primary-nav" id="primaryNav" aria-label="G&#322;&oacute;wne">
+                <a href="index.html">Strona G&#322;&oacute;wna</a>
+                <a href="#">Profil</a>
+                <a href="#">O nas</a>
+                <a href="ulubione.html" aria-current="page">Ulubione</a>
+                <a href="#">Koszyk</a>
+
+                <div class="search-slot">
+                    <button class="search-trigger" type="button" aria-expanded="false" aria-controls="searchInline">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="11" cy="11" r="6.5"></circle>
+                            <path d="M16 16L21 21"></path>
+                        </svg>
+                        <span>Szukaj</span>
+                    </button>
+
+                    <div class="search-inline" id="searchInline">
+                        <label class="sr-only" for="favoriteSearch">Szukaj ulubionych produkt&oacute;w</label>
+                        <input type="search" id="favoriteSearch" placeholder="Szukaj ulubionych...">
+                        <button class="search-clear" type="button" aria-label="Wyczy&#347;&#263; wyszukiwanie">&times;</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="favorites-main">
+        <div class="container">
+            <section class="favorites-shortcuts-row" aria-label="Kategorie">
+                <div class="category-shortcuts favorites-shortcuts">
+                    <a class="shortcut-pill" href="sery.html">
+                        <span class="shortcut-icon">
+                            <img src="images/icons8-cheese-color/icons8-cheese-48.png" alt="" width="22" height="22">
+                        </span>
+                        <span>Sery</span>
+                    </a>
+                    <a class="shortcut-pill" href="#" data-toast="Kategoria Nalewki jest jeszcze w przygotowaniu.">
+                        <span class="shortcut-icon">
+                            <img src="images/icons8-wine-90.png" alt="" width="24" height="24">
+                        </span>
+                        <span>Nalewki</span>
+                    </a>
+                    <a class="shortcut-pill" href="przetwory.html">
+                        <span class="shortcut-icon">
+                            <img src="images/icons8-jam-pastel-color/icons8-jam-64.png" alt="" width="22" height="22">
+                        </span>
+                        <span>Przetwory</span>
+                    </a>
+                    <a class="shortcut-pill" href="#" data-toast="Kategoria W&#281;dliny jest jeszcze w przygotowaniu.">
+                        <span class="shortcut-icon">
+                            <img src="images/icons8-ham-doodle/icons8-ham-48.png" alt="" width="22" height="22">
+                        </span>
+                        <span>W&#281;dliny</span>
+                    </a>
+                    <a class="shortcut-pill" href="#" data-toast="Kategoria Miody jest jeszcze w przygotowaniu.">
+                        <span class="shortcut-icon">
+                            <img src="images/icons8-honey-pastel-color/icons8-honey-64.png" alt="" width="22" height="22">
+                        </span>
+                        <span>Miody</span>
+                    </a>
+                    <a class="shortcut-pill" href="#" data-toast="Kategoria R&#281;kodzie&#322;o jest jeszcze w przygotowaniu.">
+                        <span class="shortcut-icon">
+                            <img src="images/icons8-paint-palette-80.png" alt="" width="22" height="22">
+                        </span>
+                        <span>R&#281;kodzie&#322;o</span>
+                    </a>
+                </div>
+
+                <div class="sort-actions favorites-sort" aria-label="Sortowanie">
+                    <button class="sort-button active" type="button" data-sort="name">
+                        <span class="sort-arrows">&#8593;&#8595;</span>
+                        <span>Nazwa</span>
+                    </button>
+                    <button class="sort-button" type="button" data-sort="price">
+                        <span class="sort-arrows">&#8593;&#8595;</span>
+                        <span>Cena</span>
+                    </button>
+                </div>
+            </section>
+
+            <section class="favorites-products" aria-label="Ulubione produkty">
+                <div class="products-grid favorites-grid" id="favoritesGrid"></div>
+                <div class="favorites-empty" id="favoritesEmpty" hidden>
+                    <p>Nie masz jeszcze zapisanych ulubionych produkt&oacute;w.</p>
+                    <a href="sery.html">Przejd&#378; do kategorii i dodaj je serduszkiem.</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-panel">
+                <div class="footer-brand">
+                    <p>Skarby Region&oacute;w Polski</p>
+                    <p class="footer-copy">
+                        &#321;&#261;czymy tradycyjnych producent&oacute;w z klientami ceni&#261;cymi autentyczne produkty regionalne.
+                    </p>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Informacje</h3>
+                    <a href="#">O nas</a>
+                    <a href="#">Nasi producenci</a>
+                    <a href="#">Regulamin</a>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Obs&#322;uga klienta</h3>
+                    <a href="#">Zwroty (14 dni)</a>
+                    <a href="#">Twoje zam&oacute;wienia</a>
+                    <a href="#">FAQ</a>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Kontakt</h3>
+                    <a href="mailto:kontakt123@gmail.com">kontakt123@gmail.com</a>
+                    <a href="tel:+48123456789">+48 123 456 789</a>
+                    <p>ul. Regionalna 12<br>34-500 Zakopane</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast" id="pageToast" aria-live="polite" aria-atomic="true"></div>
+</div>
+
+<script src="favorites-storage.js"></script>
+<script src="favorites-page.js"></script>
+</body>
+</html>
