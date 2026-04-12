@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Kategoria - Sery</title>
+    <title>Kategoria - Nalewki</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style-kategoria.css">
 </head>
-<body data-page="category" data-category="sery">
+<body data-page="category" data-category="nalewki">
 <div class="page-shell">
     <header class="topbar">
         <div class="container topbar-inner">
-            <a class="section-chip" href="sery.html" aria-current="page">Kategoria</a>
+            <a class="section-chip" href="nalewki.html" aria-current="page">Kategoria</a>
 
             <button class="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="primaryNav">
                 <span></span>
@@ -55,8 +55,8 @@
         <div class="container category-stage">
             <section class="category-hero" aria-label="Nag&#322;&oacute;wek kategorii">
                 <div class="category-badge">
-                    <img src="images/icons8-cheese-color/icons8-cheese-90.png" alt="" width="62" height="62">
-                    <span>Sery</span>
+                    <img src="images/icons8-wine-90.png" alt="" width="62" height="62">
+                    <span>Nalewki</span>
                 </div>
 
                 <div class="category-toolbar">
@@ -77,11 +77,11 @@
             </section>
 
             <section class="category-shortcuts" aria-label="Pozosta&#322;e kategorie">
-                <a class="shortcut-pill" href="nalewki.html">
+                <a class="shortcut-pill" href="sery.html">
                     <span class="shortcut-icon">
-                        <img src="images/icons8-wine-90.png" alt="" width="24" height="24">
+                        <img src="images/icons8-cheese-color/icons8-cheese-48.png" alt="" width="22" height="22">
                     </span>
-                    <span>Nalewki</span>
+                    <span>Sery</span>
                 </a>
                 <a class="shortcut-pill" href="przetwory.html">
                     <span class="shortcut-icon">
@@ -110,57 +110,39 @@
             </section>
 
             <section class="products-section" aria-label="Produkty">
-                <div class="filter-popover" id="filterPanel" hidden>
+                <div class="filter-popover filter-popover-wide" id="filterPanel" hidden>
                     <div class="filter-group">
-                        <h2>Mleko :</h2>
-                        <div class="filter-options">
-                            <button class="filter-chip" type="button" data-group="milk" data-value="owcze">
+                        <h2>Smak :</h2>
+                        <div class="filter-options filter-options-five">
+                            <button class="filter-chip" type="button" data-group="flavor" data-value="wisnia">
                                 <span class="filter-chip-icon">
-                                    <img src="images/icons8-cheese-color/icons8-cheese-48.png" alt="">
+                                    <img src="images/icons8-cherry-40.png" alt="">
                                 </span>
-                                <span>Owcze</span>
+                                <span>Wi&#347;nia</span>
                             </button>
-                            <button class="filter-chip" type="button" data-group="milk" data-value="krowie">
+                            <button class="filter-chip" type="button" data-group="flavor" data-value="sliwka">
                                 <span class="filter-chip-icon">
-                                    <img src="images/icons8-cheese-color/icons8-cheese-48.png" alt="">
+                                    <img src="images/icons8-plum-40.png" alt="">
                                 </span>
-                                <span>Krowie</span>
+                                <span>&#346;liwka</span>
                             </button>
-                            <button class="filter-chip" type="button" data-group="milk" data-value="mieszane">
+                            <button class="filter-chip" type="button" data-group="flavor" data-value="orzech">
                                 <span class="filter-chip-icon">
-                                    <img src="images/icons8-cheese-color/icons8-cheese-48.png" alt="">
+                                    <img src="images/icons8-hazelnut-40.png" alt="">
                                 </span>
-                                <span>Mieszane</span>
+                                <span>Orzech</span>
                             </button>
-                        </div>
-                    </div>
-
-                    <div class="filter-group">
-                        <h2>Rodzaj :</h2>
-                        <div class="filter-options">
-                            <button class="filter-chip" type="button" data-group="kind" data-value="wedzone">
+                            <button class="filter-chip" type="button" data-group="flavor" data-value="pigwa">
                                 <span class="filter-chip-icon">
-                                    <img src="images/icons8-cheese-color/icons8-cheese-48.png" alt="">
+                                    <img src="images/icons8-quince-40.png" alt="">
                                 </span>
-                                <span>W&#281;dzone</span>
+                                <span>Pigwa</span>
                             </button>
-                            <button class="filter-chip" type="button" data-group="kind" data-value="swieze">
+                            <button class="filter-chip" type="button" data-group="flavor" data-value="inne">
                                 <span class="filter-chip-icon">
-                                    <img src="images/icons8-cheese-color/icons8-cheese-48.png" alt="">
+                                    <img src="images/icons8-other-40.png" alt="">
                                 </span>
-                                <span>&#346;wie&#380;e</span>
-                            </button>
-                            <button class="filter-chip" type="button" data-group="kind" data-value="pdo">
-                                <span class="filter-chip-icon">
-                                    <img src="images/icons8-cheese-color/icons8-cheese-48.png" alt="">
-                                </span>
-                                <span>PDO</span>
-                            </button>
-                            <button class="filter-chip" type="button" data-group="kind" data-value="regionalne">
-                                <span class="filter-chip-icon">
-                                    <img src="images/icons8-cheese-color/icons8-cheese-48.png" alt="">
-                                </span>
-                                <span>Regionalne</span>
+                                <span>Inne</span>
                             </button>
                         </div>
                     </div>
@@ -171,128 +153,128 @@
                 </div>
 
                 <div class="products-grid" id="productsGrid">
-                    <article class="product-card" data-name="Oscypek G&oacute;ralski" data-price="78.00" data-search="oscypek goralski jakis sprzedawca" data-milk="owcze" data-kind="wedzone">
+                    <article class="product-card" data-name="Wi&#347;ni&oacute;wka" data-price="49.00" data-search="wisniowka z piwnicy nalewka" data-flavor="wisnia">
                         <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych" aria-pressed="false">
                             <svg viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path>
                             </svg>
                         </button>
                         <div class="product-media">
-                            <img src="images/Oscypek-goralski.jpg" alt="Oscypek G&oacute;ralski">
-                            <div class="rating-badge">
-                                <span class="rating-star">&#9734;</span>
-                                <span>5.0</span>
-                            </div>
+                            <img src="images/wisniowka-piwnica-polska-05l.webp" alt="Wi&#347;ni&oacute;wka">
+                            <div class="rating-badge"><span class="rating-star">&#9734;</span><span>5.0</span></div>
                         </div>
                         <div class="product-content">
-                            <h2>Oscypek G&oacute;ralski</h2>
-                            <p class="seller-name">Jaki&#347; sprzedawca</p>
+                            <h2>Wi&#347;ni&oacute;wka</h2>
+                            <p class="seller-name">Z piwnicy</p>
+                            <p class="product-price">49.00</p>
+                            <button class="cart-button" type="button">Dodaj do koszyka</button>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-name="Pigw&oacute;wka" data-price="56.00" data-search="pigwowka jhb nalewka" data-flavor="pigwa">
+                        <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych" aria-pressed="false">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path>
+                            </svg>
+                        </button>
+                        <div class="product-media">
+                            <img src="images/pigwowka-697x1000.webp" alt="Pigw&oacute;wka">
+                            <div class="rating-badge"><span class="rating-star">&#9734;</span><span>4.8</span></div>
+                        </div>
+                        <div class="product-content">
+                            <h2>Pigw&oacute;wka</h2>
+                            <p class="seller-name">JHB</p>
+                            <p class="product-price">56.00</p>
+                            <button class="cart-button" type="button">Dodaj do koszyka</button>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-name="Zestaw na orzech&oacute;wk&#281;" data-price="40.00" data-search="zestaw na orzechowke nalewki od dziadka" data-flavor="orzech">
+                        <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych" aria-pressed="false">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path>
+                            </svg>
+                        </button>
+                        <div class="product-media">
+                            <img src="images/orzechowka.jpg" alt="Zestaw na orzech&oacute;wk&#281;">
+                            <div class="rating-badge"><span class="rating-star">&#9734;</span><span>4.9</span></div>
+                        </div>
+                        <div class="product-content">
+                            <h2>Zestaw na orzech&oacute;wk&#281;</h2>
+                            <p class="seller-name">Nalewki od dziadka</p>
+                            <p class="product-price">40.00</p>
+                            <button class="cart-button" type="button">Dodaj do koszyka</button>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-name="&#346;liwk&oacute;wka" data-price="78.00" data-search="sliwkowka domowa spizarnia nalewka" data-flavor="sliwka">
+                        <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych" aria-pressed="false">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path>
+                            </svg>
+                        </button>
+                        <div class="product-media">
+                            <img src="images/sliwkowka.webp" alt="&#346;liwk&oacute;wka">
+                            <div class="rating-badge"><span class="rating-star">&#9734;</span><span>5.0</span></div>
+                        </div>
+                        <div class="product-content">
+                            <h2>&#346;liwk&oacute;wka</h2>
+                            <p class="seller-name">Domowa Spi&#380;arnia</p>
                             <p class="product-price">78.00</p>
                             <button class="cart-button" type="button">Dodaj do koszyka</button>
                         </div>
                     </article>
 
-                    <article class="product-card" data-name="Bundz" data-price="78.00" data-search="bundz jakis sprzedawca" data-milk="owcze" data-kind="swieze">
+                    <article class="product-card" data-name="Krupnik" data-price="46.00" data-search="krupnik jakis sprzedawca nalewka" data-flavor="inne">
                         <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych" aria-pressed="false">
                             <svg viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path>
                             </svg>
                         </button>
                         <div class="product-media">
-                            <img src="images/Sery - bundz.webp" alt="Bundz">
-                            <div class="rating-badge">
-                                <span class="rating-star">&#9734;</span>
-                                <span>5.0</span>
-                            </div>
+                            <img src="images/krupnik.webp" alt="Krupnik">
+                            <div class="rating-badge"><span class="rating-star">&#9734;</span><span>5.0</span></div>
                         </div>
                         <div class="product-content">
-                            <h2>Bundz</h2>
+                            <h2>Krupnik</h2>
                             <p class="seller-name">Jaki&#347; sprzedawca</p>
-                            <p class="product-price">78.00</p>
+                            <p class="product-price">46.00</p>
                             <button class="cart-button" type="button">Dodaj do koszyka</button>
                         </div>
                     </article>
 
-                    <article class="product-card" data-name="Bryndza" data-price="78.00" data-search="bryndza jakis sprzedawca" data-milk="owcze" data-kind="regionalne">
+                    <article class="product-card" data-name="Orzech&oacute;wka" data-price="42.00" data-search="orzechowka j a baczewski nalewka" data-flavor="orzech">
                         <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych" aria-pressed="false">
                             <svg viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path>
                             </svg>
                         </button>
                         <div class="product-media">
-                            <img src="images/Bryndza+Podhala%C5%84ska.webp" alt="Bryndza">
-                            <div class="rating-badge">
-                                <span class="rating-star">&#9734;</span>
-                                <span>5.0</span>
-                            </div>
+                            <img src="images/orzechowka.jpg" alt="Orzech&oacute;wka">
+                            <div class="rating-badge"><span class="rating-star">&#9734;</span><span>5.0</span></div>
                         </div>
                         <div class="product-content">
-                            <h2>Bryndza</h2>
-                            <p class="seller-name">Jaki&#347; sprzedawca</p>
-                            <p class="product-price">78.00</p>
+                            <h2>Orzech&oacute;wka</h2>
+                            <p class="seller-name">J. A. Baczewski</p>
+                            <p class="product-price">42.00</p>
                             <button class="cart-button" type="button">Dodaj do koszyka</button>
                         </div>
                     </article>
 
-                    <article class="product-card" data-name="Redyko&#322;ka" data-price="78.00" data-search="redykolka jakis sprzedawca" data-milk="owcze" data-kind="regionalne">
+                    <article class="product-card" data-name="Ja&#322;owc&oacute;wka" data-price="55.00" data-search="jalowcowka artofit nalewka" data-flavor="inne">
                         <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych" aria-pressed="false">
                             <svg viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path>
                             </svg>
                         </button>
                         <div class="product-media">
-                            <img src="images/Redyko%C5%82ka.webp" alt="Redyko&#322;ka">
-                            <div class="rating-badge">
-                                <span class="rating-star">&#9734;</span>
-                                <span>5.0</span>
-                            </div>
+                            <img src="images/Ja&#322;owc&oacute;wka.png" alt="Ja&#322;owc&oacute;wka">
+                            <div class="rating-badge"><span class="rating-star">&#9734;</span><span>5.0</span></div>
                         </div>
                         <div class="product-content">
-                            <h2>Redyko&#322;ka</h2>
-                            <p class="seller-name">Jaki&#347; sprzedawca</p>
-                            <p class="product-price">78.00</p>
-                            <button class="cart-button" type="button">Dodaj do koszyka</button>
-                        </div>
-                    </article>
-
-                    <article class="product-card" data-name="Oscypek PDO" data-price="78.00" data-search="oscypek pdo jakis sprzedawca" data-milk="mieszane" data-kind="pdo">
-                        <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych" aria-pressed="false">
-                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path>
-                            </svg>
-                        </button>
-                        <div class="product-media">
-                            <img src="images/Oscypek.webp" alt="Oscypek PDO">
-                            <div class="rating-badge">
-                                <span class="rating-star">&#9734;</span>
-                                <span>5.0</span>
-                            </div>
-                        </div>
-                        <div class="product-content">
-                            <h2>Oscypek PDO</h2>
-                            <p class="seller-name">Jaki&#347; sprzedawca</p>
-                            <p class="product-price">78.00</p>
-                            <button class="cart-button" type="button">Dodaj do koszyka</button>
-                        </div>
-                    </article>
-
-                    <article class="product-card" data-name="Go&#322;ka" data-price="78.00" data-search="golka jakis sprzedawca" data-milk="krowie" data-kind="swieze">
-                        <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych" aria-pressed="false">
-                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path>
-                            </svg>
-                        </button>
-                        <div class="product-media">
-                            <img src="images/Oscypek-goralski.jpg" alt="Go&#322;ka">
-                            <div class="rating-badge">
-                                <span class="rating-star">&#9734;</span>
-                                <span>5.0</span>
-                            </div>
-                        </div>
-                        <div class="product-content">
-                            <h2>Go&#322;ka</h2>
-                            <p class="seller-name">Jaki&#347; sprzedawca</p>
-                            <p class="product-price">78.00</p>
+                            <h2>Ja&#322;owc&oacute;wka</h2>
+                            <p class="seller-name">Artofit</p>
+                            <p class="product-price">55.00</p>
                             <button class="cart-button" type="button">Dodaj do koszyka</button>
                         </div>
                     </article>
