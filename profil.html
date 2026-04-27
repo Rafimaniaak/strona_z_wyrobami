@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Profil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-kategoria.css">
+</head>
+<body data-page="profile">
+<div class="page-shell profile-shell">
+    <header class="topbar topbar-simple">
+        <div class="container topbar-inner">
+            <div class="page-label"><a href="index.html">Skarby Region&oacute;w Polski</a></div>
+            <nav class="primary-nav" id="primaryNav" aria-label="G&#322;&oacute;wne">
+                <a href="profil.html" aria-current="page">Profil</a>
+                <a href="about.html">O nas</a>
+                <a href="ulubione.html">Ulubione</a>
+                <a class="cart-link" href="koszyk.html">
+                    <span>Koszyk</span>
+                    <span class="nav-counter" data-cart-count hidden>0</span>
+                </a>
+                <div class="search-slot">
+                    <button class="search-trigger" type="button" aria-expanded="false" aria-controls="searchInline">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M16 16L21 21"></path></svg>
+                        <span>Szukaj</span>
+                    </button>
+                    <div class="search-inline" id="searchInline">
+                        <label class="sr-only" for="profileSearch">Szukaj stron</label>
+                        <input type="search" id="profileSearch" placeholder="Szukaj stron...">
+                        <button class="search-clear" type="button" aria-label="Wyczy&#347;&#263; wyszukiwanie">&times;</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="profile-main customer-orders-main">
+        <div class="container customer-orders-layout">
+            <aside class="orders-side-nav" aria-label="Filtry zam&oacute;wie&#324;">
+                <div class="orders-side-title">Moje zam&oacute;wienia</div>
+                <button class="orders-filter-button" type="button" data-view="preparing" aria-pressed="false">Przygotowania</button>
+                <button class="orders-filter-button" type="button" data-view="transit" aria-pressed="false">W drodze</button>
+                <button class="orders-filter-button is-active" type="button" data-view="delivered" aria-pressed="true">Dostarczone</button>
+                <button class="orders-filter-button" type="button" data-view="received" aria-pressed="false">Odebrane</button>
+                <button class="orders-filter-button" type="button" data-view="review" aria-pressed="false">Oce&#324;</button>
+                <button class="orders-filter-button" type="button" data-view="return" aria-pressed="false">Zwrot</button>
+            </aside>
+
+            <section class="orders-stage" id="orders" aria-label="Widok zam&oacute;wie&#324; klienta">
+                <div class="order-view" data-view="preparing">
+                    <div class="order-empty-state">
+                        <p>Nie masz zam&oacute;wie&#324; z takim statusem</p>
+                        <strong>Przygotowania</strong>
+                    </div>
+                </div>
+
+                <div class="order-view" data-view="transit">
+                    <article class="customer-order-card">
+                        <div class="customer-order-card-head">
+                            <span>W drodze</span>
+                            <strong>9 kwietnia 2026</strong>
+                        </div>
+                        <div class="customer-order-card-products">
+                            <img src="images/Oscypek-goralski.jpg" alt="Oscypek g&oacute;ralski">
+                            <img src="images/gorzelnia-dlugie-nalewka-wisniowa.png" alt="Nalewka wi&#347;niowa">
+                            <img src="images/miod-test.png" alt="Mi&oacute;d lipowy">
+                        </div>
+                        <div class="customer-order-card-total">
+                            <span>Za wszystko</span>
+                            <strong>126.00 z&#322;</strong>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="order-view is-active" data-view="delivered">
+                    <article class="customer-order-card">
+                        <div class="customer-order-card-head">
+                            <span>Dostarczone</span>
+                            <strong>9 kwietnia 2026</strong>
+                        </div>
+                        <div class="customer-order-card-products">
+                            <img src="images/Oscypek-goralski.jpg" alt="Oscypek g&oacute;ralski">
+                            <img src="images/gorzelnia-dlugie-nalewka-wisniowa.png" alt="Nalewka wi&#347;niowa">
+                            <img src="images/miod-test.png" alt="Mi&oacute;d lipowy">
+                        </div>
+                        <div class="customer-order-card-total">
+                            <span>Za wszystko</span>
+                            <strong>126.00 z&#322;</strong>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="order-view" data-view="received">
+                    <div class="customer-order-stage-head">
+                        <button class="orders-stage-action" type="button">Czy masz problemy z zam&oacute;wieniem?</button>
+                    </div>
+                    <article class="customer-order-card">
+                        <div class="customer-order-card-head">
+                            <span>Sko&#324;czone</span>
+                            <strong>18 kwietnia 2026</strong>
+                        </div>
+                        <div class="customer-order-card-products">
+                            <img src="images/Oscypek-goralski.jpg" alt="Oscypek g&oacute;ralski">
+                            <img src="images/gorzelnia-dlugie-nalewka-wisniowa.png" alt="Nalewka wi&#347;niowa">
+                            <img src="images/miod-test.png" alt="Mi&oacute;d lipowy">
+                        </div>
+                        <div class="customer-order-card-total">
+                            <span>Za wszystko</span>
+                            <strong>126.00 z&#322;</strong>
+                        </div>
+                    </article>
+                    <button class="customer-order-cta" type="button" data-switch-view="review">Jak oceniasz?</button>
+                </div>
+
+                <div class="order-view" data-view="review">
+                    <div class="customer-order-stage-grid">
+                        <div class="customer-order-stage-column">
+                            <article class="customer-order-card">
+                                <div class="customer-order-card-head">
+                                    <span>Sko&#324;czone</span>
+                                    <strong>18 kwietnia 2026</strong>
+                                </div>
+                                <div class="customer-order-card-products">
+                                    <img src="images/Oscypek-goralski.jpg" alt="Oscypek g&oacute;ralski">
+                                    <img src="images/gorzelnia-dlugie-nalewka-wisniowa.png" alt="Nalewka wi&#347;niowa">
+                                    <img src="images/miod-test.png" alt="Mi&oacute;d lipowy">
+                                </div>
+                                <div class="customer-order-card-total">
+                                    <span>Za wszystko</span>
+                                    <strong>126.00 z&#322;</strong>
+                                </div>
+                            </article>
+                            <button class="customer-order-cta" type="button">Jak oceniasz?</button>
+                        </div>
+
+                        <form class="order-review-panel">
+                            <label class="order-review-label">Jak oceniasz produkt?</label>
+                            <div class="order-review-stars" aria-label="Ocena produktu">
+                                <button class="order-star is-active" type="button" data-rating="1" aria-label="1 gwiazdka">&#9733;</button>
+                                <button class="order-star is-active" type="button" data-rating="2" aria-label="2 gwiazdki">&#9733;</button>
+                                <button class="order-star is-active" type="button" data-rating="3" aria-label="3 gwiazdki">&#9733;</button>
+                                <button class="order-star is-active" type="button" data-rating="4" aria-label="4 gwiazdki">&#9733;</button>
+                                <button class="order-star" type="button" data-rating="5" aria-label="5 gwiazdek">&#9733;</button>
+                            </div>
+                            <p class="order-review-score">4.0 gwiazdy</p>
+                            <label class="order-review-label" for="orderReviewMessage">Chcesz podzieli&#263; si&#281; opini&#261;?</label>
+                            <textarea id="orderReviewMessage" rows="4">By&#322;o ...</textarea>
+                            <button class="order-review-submit" type="submit">Oce&#324;</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="order-view" data-view="return">
+                    <article class="customer-order-card">
+                        <div class="customer-order-card-head">
+                            <span>Przygotowanie</span>
+                            <strong>9 kwietnia 2026</strong>
+                        </div>
+                        <div class="customer-order-card-products">
+                            <img src="images/Oscypek-goralski.jpg" alt="Oscypek g&oacute;ralski">
+                            <img src="images/gorzelnia-dlugie-nalewka-wisniowa.png" alt="Nalewka wi&#347;niowa">
+                            <img src="images/miod-test.png" alt="Mi&oacute;d lipowy">
+                        </div>
+                        <div class="customer-order-card-total">
+                            <span>Za wszystko</span>
+                            <strong>126.00 z&#322;</strong>
+                        </div>
+                    </article>
+                    <button class="customer-order-cta" type="button">Chcesz zwr&oacute;ci&#263;?</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-panel">
+                <div class="footer-brand">
+                    <p>Skarby Region&oacute;w Polski</p>
+                    <p class="footer-copy">&#321;&#261;czymy tradycyjnych producent&oacute;w z klientami ceni&#261;cymi autentyczne produkty regionalne.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Informacje</h3>
+                    <a href="about.html">O nas</a>
+                    <a href="index.html#sprzedawcy">Nasi producenci</a>
+                    <a href="regulamin.html">Regulamin</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Obs&#322;uga klienta</h3>
+                    <a href="regulamin.html#zwroty">Zwroty (14 dni)</a>
+                    <a href="profil.html#orders">Twoje zam&oacute;wienia</a>
+                    <a href="about.html#faq">FAQ</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Kontakt</h3>
+                    <a href="mailto:kontakt123@gmail.com">kontakt123@gmail.com</a>
+                    <a href="tel:+48123456789">+48 123 456 789</a>
+                    <p>ul. Regionalna 12<br>34-500 Zakopane</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast" id="pageToast" aria-live="polite" aria-atomic="true"></div>
+</div>
+
+<script src="cart-storage.js"></script>
+<script src="site-shell.js"></script>
+<script src="profile-page.js"></script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Karta produktu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-kategoria.css">
+</head>
+<body
+    data-page="product"
+    data-product-id="produkt-dzem-z-gruszki"
+    data-product-name="D&#380;em z gruszki"
+    data-product-seller="Siostra Anastazja"
+    data-product-price="19.00"
+    data-product-image="images/przetwory-z-gruszek-siostry-anastazji-4af3b39.jpg"
+    data-product-alt="D&#380;em z gruszki"
+    data-product-category="przetwory"
+    data-product-rating="4.9"
+>
+<div class="page-shell product-shell">
+    <header class="topbar topbar-simple">
+        <div class="container topbar-inner">
+            <div class="page-label"><a href="index.html">Skarby Region&oacute;w Polski</a></div>
+<nav class="primary-nav" id="primaryNav" aria-label="G&#322;&oacute;wne">
+                <a href="profil.html">Profil</a>
+                <a href="about.html">O nas</a>
+                <a href="ulubione.html">Ulubione</a>
+                <a class="cart-link" href="koszyk.html"><span>Koszyk</span><span class="nav-counter" data-cart-count hidden>0</span></a>
+                <div class="search-slot">
+                    <button class="search-trigger" type="button" aria-expanded="false" aria-controls="searchInline">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M16 16L21 21"></path></svg>
+                        <span>Szukaj</span>
+                    </button>
+                    <div class="search-inline" id="searchInline">
+                        <label class="sr-only" for="productPageSearch">Szukaj stron</label>
+                        <input type="search" id="productPageSearch" placeholder="Szukaj stron...">
+                        <button class="search-clear" type="button" aria-label="Wyczy&#347;&#263; wyszukiwanie">&times;</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="product-main">
+        <div class="container product-layout">
+            <section class="product-hero-card">
+                <div class="product-gallery">
+                    <div class="product-gallery-frame">
+                        <img id="productHeroImage" src="images/przetwory-z-gruszek-siostry-anastazji-4af3b39.jpg" alt="D&#380;em z gruszki">
+                    </div>
+                </div>
+
+                <div class="product-overview">
+                    <div class="product-overview-head">
+                        <div class="product-overview-copy-block">
+                            <h1 id="productTitle">D&#380;em z gruszki</h1>
+                            <p class="product-overview-copy" id="productLead">Naturalny d&#380;em z gruszki przygotowany wed&#322;ug tradycyjnej receptury, bez zb&#281;dnych dodatk&oacute;w i sztucznych konserwant&oacute;w.</p>
+                        </div>
+                        <button class="favorite-button product-favorite-button" id="productFavoriteButton" type="button" aria-label="Dodaj do ulubionych" aria-pressed="false">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path></svg>
+                        </button>
+                    </div>
+
+                    <div class="product-detail-copy" id="productDescriptionStack">
+                        <p id="productDescription">Powstaje z dojrza&#322;ych, soczystych gruszek, kt&oacute;re nadaj&#261; mu delikatnie s&#322;odki smak i aksamitn&#261; konsystencj&#281;.</p>
+                    </div>
+
+                    <div class="product-buy-row">
+                        <div class="product-price-tag">
+                            <span class="product-price-icon" aria-hidden="true">&#10005;</span>
+                            <strong id="productPrice">19.00</strong>
+                        </div>
+                        <button class="cart-button product-add-button" id="productAddToCart" type="button">Dodaj do koszyka</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="seller-feedback-card">
+                <div class="seller-feedback-main">
+                    <div class="seller-feedback-header seller-feedback-header-compact">
+                        <h2>Opinie o sprzedawcy: <span id="feedbackSellerName">Siostra Anastazja</span></h2>
+                    </div>
+
+                    <div class="seller-feedback-board">
+                        <div class="seller-feedback-list seller-feedback-grid" id="sellerFeedbackList"></div>
+                        <div class="seller-feedback-scrollbar" aria-hidden="true">
+                            <span class="seller-feedback-scrollbar-thumb"></span>
+                        </div>
+                    </div>
+
+                    <div class="review-cloud-head">
+                        <p class="review-total">Ilo&#347;&#263; opinii: <strong id="productReviewCount">240</strong></p>
+                        <div class="review-limit-tools">
+                            <span>Ilo&#347;&#263; opinii do wy&#347;wietlenia:</span>
+                            <div class="review-limit-group" id="reviewLimitControls">
+                                <button class="review-limit-button is-active" type="button" data-limit="6" aria-pressed="true">6</button>
+                                <button class="review-limit-button" type="button" data-limit="12" aria-pressed="false">12</button>
+                                <button class="review-limit-button" type="button" data-limit="24" aria-pressed="false">24</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="review-cloud-shell">
+                        <div class="review-cloud-viewport" id="productReviewViewport">
+                            <div class="review-cloud-track" id="productReviewCards"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-panel">
+                <div class="footer-brand">
+                    <p>Skarby Region&oacute;w Polski</p>
+                    <p class="footer-copy">&#321;&#261;czymy tradycyjnych producent&oacute;w z klientami ceni&#261;cymi autentyczne produkty regionalne.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Informacje</h3>
+                    <a href="about.html">O nas</a>
+                    <a href="index.html#sprzedawcy">Nasi producenci</a>
+                    <a href="regulamin.html">Regulamin</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Obs&#322;uga klienta</h3>
+                    <a href="regulamin.html#zwroty">Zwroty (14 dni)</a>
+                    <a href="profil.html#orders">Twoje zam&oacute;wienia</a>
+                    <a href="about.html#faq">FAQ</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Kontakt</h3>
+                    <a href="mailto:kontakt123@gmail.com">kontakt123@gmail.com</a>
+                    <a href="tel:+48123456789">+48 123 456 789</a>
+                    <p>ul. Regionalna 12<br>34-500 Zakopane</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast" id="pageToast" aria-live="polite" aria-atomic="true"></div>
+</div>
+
+<script src="favorites-storage.js"></script>
+<script src="cart-storage.js"></script>
+<script src="site-shell.js"></script>
+<script src="product-catalog.js"></script>
+<script src="product-page.js"></script>
+</body>
+</html>
+

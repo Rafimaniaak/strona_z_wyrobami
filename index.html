@@ -14,8 +14,7 @@
             <div class="footer-logo" style="margin-bottom: 0;"><a href="index.html" style="text-decoration: none; color: inherit;">Skarby Regionów Polski</a></div>
             <nav class="nav-menu">
                 <ul class="nav-list">
-                    <li><a href="index.html" class="nav-link active">Strona Główna</a></li>
-                    <li><a href="#" class="nav-link">Logowanie</a></li>
+                    <li><a href="profil.html" class="nav-link">Profil</a></li>
                     <li><a href="about.html" class="nav-link">O nas</a></li>
                     <li><a href="ulubione.html" class="nav-link">Ulubione</a></li>
                     <li>
@@ -39,7 +38,6 @@
                     </li>
                 </ul>
             </nav>
-            <button class="mobile-menu-btn" aria-label="Menu">☰</button>
         </div>
     </header>
 
@@ -64,25 +62,25 @@
                                 <h3>Nalewki</h3>
                             </div>
                         </div>
-                        <div class="category-card rounded-bottom" data-category="przetwory">
+                        <div class="category-card rounded-bottom" data-category="przetwory" onclick="window.location.href='przetwory.html'">
                             <div class="category-inner">
                                 <img src="images/icons8-jam-pastel-color/icons8-jam-90.png" alt="Przetwory" class="category-icon">
                                 <h3>Przetwory</h3>
                             </div>
                         </div>
-                        <div class="category-card rounded-top" data-category="wedliny">
+                        <div class="category-card rounded-top" data-category="wedliny" onclick="window.location.href='wedliny.html'">
                             <div class="category-inner">
                                 <img src="images/icons8-ham-doodle/icons8-ham-90.png" alt="Wędliny" class="category-icon">
                                 <h3>Wędliny</h3>
                             </div>
                         </div>
-                        <div class="category-card rounded-bottom" data-category="miody">
+                        <div class="category-card rounded-bottom" data-category="miody" onclick="window.location.href='miody.html'">
                             <div class="category-inner">
                                 <img src="images/icons8-honey-pastel-color/icons8-honey-96.png" alt="Miody" class="category-icon">
                                 <h3>Miody</h3>
                             </div>
                         </div>
-                        <div class="category-card rounded-top" data-category="rekodzielo">
+                        <div class="category-card rounded-top" data-category="rekodzielo" onclick="window.location.href='rekodzielo.html'">
                             <div class="category-inner">
                                 <img src="images/icons8-paint-palette-80.png" alt="Rękodzieło" class="category-icon">
                                 <h3>Rękodzieło</h3>
@@ -93,7 +91,7 @@
             </div>
         </section>
 
-        <section class="popular-sellers">
+        <section class="popular-sellers" id="sprzedawcy">
             <div class="container">
                 <h2 class="section-title">Popularni Sprzedawcy</h2>
                 <div class="sellers-grid">
@@ -303,16 +301,16 @@
                     <h4>Informacje</h4>
                     <ul>
                         <li><a href="about.html">O nas</a></li>
-                        <li><a href="#">Nasi producenci</a></li>
-                        <li><a href="#">Regulamin</a></li>
+                        <li><a href="#sprzedawcy">Nasi producenci</a></li>
+                        <li><a href="regulamin.html">Regulamin</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>Obsługa klienta</h4>
                     <ul>
-                        <li><a href="#">Zwroty (14 dni)</a></li>
-                        <li><a href="#">Twoje zamówienia</a></li>
-                        <li><a href="#">FAQ</a></li>
+                        <li><a href="regulamin.html#zwroty">Zwroty (14 dni)</a></li>
+                        <li><a href="profil.html#orders">Twoje zamówienia</a></li>
+                        <li><a href="about.html#faq">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -566,14 +564,6 @@
         if(sellerBtn) {
             sellerBtn.addEventListener('click', () => {
                 showToast('Dziekujemy! Skontaktujemy sie w sprawie dolaczenia.');
-            });
-        }
-
-        const mobileBtn = document.querySelector('.mobile-menu-btn');
-        const navMenu = document.querySelector('.nav-menu');
-        if(mobileBtn && navMenu) {
-            mobileBtn.addEventListener('click', () => {
-                navMenu.classList.toggle('open');
             });
         }
 

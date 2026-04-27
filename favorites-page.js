@@ -90,7 +90,7 @@
 
     function favoriteCard(item) {
         return [
-            '<article class="product-card" data-product-id="', escapeHtml(item.id), '">',
+            '<article class="product-card" data-product-id="', escapeHtml(item.id), '" data-detail-href="', escapeHtml(item.detailHref || ''), '">',
             '<button class="favorite-button is-active" type="button" aria-label="Usun z ulubionych" aria-pressed="true">',
             '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path></svg>',
             '</button>',
@@ -109,6 +109,18 @@
     }
 
     function bindGridActions() {
+        Array.prototype.slice.call(favoritesGrid.querySelectorAll('.product-card')).forEach(function (card) {
+            card.addEventListener('click', function (event) {
+                if (event.target.closest('button')) {
+                    return;
+                }
+
+                if (card.dataset.detailHref) {
+                    window.location.href = card.dataset.detailHref;
+                }
+            });
+        });
+
         Array.prototype.slice.call(favoritesGrid.querySelectorAll('.favorite-button')).forEach(function (button) {
             button.addEventListener('click', function () {
                 var card = button.closest('.product-card');

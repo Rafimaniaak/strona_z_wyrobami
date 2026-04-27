@@ -8,12 +8,12 @@
     var pageCategory = body.dataset.category || 'produkty';
     var favoriteStore = window.favoriteStore;
     var cartStore = window.cartStore;
+    var productCatalog = window.productCatalog;
     var navToggle = document.querySelector('.mobile-nav-toggle');
     var primaryNav = document.querySelector('.primary-nav');
     var searchSlot = document.querySelector('.search-slot');
     var searchTrigger = document.querySelector('.search-trigger');
-    var searchInline = document.querySelector('.search-inline');
-    var searchInput = document.getElementById('productSearch');
+    var searchInput = document.getElementById('productSearch') || document.querySelector('.search-inline input[type="search"]');
     var searchClear = document.querySelector('.search-clear');
     var filterButton = document.querySelector('.filter-button');
     var filterPanel = document.getElementById('filterPanel');
@@ -25,10 +25,15 @@
     var favoriteButtons = Array.prototype.slice.call(document.querySelectorAll('.favorite-button'));
     var cartButtons = Array.prototype.slice.call(document.querySelectorAll('.cart-button'));
     var cartCounters = Array.prototype.slice.call(document.querySelectorAll('[data-cart-count]'));
-    var shortcutPills = Array.prototype.slice.call(document.querySelectorAll('.shortcut-pill[data-toast]'));
+    var shortcutPills = Array.prototype.slice.call(document.querySelectorAll('.shortcut-pill[data-toast], .shortcut-pill[href]'));
+    var categoryToolbar = document.querySelector('.category-toolbar');
     var pageToast = document.getElementById('pageToast');
+    var resultsStatus = null;
+    var limitControls = [];
     var toastTimer = null;
     var currentSort = { mode: 'name', direction: 1 };
+    var currentLimit = 8;
+    var limitOptions = [8, 12, 'all'];
 
     function normalize(text) {
         return (text || '')
@@ -60,6 +65,16 @@
             .replace(/^-+|-+$/g, '');
     }
 
+    function parsePrice(value) {
+        var match = String(value || '').replace(',', '.').match(/[\d.]+/);
+        return match ? Number(match[0]) : 0;
+    }
+
+    function extractRating(card) {
+        var value = card.querySelector('.rating-badge span:last-child');
+        return value ? value.textContent.trim() : (card.dataset.rating || '4.8');
+    }
+
     function productId(card) {
         return card.dataset.productId || pageCategory + '-' + slugify(card.dataset.name || '');
     }
@@ -69,8 +84,7 @@
         var seller = card.querySelector('.seller-name');
         var title = card.querySelector('.product-content h2');
         var price = card.querySelector('.product-price');
-
-        return {
+        var product = {
             id: productId(card),
             name: title ? title.textContent.trim() : (card.dataset.name || ''),
             seller: seller ? seller.textContent.trim() : '',
@@ -78,8 +92,16 @@
             image: image ? image.getAttribute('src') : '',
             alt: image ? image.getAttribute('alt') : '',
             category: pageCategory,
-            page: window.location.pathname.split('/').pop() || ''
+            page: window.location.pathname.split('/').pop() || '',
+            rating: extractRating(card)
         };
+
+        if (productCatalog) {
+            return productCatalog.enrichProduct(product);
+        }
+
+        product.detailHref = card.dataset.detailHref || 'produkt.html';
+        return product;
     }
 
     function syncFavoriteButtonsFromStore() {
@@ -110,8 +132,18 @@
         });
     }
 
+    function allCards() {
+        return Array.prototype.slice.call(productsGrid.querySelectorAll('.product-card'));
+    }
+
+    function matchingCards() {
+        return allCards().filter(function (card) {
+            return card.dataset.matchesFilters !== 'false';
+        });
+    }
+
     function visibleCards() {
-        return Array.prototype.slice.call(productsGrid.querySelectorAll('.product-card')).filter(function (card) {
+        return allCards().filter(function (card) {
             return !card.hidden;
         });
     }
@@ -121,7 +153,7 @@
             return;
         }
 
-        emptyState.hidden = visibleCards().length !== 0;
+        emptyState.hidden = matchingCards().length !== 0;
     }
 
     function activeFilters() {
@@ -194,6 +226,55 @@
         updateFilterButtonState(isOpen);
     }
 
+    function syncResultsStatus() {
+        if (!resultsStatus) {
+            return;
+        }
+
+        var matching = matchingCards().length;
+        var visible = visibleCards().length;
+
+        if (matching === 0) {
+            resultsStatus.textContent = 'Brak produktow pasujacych do wybranych filtrow.';
+            return;
+        }
+
+        if (currentLimit === 'all' || matching <= currentLimit) {
+            resultsStatus.textContent = 'Pokazujemy wszystkie ' + matching + ' produktow.';
+            return;
+        }
+
+        resultsStatus.textContent = 'Pokazujemy ' + visible + ' z ' + matching + ' produktow.';
+    }
+
+    function syncLimitButtons() {
+        limitControls.forEach(function (button) {
+            var value = button.dataset.limit;
+            var isActive = String(currentLimit) === value;
+            button.classList.toggle('is-active', isActive);
+            button.setAttribute('aria-pressed', String(isActive));
+        });
+    }
+
+    function applyVisibilityLimit() {
+        var visibleCount = 0;
+
+        allCards().forEach(function (card) {
+            var matches = card.dataset.matchesFilters !== 'false';
+            var withinLimit = currentLimit === 'all' || visibleCount < Number(currentLimit);
+
+            card.hidden = !(matches && withinLimit);
+
+            if (matches && withinLimit) {
+                visibleCount += 1;
+            }
+        });
+
+        syncEmptyState();
+        syncLimitButtons();
+        syncResultsStatus();
+    }
+
     function filterProducts() {
         if (!productsGrid) {
             return;
@@ -201,19 +282,18 @@
 
         var filters = activeFilters();
         var query = normalize(searchInput ? searchInput.value : '');
-        var cards = Array.prototype.slice.call(productsGrid.querySelectorAll('.product-card'));
 
-        cards.forEach(function (card) {
+        allCards().forEach(function (card) {
             var searchable = normalize(card.dataset.search || card.dataset.name || card.textContent);
             var matchesSearch = query === '' || searchable.indexOf(query) !== -1;
             var matchesFilters = Object.keys(filters).every(function (group) {
                 return filters[group].indexOf(card.dataset[group] || '') !== -1;
             });
 
-            card.hidden = !(matchesSearch && matchesFilters);
+            card.dataset.matchesFilters = String(matchesSearch && matchesFilters);
         });
 
-        syncEmptyState();
+        applyVisibilityLimit();
     }
 
     function sortProducts(mode, direction) {
@@ -221,11 +301,11 @@
             return;
         }
 
-        var cards = Array.prototype.slice.call(productsGrid.querySelectorAll('.product-card'));
+        var cards = allCards();
 
         cards.sort(function (left, right) {
             if (mode === 'price') {
-                return (Number(left.dataset.price) - Number(right.dataset.price)) * direction;
+                return (parsePrice(left.dataset.price) - parsePrice(right.dataset.price)) * direction;
             }
 
             return normalize(left.dataset.name).localeCompare(normalize(right.dataset.name)) * direction;
@@ -240,6 +320,65 @@
             button.classList.toggle('active', isActive);
             button.classList.toggle('desc', isActive && direction === -1);
         });
+    }
+
+    function markCurrentShortcut() {
+        shortcutPills.forEach(function (pill) {
+            if (!pill.hasAttribute('href')) {
+                return;
+            }
+
+            var href = pill.getAttribute('href') || '';
+            var isCurrent = href.indexOf(pageCategory + '.html') !== -1;
+
+            pill.classList.toggle('is-current', isCurrent);
+
+            if (isCurrent) {
+                pill.setAttribute('aria-current', 'page');
+            }
+        });
+    }
+
+    function createLimitControls() {
+        if (!categoryToolbar || !productsGrid) {
+            return;
+        }
+
+        var wrapper = document.createElement('div');
+        wrapper.className = 'results-tools';
+
+        var limits = document.createElement('div');
+        limits.className = 'display-limit';
+        limits.setAttribute('aria-label', 'Limit wyswietlanych produktow');
+
+        var label = document.createElement('span');
+        label.className = 'display-limit-label';
+        label.textContent = 'Pokaz';
+        limits.appendChild(label);
+
+        limitOptions.forEach(function (option) {
+            var button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'limit-button';
+            button.dataset.limit = String(option);
+            button.textContent = option === 'all' ? 'Wszystkie' : String(option);
+            button.setAttribute('aria-pressed', 'false');
+
+            button.addEventListener('click', function () {
+                currentLimit = option;
+                applyVisibilityLimit();
+            });
+
+            limitControls.push(button);
+            limits.appendChild(button);
+        });
+
+        resultsStatus = document.createElement('p');
+        resultsStatus.className = 'results-status';
+
+        wrapper.appendChild(limits);
+        wrapper.appendChild(resultsStatus);
+        categoryToolbar.appendChild(wrapper);
     }
 
     if (navToggle && primaryNav) {
@@ -294,7 +433,7 @@
         filterApply.addEventListener('click', function () {
             filterProducts();
             setFilterOpen(false);
-            showToast('Znaleziono ' + visibleCards().length + ' produkt' + (visibleCards().length === 1 ? '' : visibleCards().length < 5 ? 'y' : 'ow') + '.');
+            showToast('Znaleziono ' + matchingCards().length + ' produkt' + (matchingCards().length === 1 ? '' : matchingCards().length < 5 ? 'y' : 'ow') + '.');
         });
     }
 
@@ -309,21 +448,22 @@
             };
 
             sortProducts(currentSort.mode, currentSort.direction);
-            filterProducts();
+            applyVisibilityLimit();
         });
     });
 
     favoriteButtons.forEach(function (button) {
         button.addEventListener('click', function () {
             var card = button.closest('.product-card');
+            var product = card ? productPayload(card) : null;
             var isActive;
 
-            if (favoriteStore && card) {
-                if (favoriteStore.exists(productId(card))) {
-                    favoriteStore.remove(productId(card));
+            if (favoriteStore && product) {
+                if (favoriteStore.exists(product.id)) {
+                    favoriteStore.remove(product.id);
                     isActive = false;
                 } else {
-                    favoriteStore.add(productPayload(card));
+                    favoriteStore.add(product);
                     isActive = true;
                 }
             } else {
@@ -337,15 +477,27 @@
         });
     });
 
+    allCards().forEach(function (card) {
+        card.addEventListener('click', function (event) {
+            if (event.target.closest('button')) {
+                return;
+            }
+
+            var product = productPayload(card);
+            window.location.href = product.detailHref || card.dataset.detailHref || 'produkt.html';
+        });
+    });
+
     cartButtons.forEach(function (button) {
         button.addEventListener('click', function () {
             var originalText = button.textContent;
             var card = button.closest('.product-card');
+            var product = card ? productPayload(card) : null;
             button.classList.add('is-added');
             button.textContent = 'Dodano';
 
-            if (cartStore && card) {
-                cartStore.add(productPayload(card));
+            if (cartStore && product) {
+                cartStore.add(product);
                 syncCartCounters();
             }
 
@@ -359,6 +511,10 @@
     });
 
     shortcutPills.forEach(function (pill) {
+        if (!pill.dataset.toast) {
+            return;
+        }
+
         pill.addEventListener('click', function (event) {
             event.preventDefault();
             showToast(pill.dataset.toast);
@@ -368,7 +524,7 @@
     document.addEventListener('click', function (event) {
         var target = event.target;
 
-        if (filterPanel && !filterPanel.hidden && !filterPanel.contains(target) && !filterButton.contains(target)) {
+        if (filterPanel && filterButton && !filterPanel.hidden && !filterPanel.contains(target) && !filterButton.contains(target)) {
             setFilterOpen(false);
         }
 
@@ -377,6 +533,8 @@
         }
     });
 
+    createLimitControls();
+    markCurrentShortcut();
     sortProducts(currentSort.mode, currentSort.direction);
     filterProducts();
     updateFilterButtonState(false);

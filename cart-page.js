@@ -351,7 +351,7 @@
                 return;
             }
 
-            showToast('Przej\u015bcie do p\u0142atno\u015bci jest gotowe do podpi\u0119cia.');
+            window.location.href = 'zaplata-adres.html';
         });
     }
 

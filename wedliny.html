@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Kategoria - W&#281;dliny</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-kategoria.css">
+</head>
+<body data-page="category" data-category="wedliny">
+<div class="page-shell">
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <div class="page-label"><a href="index.html">Skarby Region&oacute;w Polski</a></div>
+<nav class="primary-nav" id="primaryNav" aria-label="G&#322;&oacute;wne">
+                <a href="profil.html">Profil</a>
+                <a href="about.html">O nas</a>
+                <a href="ulubione.html">Ulubione</a>
+                <a class="cart-link" href="koszyk.html">
+                    <span>Koszyk</span>
+                    <span class="nav-counter" data-cart-count hidden>0</span>
+                </a>
+                <div class="search-slot">
+                    <button class="search-trigger" type="button" aria-expanded="false" aria-controls="searchInline">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="11" cy="11" r="6.5"></circle>
+                            <path d="M16 16L21 21"></path>
+                        </svg>
+                        <span>Szukaj</span>
+                    </button>
+                    <div class="search-inline" id="searchInline">
+                        <label class="sr-only" for="productSearchWedliny">Szukaj produkt&oacute;w</label>
+                        <input type="search" id="productSearchWedliny" placeholder="Szukaj produkt&oacute;w...">
+                        <button class="search-clear" type="button" aria-label="Wyczy&#347;&#263; wyszukiwanie">&times;</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="category-page">
+        <div class="container category-stage">
+            <section class="category-hero" aria-label="Nag&#322;&oacute;wek kategorii">
+                <div class="category-badge">
+                    <img src="images/icons8-ham-doodle/icons8-ham-90.png" alt="" width="62" height="62">
+                    <span>W&#281;dliny</span>
+                </div>
+
+                <div class="category-toolbar">
+                    <div class="sort-actions" aria-label="Sortowanie">
+                        <button class="icon-button filter-button" type="button" aria-expanded="false" aria-controls="filterPanel" aria-label="Filtry">
+                            <img src="images/icons8-slider-badges/icons8-slider-40.png" alt="">
+                        </button>
+                        <button class="sort-button active" type="button" data-sort="name">
+                            <span class="sort-arrows">&#8593;&#8595;</span>
+                            <span>Nazwa</span>
+                        </button>
+                        <button class="sort-button" type="button" data-sort="price">
+                            <span class="sort-arrows">&#8593;&#8595;</span>
+                            <span>Cena</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="category-shortcuts" aria-label="Pozosta&#322;e kategorie">
+                <a class="shortcut-pill" href="sery.html"><span class="shortcut-icon"><img src="images/icons8-cheese-color/icons8-cheese-48.png" alt="" width="22" height="22"></span><span>Sery</span></a>
+                <a class="shortcut-pill" href="nalewki.html"><span class="shortcut-icon"><img src="images/icons8-wine-90.png" alt="" width="24" height="24"></span><span>Nalewki</span></a>
+                <a class="shortcut-pill" href="przetwory.html"><span class="shortcut-icon"><img src="images/icons8-jam-pastel-color/icons8-jam-64.png" alt="" width="22" height="22"></span><span>Przetwory</span></a>
+                <a class="shortcut-pill" href="miody.html"><span class="shortcut-icon"><img src="images/icons8-honey-pastel-color/icons8-honey-64.png" alt="" width="22" height="22"></span><span>Miody</span></a>
+                <a class="shortcut-pill" href="rekodzielo.html"><span class="shortcut-icon"><img src="images/icons8-paint-palette-80.png" alt="" width="22" height="22"></span><span>R&#281;kodzie&#322;o</span></a>
+            </section>
+
+            <section class="products-section" aria-label="Produkty">
+                <div class="filter-popover filter-popover-wide" id="filterPanel" hidden>
+                    <div class="filter-group">
+                        <h2>Rodzaj :</h2>
+                        <div class="filter-options filter-options-five">
+                            <button class="filter-chip" type="button" data-group="kind" data-value="inne"><span class="filter-chip-icon"><img src="images/icons8-other-40.png" alt=""></span><span>Inne</span></button>
+                            <button class="filter-chip" type="button" data-group="kind" data-value="kielbasa"><span class="filter-chip-icon"><img src="images/icons8-ham-doodle/icons8-ham-48.png" alt=""></span><span>Kie&#322;basa</span></button>
+                            <button class="filter-chip" type="button" data-group="kind" data-value="pasztet"><span class="filter-chip-icon"><img src="images/icons8-ham-doodle/icons8-ham-48.png" alt=""></span><span>Pasztet</span></button>
+                            <button class="filter-chip" type="button" data-group="kind" data-value="szynka"><span class="filter-chip-icon"><img src="images/icons8-ham-doodle/icons8-ham-48.png" alt=""></span><span>Szynka</span></button>
+                            <button class="filter-chip" type="button" data-group="kind" data-value="wedzone"><span class="filter-chip-icon"><img src="images/icons8-ham-doodle/icons8-ham-48.png" alt=""></span><span>W&#281;dzone</span></button>
+                            <button class="filter-chip" type="button" data-group="kind" data-value="podrobowe"><span class="filter-chip-icon"><img src="images/icons8-ham-doodle/icons8-ham-48.png" alt=""></span><span>W&#281;dliny podrobowe</span></button>
+                            <button class="filter-chip" type="button" data-group="kind" data-value="blokowe"><span class="filter-chip-icon"><img src="images/icons8-ham-doodle/icons8-ham-48.png" alt=""></span><span>Produkty blokowe</span></button>
+                        </div>
+                    </div>
+                    <div class="filter-footer"><button class="filter-apply" type="button">Filtruj</button></div>
+                </div>
+
+                <div class="products-grid" id="productsGrid">
+                    <article class="product-card" data-name="Pol&#281;dwica Tradycyjna W&#281;dzona" data-price="31.00" data-search="poledwica tradycyjna wedzona swojskie wedliny" data-kind="wedzone">
+                        <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path></svg></button>
+                        <div class="product-media">
+                            <img src="images/icons8-ham-doodle/icons8-ham-90.png" alt="Pol&#281;dwica Tradycyjna W&#281;dzona">
+                            <div class="rating-badge"><span class="rating-star">&#9734;</span><span>5.0</span></div>
+                        </div>
+                        <div class="product-content">
+                            <h2>Pol&#281;dwica Tradycyjna W&#281;dzona</h2>
+                            <p class="seller-name">Swojskie W&#281;dliny</p>
+                            <p class="product-price">31.00</p>
+                            <button class="cart-button" type="button">Dodaj do koszyka</button>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-name="Baleron" data-price="34.00" data-search="baleron swojskie wedliny" data-kind="szynka">
+                        <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path></svg></button>
+                        <div class="product-media">
+                            <img src="images/icons8-ham-doodle/icons8-ham-90.png" alt="Baleron">
+                            <div class="rating-badge"><span class="rating-star">&#9734;</span><span>4.8</span></div>
+                        </div>
+                        <div class="product-content">
+                            <h2>Baleron</h2>
+                            <p class="seller-name">Swojskie W&#281;dliny</p>
+                            <p class="product-price">34.00</p>
+                            <button class="cart-button" type="button">Dodaj do koszyka</button>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-name="Kie&#322;basa &#346;l&#261;ska" data-price="35.00" data-search="kielbasa slaska u dziadka" data-kind="kielbasa">
+                        <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path></svg></button>
+                        <div class="product-media">
+                            <img src="images/icons8-ham-doodle/icons8-ham-90.png" alt="Kie&#322;basa &#346;l&#261;ska">
+                            <div class="rating-badge"><span class="rating-star">&#9734;</span><span>4.9</span></div>
+                        </div>
+                        <div class="product-content">
+                            <h2>Kie&#322;basa &#346;l&#261;ska</h2>
+                            <p class="seller-name">U dziadka</p>
+                            <p class="product-price">35.00</p>
+                            <button class="cart-button" type="button">Dodaj do koszyka</button>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-name="Pasztet z dzika" data-price="48.00" data-search="pasztet z dzika domowa spizarnia" data-kind="pasztet">
+                        <button class="favorite-button" type="button" aria-label="Dodaj do ulubionych" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path></svg></button>
+                        <div class="product-media">
+                            <img src="images/icons8-ham-doodle/icons8-ham-90.png" alt="Pasztet z dzika">
+                            <div class="rating-badge"><span class="rating-star">&#9734;</span><span>5.0</span></div>
+                        </div>
+                        <div class="product-content">
+                            <h2>Pasztet z dzika</h2>
+                            <p class="seller-name">Domowa Spi&#380;arnia</p>
+                            <p class="product-price">48.00</p>
+                            <button class="cart-button" type="button">Dodaj do koszyka</button>
+                        </div>
+                    </article>
+                </div>
+
+                <p class="empty-state" id="emptyState" hidden>Nie znaleziono produkt&oacute;w dla podanych filtr&oacute;w.</p>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-panel">
+                <div class="footer-brand">
+                    <p>Skarby Region&oacute;w Polski</p>
+                    <p class="footer-copy">&#321;&#261;czymy tradycyjnych producent&oacute;w z klientami ceni&#261;cymi autentyczne produkty regionalne.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Informacje</h3>
+                    <a href="about.html">O nas</a>
+                    <a href="index.html#sprzedawcy">Nasi producenci</a>
+                    <a href="regulamin.html">Regulamin</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Obs&#322;uga klienta</h3>
+                    <a href="regulamin.html#zwroty">Zwroty (14 dni)</a>
+                    <a href="profil.html#orders">Twoje zam&oacute;wienia</a>
+                    <a href="about.html#faq">FAQ</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Kontakt</h3>
+                    <a href="mailto:kontakt123@gmail.com">kontakt123@gmail.com</a>
+                    <a href="tel:+48123456789">+48 123 456 789</a>
+                    <p>ul. Regionalna 12<br>34-500 Zakopane</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast" id="pageToast" aria-live="polite" aria-atomic="true"></div>
+</div>
+
+<script src="favorites-storage.js"></script>
+<script src="cart-storage.js"></script>
+<script src="product-catalog.js"></script>
+<script src="category-page.js"></script>
+</body>
+</html>
+

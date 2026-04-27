@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Zap&#322;ata - Odbi&oacute;r</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-kategoria.css">
+</head>
+<body data-page="checkout">
+<div class="page-shell checkout-shell">
+    <header class="topbar topbar-simple">
+        <div class="container topbar-inner">
+            <div class="page-label"><a href="index.html">Skarby Region&oacute;w Polski</a></div>
+<nav class="primary-nav" id="primaryNav" aria-label="G&#322;&oacute;wne">
+                <a href="profil.html">Profil</a><a href="about.html">O nas</a><a href="ulubione.html">Ulubione</a><a class="cart-link" href="koszyk.html" aria-current="page"><span>Koszyk</span><span class="nav-counter" data-cart-count hidden>0</span></a>
+                <div class="search-slot"><button class="search-trigger" type="button" aria-expanded="false" aria-controls="searchInline"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M16 16L21 21"></path></svg><span>Szukaj</span></button><div class="search-inline" id="searchInline"><label class="sr-only" for="pickupSearch">Szukaj stron</label><input type="search" id="pickupSearch" placeholder="Szukaj stron..."><button class="search-clear" type="button" aria-label="Wyczy&#347;&#263; wyszukiwanie">&times;</button></div></div>
+            </nav>
+        </div>
+    </header>
+    <main class="checkout-main">
+        <div class="container checkout-layout">
+            <section class="checkout-summary-card">
+                <div class="checkout-summary-head"><h1>Podsumowanie zam&oacute;wienia</h1><span><strong id="checkoutItemsCount">3</strong> produkty</span></div>
+                <div class="checkout-preview" id="checkoutPreview"><img src="images/Oscypek-goralski.jpg" alt="Oscypek"><img src="images/gorzelnia-dlugie-nalewka-wisniowa.png" alt="Nalewka"><img src="images/miod-test.png" alt="Mi&oacute;d"></div>
+                <dl class="checkout-summary-list"><div><dt>Suma za produkty</dt><dd id="checkoutSubtotal">119.00 z&#322;</dd></div><div><dt>Zni&#380;ka na produkty</dt><dd id="checkoutDiscount">0.00 z&#322;</dd></div><div><dt>Wysy&#322;ka</dt><dd id="checkoutShipping">7.00 z&#322;</dd></div></dl>
+                <div class="checkout-summary-total"><span>Za wszystko</span><strong id="checkoutTotal">126.00 z&#322;</strong></div>
+            </section>
+            <section class="checkout-form-card">
+                <div class="checkout-form-head"><h2>P&#322;atno&#347;&#263; przy odbiorze</h2><p>Potwierd&#378; dane kontaktowe dla kuriera.</p></div>
+                <div class="checkout-method-tabs"><a href="zaplata-karta.html" data-method-link>Karta p&#322;atnicza</a><a href="zaplata-blik.html" data-method-link>Blik</a><a href="zaplata-odbior.html" data-method-link aria-current="page">P&#322;atno&#347;&#263; przy odbiorze</a></div>
+                <form class="checkout-form-grid">
+                    <label class="checkout-form-full"><span>Imi&#281; i nazwisko</span><input type="text" value="Rafa&#322; Burbe&#322;o"></label>
+                    <label class="checkout-form-full"><span>Numer telefonu</span><input type="tel" value="+48 123 456 789"></label>
+                    <label class="checkout-form-full"><span>Uwagi dla kuriera</span><textarea rows="4">Prosz&#281; o dostaw&#281; po godzinie 16:00.</textarea></label>
+                </form>
+                <button class="checkout-continue" id="checkoutContinue" type="button">Potwierd&#378; zam&oacute;wienie</button>
+            </section>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="container"><div class="footer-panel"><div class="footer-brand"><p>Skarby Region&oacute;w Polski</p><p class="footer-copy">&#321;&#261;czymy tradycyjnych producent&oacute;w z klientami ceni&#261;cymi autentyczne produkty regionalne.</p></div><div class="footer-column"><h3>Informacje</h3><a href="about.html">O nas</a><a href="index.html#sprzedawcy">Nasi producenci</a><a href="regulamin.html">Regulamin</a></div><div class="footer-column"><h3>Obs&#322;uga klienta</h3><a href="regulamin.html#zwroty">Zwroty (14 dni)</a><a href="profil.html#orders">Twoje zam&oacute;wienia</a><a href="about.html#faq">FAQ</a></div><div class="footer-column"><h3>Kontakt</h3><a href="mailto:kontakt123@gmail.com">kontakt123@gmail.com</a><a href="tel:+48123456789">+48 123 456 789</a><p>ul. Regionalna 12<br>34-500 Zakopane</p></div></div></div>
+    </footer>
+    <div class="toast" id="pageToast" aria-live="polite" aria-atomic="true"></div>
+</div>
+<script src="cart-storage.js"></script>
+<script src="site-shell.js"></script>
+<script src="checkout-page.js"></script>
+</body>
+</html>
+
+
