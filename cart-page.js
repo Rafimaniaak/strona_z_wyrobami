@@ -17,7 +17,7 @@
     var primaryNav = document.querySelector('.primary-nav');
     var searchSlot = document.querySelector('.search-slot');
     var searchTrigger = document.querySelector('.search-trigger');
-    var searchInput = document.getElementById('cartSearch');
+    var searchInput = document.getElementById('cartSearch') || document.querySelector('.search-inline input[type="search"]');
     var searchClear = document.querySelector('.search-clear');
     var sortButtons = Array.prototype.slice.call(document.querySelectorAll('.sort-button'));
     var cartCounters = Array.prototype.slice.call(document.querySelectorAll('[data-cart-count]'));

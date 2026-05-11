@@ -26,14 +26,14 @@
     var cartButtons = Array.prototype.slice.call(document.querySelectorAll('.cart-button'));
     var cartCounters = Array.prototype.slice.call(document.querySelectorAll('[data-cart-count]'));
     var shortcutPills = Array.prototype.slice.call(document.querySelectorAll('.shortcut-pill[data-toast], .shortcut-pill[href]'));
-    var categoryToolbar = document.querySelector('.category-toolbar');
+    var productsSection = document.querySelector('.products-section');
     var pageToast = document.getElementById('pageToast');
     var resultsStatus = null;
     var limitControls = [];
     var toastTimer = null;
     var currentSort = { mode: 'name', direction: 1 };
-    var currentLimit = 8;
-    var limitOptions = [8, 12, 'all'];
+    var currentLimit = 30;
+    var limitOptions = [10, 30, 50];
 
     function normalize(text) {
         return (text || '')
@@ -93,7 +93,8 @@
             alt: image ? image.getAttribute('alt') : '',
             category: pageCategory,
             page: window.location.pathname.split('/').pop() || '',
-            rating: extractRating(card)
+            rating: extractRating(card),
+            available: card.dataset.available !== 'false'
         };
 
         if (productCatalog) {
@@ -102,6 +103,28 @@
 
         product.detailHref = card.dataset.detailHref || 'produkt.html';
         return product;
+    }
+
+    function applyAvailabilityState(card, available) {
+        var cartButton = card.querySelector('.cart-button');
+
+        card.classList.toggle('is-unavailable', !available);
+        card.dataset.available = String(available);
+
+        if (!cartButton) {
+            return;
+        }
+
+        cartButton.disabled = !available;
+        cartButton.textContent = available ? 'Dodaj do koszyka' : 'Nie mamy produktu';
+        cartButton.setAttribute('aria-disabled', String(!available));
+    }
+
+    function syncCardAvailability() {
+        allCards().forEach(function (card) {
+            var product = productPayload(card);
+            applyAvailabilityState(card, Boolean(product.available));
+        });
     }
 
     function syncFavoriteButtonsFromStore() {
@@ -239,7 +262,7 @@
             return;
         }
 
-        if (currentLimit === 'all' || matching <= currentLimit) {
+        if (matching <= currentLimit) {
             resultsStatus.textContent = 'Pokazujemy wszystkie ' + matching + ' produktow.';
             return;
         }
@@ -261,7 +284,7 @@
 
         allCards().forEach(function (card) {
             var matches = card.dataset.matchesFilters !== 'false';
-            var withinLimit = currentLimit === 'all' || visibleCount < Number(currentLimit);
+            var withinLimit = visibleCount < Number(currentLimit);
 
             card.hidden = !(matches && withinLimit);
 
@@ -340,12 +363,12 @@
     }
 
     function createLimitControls() {
-        if (!categoryToolbar || !productsGrid) {
+        if (!productsSection || !productsGrid) {
             return;
         }
 
         var wrapper = document.createElement('div');
-        wrapper.className = 'results-tools';
+        wrapper.className = 'results-tools bottom-page-limit';
 
         var limits = document.createElement('div');
         limits.className = 'display-limit';
@@ -353,7 +376,7 @@
 
         var label = document.createElement('span');
         label.className = 'display-limit-label';
-        label.textContent = 'Pokaz';
+        label.textContent = 'Ilość produktów na stronie:';
         limits.appendChild(label);
 
         limitOptions.forEach(function (option) {
@@ -361,7 +384,7 @@
             button.type = 'button';
             button.className = 'limit-button';
             button.dataset.limit = String(option);
-            button.textContent = option === 'all' ? 'Wszystkie' : String(option);
+            button.textContent = String(option);
             button.setAttribute('aria-pressed', 'false');
 
             button.addEventListener('click', function () {
@@ -373,12 +396,8 @@
             limits.appendChild(button);
         });
 
-        resultsStatus = document.createElement('p');
-        resultsStatus.className = 'results-status';
-
         wrapper.appendChild(limits);
-        wrapper.appendChild(resultsStatus);
-        categoryToolbar.appendChild(wrapper);
+        productsSection.appendChild(wrapper);
     }
 
     if (navToggle && primaryNav) {
@@ -493,6 +512,12 @@
             var originalText = button.textContent;
             var card = button.closest('.product-card');
             var product = card ? productPayload(card) : null;
+
+            if (product && product.available === false) {
+                showToast('Ten produkt jest obecnie niedostepny.');
+                return;
+            }
+
             button.classList.add('is-added');
             button.textContent = 'Dodano';
 
@@ -534,6 +559,7 @@
     });
 
     createLimitControls();
+    syncCardAvailability();
     markCurrentShortcut();
     sortProducts(currentSort.mode, currentSort.direction);
     filterProducts();

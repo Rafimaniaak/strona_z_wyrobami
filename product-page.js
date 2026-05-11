@@ -21,6 +21,8 @@
     var imageNode = document.getElementById('productHeroImage');
     var feedbackSellerNode = document.getElementById('feedbackSellerName');
     var priceNode = document.getElementById('productPrice');
+    var stockBadgeNode = document.getElementById('productStockBadge');
+    var stockInlineNode = document.getElementById('productStockInline');
     var reviewCountNode = document.getElementById('productReviewCount');
     var sellerFeedbackList = document.getElementById('sellerFeedbackList');
     var sellerFeedbackScrollbar = document.querySelector('.seller-feedback-scrollbar');
@@ -308,8 +310,28 @@
         setText(titleNode, product.name);
         setText(leadNode, product.lead);
         setText(feedbackSellerNode, product.seller);
-        setText(priceNode, product.price);
+        setText(priceNode, product.price + ' z\u0142');
         setText(reviewCountNode, product.reviewCount);
+
+        if (stockBadgeNode && stockInlineNode) {
+            var available = product.available !== false;
+            var statusText = available ? 'Dost\u0119pny' : 'Niedost\u0119pny';
+
+            stockBadgeNode.textContent = statusText;
+            stockInlineNode.textContent = statusText;
+            stockBadgeNode.classList.toggle('is-available', available);
+            stockBadgeNode.classList.toggle('is-unavailable', !available);
+            stockInlineNode.classList.toggle('is-available', available);
+            stockInlineNode.classList.toggle('is-unavailable', !available);
+            body.classList.toggle('product-unavailable', !available);
+        }
+
+        if (addToCartButton) {
+            var isAvailable = product.available !== false;
+            addToCartButton.disabled = !isAvailable;
+            addToCartButton.textContent = isAvailable ? 'Dodaj do koszyka' : 'Nie mamy produktu';
+            addToCartButton.setAttribute('aria-disabled', String(!isAvailable));
+        }
 
         renderDetailParagraphs();
         renderSellerReviews();
@@ -353,6 +375,11 @@
 
     if (addToCartButton) {
         addToCartButton.addEventListener('click', function () {
+            if (product.available === false) {
+                pageShell.showToast('Ten produkt jest obecnie niedost\u0119pny.');
+                return;
+            }
+
             var originalText = addToCartButton.textContent;
 
             cartStore.add(product);

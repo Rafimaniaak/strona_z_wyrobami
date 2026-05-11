@@ -45,6 +45,24 @@
         });
     }
 
+    var unavailableProductIds = {
+        'sery-bryndza': true,
+        'nalewki-sliwkowka': true,
+        'wedliny-baleron': true
+    };
+
+    function resolveAvailability(product) {
+        if (typeof product.available === 'boolean') {
+            return product.available;
+        }
+
+        if (typeof product.available === 'string') {
+            return product.available !== 'false' && product.available !== '0';
+        }
+
+        return !unavailableProductIds[buildId(product)];
+    }
+
     var sellerProfiles = {
         'Siostra Anastazja': {
             region: 'Podhale',
@@ -301,6 +319,7 @@
         params.set('alt', product.alt || product.name || 'Produkt regionalny');
         params.set('category', product.category || 'home');
         params.set('rating', String(product.rating || '4.8'));
+        params.set('available', String(resolveAvailability(product)));
 
         return params.toString();
     }
@@ -463,6 +482,7 @@
         base.productReviews = cloneList(base.productReviews && base.productReviews.length ? base.productReviews : productReviewPool(base, seller, category));
         base.averageRating = base.averageRating || averageRating(base.sellerReviews.concat(base.productReviews), rating);
         base.reviewCount = base.reviewCount || '240';
+        base.available = resolveAvailability(base);
         base.detailHref = 'produkt.html?' + buildQuery(base);
 
         return base;
@@ -479,7 +499,8 @@
             image: params.get('image') || '',
             alt: params.get('alt') || '',
             category: params.get('category') || '',
-            rating: params.get('rating') || ''
+            rating: params.get('rating') || '',
+            available: params.get('available')
         });
     }
 

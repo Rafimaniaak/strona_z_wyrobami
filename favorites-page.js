@@ -11,17 +11,27 @@
     var primaryNav = document.querySelector('.primary-nav');
     var searchSlot = document.querySelector('.search-slot');
     var searchTrigger = document.querySelector('.search-trigger');
-    var searchInput = document.getElementById('favoriteSearch');
+    var searchInput = document.getElementById('favoriteSearch') || document.querySelector('.search-inline input[type="search"]');
     var searchClear = document.querySelector('.search-clear');
     var sortButtons = Array.prototype.slice.call(document.querySelectorAll('.sort-button'));
     var shortcutPills = Array.prototype.slice.call(document.querySelectorAll('.shortcut-pill[data-toast]'));
     var favoritesGrid = document.getElementById('favoritesGrid');
+    var favoritesProductsSection = document.querySelector('.favorites-products');
     var favoritesEmpty = document.getElementById('favoritesEmpty');
     var pageToast = document.getElementById('pageToast');
     var cartCounters = Array.prototype.slice.call(document.querySelectorAll('[data-cart-count]'));
     var toastTimer = null;
     var currentSort = { mode: 'name', direction: 1 };
     var searchTerm = '';
+    var currentLimit = 30;
+    var limitOptions = [10, 30, 50];
+    var limitControls = [];
+    var limitTools = null;
+    var unavailableIds = {
+        'sery-bryndza': true,
+        'nalewki-sliwkowka': true,
+        'wedliny-baleron': true
+    };
 
     function normalize(text) {
         return (text || '')
@@ -88,9 +98,65 @@
         return items;
     }
 
+    function isAvailable(item) {
+        if (typeof item.available === 'boolean') {
+            return item.available;
+        }
+
+        return !unavailableIds[item.id];
+    }
+
+    function syncLimitButtons() {
+        limitControls.forEach(function (button) {
+            var isActive = Number(button.dataset.limit || 0) === currentLimit;
+            button.classList.toggle('is-active', isActive);
+            button.setAttribute('aria-pressed', String(isActive));
+        });
+    }
+
+    function createLimitControls() {
+        if (!favoritesProductsSection || limitTools) {
+            return;
+        }
+
+        limitTools = document.createElement('div');
+        limitTools.className = 'results-tools bottom-page-limit favorites-limit-tools';
+
+        var limits = document.createElement('div');
+        limits.className = 'display-limit';
+        limits.setAttribute('aria-label', 'Ilość produktów na stronie');
+
+        var label = document.createElement('span');
+        label.className = 'display-limit-label';
+        label.textContent = 'Ilość produktów na stronie:';
+        limits.appendChild(label);
+
+        limitOptions.forEach(function (option) {
+            var button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'limit-button';
+            button.dataset.limit = String(option);
+            button.textContent = String(option);
+            button.setAttribute('aria-pressed', 'false');
+            button.addEventListener('click', function () {
+                currentLimit = option;
+                renderFavorites();
+            });
+
+            limitControls.push(button);
+            limits.appendChild(button);
+        });
+
+        limitTools.appendChild(limits);
+        favoritesProductsSection.appendChild(limitTools);
+    }
+
     function favoriteCard(item) {
+        var available = isAvailable(item);
+        var cartButtonLabel = available ? 'Dodaj do koszyka' : 'Nie mamy produktu';
+
         return [
-            '<article class="product-card" data-product-id="', escapeHtml(item.id), '" data-detail-href="', escapeHtml(item.detailHref || ''), '">',
+            '<article class="product-card', (available ? '' : ' is-unavailable'), '" data-product-id="', escapeHtml(item.id), '" data-available="', String(available), '" data-detail-href="', escapeHtml(item.detailHref || ''), '">',
             '<button class="favorite-button is-active" type="button" aria-label="Usun z ulubionych" aria-pressed="true">',
             '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path></svg>',
             '</button>',
@@ -102,7 +168,7 @@
             '<h2>', escapeHtml(item.name), '</h2>',
             '<p class="seller-name">', escapeHtml(item.seller), '</p>',
             '<p class="product-price">', escapeHtml(item.price), '</p>',
-            '<button class="cart-button" type="button">Dodaj do koszyka</button>',
+            '<button class="cart-button" type="button"', (available ? '' : ' disabled aria-disabled="true"'), '>', cartButtonLabel, '</button>',
             '</div>',
             '</article>'
         ].join('');
@@ -140,9 +206,16 @@
             button.addEventListener('click', function () {
                 var card = button.closest('.product-card');
                 var id = card ? card.dataset.productId : '';
+                var available = !card || card.dataset.available !== 'false';
                 var favorite = favoriteStore.read().find(function (item) {
                     return item.id === id;
                 });
+
+                if (!available) {
+                    showToast('Ten produkt jest obecnie niedostepny.');
+                    return;
+                }
+
                 var originalText = button.textContent;
                 button.classList.add('is-added');
                 button.textContent = 'Dodano';
@@ -164,9 +237,14 @@
 
     function renderFavorites() {
         var items = filteredItems();
+        var visibleItems = items.slice(0, currentLimit);
 
-        favoritesGrid.innerHTML = items.map(favoriteCard).join('');
+        favoritesGrid.innerHTML = visibleItems.map(favoriteCard).join('');
         favoritesEmpty.hidden = items.length !== 0;
+        if (limitTools) {
+            limitTools.hidden = items.length === 0;
+        }
+        syncLimitButtons();
         bindGridActions();
     }
 
@@ -246,6 +324,7 @@
         }
     });
 
+    createLimitControls();
     renderFavorites();
     syncCartCounters();
 })();
