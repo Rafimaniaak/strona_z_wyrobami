@@ -3645,3 +3645,2461 @@ body[data-page="profile"] .search-trigger svg {
         width: 280px;
     }
 }
+
+/* Seller onboarding pages */
+body[data-page="seller-contract"] .seller-onboarding-main,
+body[data-page="seller-awaiting"] .seller-onboarding-main {
+flex: 1;
+padding: 26px 0 36px;
+}
+
+.seller-onboarding-wrap {
+width: min(920px, 100%);
+margin: 0 auto;
+display: grid;
+gap: 18px;
+justify-items: center;
+}
+
+.seller-message-panel {
+width: min(760px, 100%);
+padding: 18px 22px;
+border-radius: 12px;
+background: #ece8db;
+color: #b0aaa2;
+box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+}
+
+.seller-message-panel p {
+font-size: clamp(1.6rem, 2.15vw, 2rem);
+line-height: 1.26;
+font-weight: 700;
+}
+
+.seller-sign-form {
+width: min(760px, 100%);
+display: grid;
+gap: 14px;
+justify-items: start;
+}
+
+.seller-sign-form label {
+font-size: 0.98rem;
+color: #7e786f;
+}
+
+#sellerSignature {
+width: 100%;
+min-height: 154px;
+border: 2px solid rgba(98, 92, 140, 0.68);
+border-radius: 8px;
+background: #f7f5ee;
+padding: 12px 14px;
+font-size: 1rem;
+color: var(--text);
+resize: vertical;
+outline: none;
+}
+
+#sellerSignature:focus {
+border-color: var(--footer);
+}
+
+.seller-checkbox-row {
+display: inline-flex;
+align-items: center;
+gap: 10px;
+font-size: 1.6rem;
+color: #7e786f;
+}
+
+.seller-checkbox-row input[type="checkbox"] {
+width: 24px;
+height: 24px;
+accent-color: var(--footer);
+}
+
+.seller-submit-button {
+margin-top: 2px;
+padding: 13px 30px;
+border: 0;
+border-radius: 14px;
+background: var(--footer);
+color: #fff;
+font-size: 1.06rem;
+font-weight: 700;
+box-shadow: 0 10px 18px rgba(71, 64, 127, 0.18);
+}
+
+.seller-submit-button:hover,
+.seller-submit-button:focus-visible {
+background: #57508f;
+}
+
+.seller-submit-button:disabled {
+background: #c8c3da;
+box-shadow: none;
+cursor: not-allowed;
+}
+
+body[data-page="seller-awaiting"] .seller-awaiting-main {
+display: grid;
+align-content: start;
+}
+
+.seller-awaiting-wrap {
+padding-top: 10px;
+}
+
+.seller-awaiting-panel {
+min-height: min(58vh, 540px);
+display: grid;
+align-content: center;
+}
+
+@media (max-width: 980px) {
+.seller-message-panel,
+.seller-sign-form {
+    width: min(700px, 100%);
+}
+
+.seller-message-panel p {
+    font-size: clamp(1.22rem, 3.2vw, 1.5rem);
+}
+}
+
+@media (max-width: 760px) {
+body[data-page="seller-contract"] .seller-onboarding-main,
+body[data-page="seller-awaiting"] .seller-onboarding-main {
+    padding: 18px 0 24px;
+}
+
+.seller-message-panel {
+    padding: 16px 14px;
+}
+
+.seller-message-panel p {
+    font-size: clamp(1.04rem, 4.8vw, 1.22rem);
+    line-height: 1.3;
+}
+
+.seller-sign-form label {
+    font-size: 0.9rem;
+}
+
+#sellerSignature {
+    min-height: 132px;
+}
+
+.seller-checkbox-row {
+    font-size: 1.14rem;
+}
+
+.seller-checkbox-row input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+}
+
+.seller-submit-button {
+    width: 100%;
+    justify-self: stretch;
+    text-align: center;
+}
+
+.seller-awaiting-panel {
+    min-height: min(50vh, 420px);
+}
+}
+
+/* Seller links + seller dashboard */
+.seller-profile-link {
+color: inherit;
+text-decoration: underline;
+text-underline-offset: 2px;
+}
+
+.seller-profile-link:hover {
+color: var(--text);
+}
+
+.seller-card.is-clickable {
+cursor: pointer;
+}
+
+body[data-page="seller-dashboard"] .seller-dashboard-main {
+flex: 1;
+padding: 20px 0 34px;
+}
+
+.seller-dashboard-layout {
+display: grid;
+grid-template-columns: 220px minmax(0, 1fr);
+gap: 24px;
+align-items: start;
+}
+
+.seller-dashboard-tools {
+display: grid;
+gap: 10px;
+}
+
+.seller-tool-button {
+min-height: 40px;
+border: 0;
+border-radius: 10px;
+padding: 8px 14px;
+background: var(--footer);
+color: #fff;
+font-size: 0.86rem;
+font-weight: 700;
+}
+
+.seller-tool-button:hover {
+background: #57508f;
+}
+
+.seller-tool-button.is-active {
+background: #312b63;
+box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.32);
+}
+
+.seller-dashboard-stage {
+display: grid;
+gap: 16px;
+}
+
+.seller-dashboard-head h1 {
+font-size: clamp(1.28rem, 2.2vw, 2rem);
+line-height: 1.1;
+margin-bottom: 6px;
+}
+
+.seller-dashboard-head p {
+font-size: 0.9rem;
+color: #8c85a6;
+}
+
+.seller-dashboard-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+gap: 16px;
+}
+
+.seller-stock {
+font-size: 0.78rem;
+color: #d8d4e7;
+}
+
+.seller-dashboard-workbench {
+padding: 14px;
+border-radius: 12px;
+background: #ece8db;
+color: var(--text);
+display: grid;
+gap: 12px;
+}
+
+.seller-workbench-empty {
+font-size: 0.9rem;
+color: #6e677f;
+}
+
+.seller-workbench-head {
+display: grid;
+gap: 6px;
+}
+
+.seller-workbench-head h3 {
+font-size: 1rem;
+}
+
+.seller-workbench-head p {
+font-size: 0.86rem;
+color: #7f7890;
+}
+
+.seller-workbench-list {
+display: grid;
+gap: 10px;
+}
+
+.seller-workbench-item {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 12px;
+padding: 10px 12px;
+border-radius: 10px;
+background: #f7f5ee;
+}
+
+.seller-workbench-item.is-block {
+display: grid;
+justify-content: stretch;
+gap: 8px;
+}
+
+.seller-workbench-item strong {
+font-size: 0.9rem;
+}
+
+.seller-workbench-item p {
+font-size: 0.8rem;
+color: #6f6883;
+}
+
+.seller-workbench-button {
+border: 0;
+border-radius: 8px;
+min-height: 32px;
+padding: 0 12px;
+background: var(--footer);
+color: #fff;
+font-size: 0.75rem;
+font-weight: 700;
+}
+
+.seller-workbench-button.is-danger {
+background: #8f3c53;
+}
+
+.seller-order-row {
+display: grid;
+grid-template-columns: minmax(80px, auto) 1fr auto;
+gap: 10px;
+align-items: center;
+font-size: 0.8rem;
+}
+
+.seller-order-products {
+font-size: 0.8rem;
+color: #625b76;
+}
+
+.seller-order-status {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+}
+
+.seller-order-status label {
+font-size: 0.78rem;
+color: #736d84;
+}
+
+.seller-order-status select {
+min-height: 30px;
+border: 1px solid rgba(71, 64, 127, 0.24);
+border-radius: 8px;
+padding: 4px 8px;
+background: #fff;
+color: var(--text);
+font-size: 0.78rem;
+}
+
+.seller-stock-edit {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+}
+
+.seller-stock-edit input {
+width: 88px;
+min-height: 32px;
+border: 1px solid rgba(71, 64, 127, 0.24);
+border-radius: 8px;
+padding: 0 8px;
+font: inherit;
+font-size: 0.78rem;
+background: #fff;
+color: var(--text);
+}
+
+.seller-return-actions {
+display: inline-flex;
+gap: 8px;
+}
+
+
+.seller-dashboard-card {
+position: relative;
+padding: 12px 12px 10px;
+border-radius: 12px;
+background: var(--footer);
+color: #fff;
+display: grid;
+gap: 8px;
+box-shadow: 0 16px 26px rgba(71, 64, 127, 0.18);
+}
+
+.seller-dashboard-card .favorite-button {
+position: absolute;
+top: 10px;
+right: 10px;
+width: 28px;
+height: 28px;
+color: #fff;
+opacity: 0.95;
+}
+
+.seller-dashboard-card .favorite-button svg {
+stroke: #fff;
+fill: transparent;
+}
+
+.seller-product-media img {
+width: 100%;
+aspect-ratio: 1 / 1;
+object-fit: cover;
+border-radius: 10px;
+}
+
+.seller-dashboard-rating {
+justify-self: end;
+display: inline-flex;
+align-items: center;
+gap: 4px;
+font-size: 0.82rem;
+}
+
+.seller-dashboard-card h2 {
+font-size: 1rem;
+line-height: 1.2;
+}
+
+.seller-dashboard-card .seller-name {
+font-size: 0.72rem;
+color: #d8d4e7;
+}
+
+.seller-dashboard-meta {
+display: inline-flex;
+align-items: baseline;
+gap: 6px;
+font-size: 1.1rem;
+font-weight: 700;
+}
+
+.seller-dashboard-meta span {
+font-size: 0.82rem;
+}
+
+.seller-dashboard-actions {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 8px;
+}
+
+.seller-dashboard-edit,
+.seller-dashboard-cart {
+border: 0;
+border-radius: 999px;
+min-height: 32px;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+background: #ece8db;
+color: var(--text);
+font-size: 0.74rem;
+font-weight: 700;
+padding: 0 10px;
+text-decoration: none;
+}
+
+.seller-dashboard-cart:hover,
+.seller-dashboard-edit:hover {
+background: #fff;
+}
+
+.seller-dialog-backdrop {
+position: fixed;
+inset: 0;
+z-index: 180;
+display: grid;
+place-items: center;
+padding: 18px;
+background: rgba(62, 57, 102, 0.62);
+backdrop-filter: blur(2px);
+}
+
+.seller-dialog-backdrop[hidden] {
+display: none !important;
+}
+
+.seller-dialog {
+position: relative;
+width: min(760px, 100%);
+padding: 18px;
+border-radius: 14px;
+background: rgba(126, 121, 167, 0.95);
+box-shadow: 0 24px 40px rgba(41, 37, 70, 0.42);
+}
+
+.seller-dialog-close {
+position: absolute;
+top: 8px;
+right: 10px;
+width: 36px;
+height: 36px;
+border: 0;
+border-radius: 8px;
+background: #fff;
+color: #000;
+font-size: 30px;
+line-height: 1;
+}
+
+.seller-dialog-form {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 10px;
+}
+
+.seller-upload-placeholder {
+grid-row: span 4;
+min-height: 160px;
+border-radius: 8px;
+display: grid;
+place-items: center;
+color: #2f2a5f;
+font-weight: 700;
+background:
+linear-gradient(45deg, rgba(255,255,255,0.35) 25%, transparent 25%) 0 0/18px 18px,
+linear-gradient(-45deg, rgba(255,255,255,0.35) 25%, transparent 25%) 0 0/18px 18px,
+linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.35) 75%) 0 0/18px 18px,
+linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.35) 75%) 0 0/18px 18px,
+#e7e3f2;
+}
+
+.seller-dialog-form input,
+.seller-dialog-form textarea {
+width: 100%;
+border: 0;
+border-radius: 7px;
+padding: 9px 10px;
+font: inherit;
+font-size: 0.9rem;
+color: var(--text);
+background: #f6f4ea;
+}
+
+.seller-dialog-form textarea {
+grid-column: 2;
+min-height: 110px;
+resize: vertical;
+}
+
+.seller-dialog-actions {
+grid-column: 1 / -1;
+display: flex;
+justify-content: center;
+gap: 14px;
+padding-top: 6px;
+}
+
+.seller-dialog-actions button {
+min-width: 90px;
+min-height: 36px;
+border: 0;
+border-radius: 8px;
+font: inherit;
+font-size: 0.9rem;
+font-weight: 700;
+background: #f6f4ea;
+color: var(--text);
+}
+
+body.dialog-open {
+overflow: hidden;
+}
+
+@media (max-width: 940px) {
+.seller-dashboard-layout {
+    grid-template-columns: 1fr;
+}
+
+.seller-dashboard-tools {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+}
+
+@media (max-width: 760px) {
+.seller-dashboard-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.seller-workbench-item,
+.seller-order-row {
+    grid-template-columns: 1fr;
+}
+
+.seller-stock-edit,
+.seller-return-actions {
+    width: 100%;
+}
+
+.seller-stock-edit input {
+    flex: 1;
+}
+
+.seller-dialog-form {
+    grid-template-columns: 1fr;
+}
+
+.seller-upload-placeholder {
+    grid-row: auto;
+    min-height: 120px;
+}
+
+.seller-dialog-form textarea {
+    grid-column: auto;
+}
+
+.seller-dashboard-tools {
+    grid-template-columns: 1fr 1fr;
+}
+}
+
+@media (max-width: 430px) {
+.seller-dashboard-grid {
+    grid-template-columns: 1fr;
+}
+
+.seller-dashboard-tools {
+    grid-template-columns: 1fr;
+}
+}
+
+/* Seller page - Figma alignment overrides */
+body[data-page="seller-dashboard"] .seller-dashboard-layout {
+    grid-template-columns: 106px minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+}
+
+body[data-page="seller-dashboard"] .seller-dashboard-tools {
+    gap: 9px;
+}
+
+body[data-page="seller-dashboard"] .seller-tool-button {
+    min-height: 28px;
+    border-radius: 6px;
+    padding: 6px 8px;
+    font-size: 0.66rem;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+}
+
+body[data-page="seller-dashboard"] .seller-dashboard-head {
+    display: none;
+}
+
+body[data-page="seller-dashboard"] .seller-dashboard-grid {
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 10px;
+}
+
+body[data-page="seller-dashboard"].seller-has-workbench .seller-dashboard-grid {
+    display: none;
+}
+
+body[data-page="seller-dashboard"] .seller-dashboard-workbench {
+    border-radius: 9px;
+    padding: 10px;
+    background: #f0eee7;
+    border: 1px solid rgba(71, 64, 127, 0.08);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+body[data-page="seller-dashboard"] .seller-workbench-head h3 {
+    font-size: 0.88rem;
+    letter-spacing: 0.01em;
+}
+
+body[data-page="seller-dashboard"] .seller-workbench-empty {
+    font-size: 0.78rem;
+}
+
+body[data-page="seller-dashboard"] .seller-workbench-item {
+    border-radius: 7px;
+}
+
+body[data-page="seller-dashboard"] .seller-workbench-button {
+    min-height: 30px;
+    border-radius: 7px;
+    font-size: 0.68rem;
+    padding: 0 10px;
+    background: #3f3a78;
+}
+
+body[data-page="seller-dashboard"] .seller-workbench-button.is-danger {
+    background: #3f3a78;
+}
+
+body[data-page="seller-dashboard"] .seller-returns-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 150px;
+    gap: 16px;
+    align-items: start;
+}
+
+body[data-page="seller-dashboard"] .seller-returns-table-wrap {
+    border-radius: 8px;
+    background: #f0eee7;
+    min-height: 198px;
+    overflow: hidden;
+    border: 1px solid rgba(71, 64, 127, 0.08);
+}
+
+body[data-page="seller-dashboard"] .seller-returns-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.8rem;
+}
+
+body[data-page="seller-dashboard"] .seller-returns-table th {
+    background: #3f3a78;
+    color: #fff;
+    text-align: left;
+    padding: 7px 9px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    border-right: 1px solid rgba(255, 255, 255, 0.24);
+    white-space: nowrap;
+}
+
+body[data-page="seller-dashboard"] .seller-returns-table th:last-child {
+    border-right: 0;
+}
+
+body[data-page="seller-dashboard"] .seller-returns-table tbody td {
+    padding: 8px 9px;
+    color: #9f9c95;
+    border-top: 1px solid rgba(71, 64, 127, 0.08);
+    vertical-align: top;
+}
+
+body[data-page="seller-dashboard"] .seller-returns-table tbody tr {
+    cursor: pointer;
+}
+
+body[data-page="seller-dashboard"] .seller-returns-table tbody tr.is-selected td {
+    background: rgba(63, 58, 120, 0.08);
+    color: #5e5a70;
+}
+
+body[data-page="seller-dashboard"] .seller-returns-filler {
+    min-height: 138px;
+    border-top: 1px solid rgba(71, 64, 127, 0.08);
+}
+
+body[data-page="seller-dashboard"] .seller-returns-actions {
+    display: grid;
+    gap: 14px;
+}
+
+body[data-page="seller-dashboard"] .seller-returns-selected {
+    margin: 0;
+    font-size: 0.74rem;
+    color: #5f5b73;
+}
+
+body[data-page="seller-dashboard"] .seller-returns-actions .seller-workbench-button {
+    width: 100%;
+    text-align: center;
+    min-height: 40px;
+    font-size: 0.86rem;
+    line-height: 1.1;
+    padding: 8px 10px;
+}
+
+body[data-page="seller-dashboard"] .seller-dialog-backdrop {
+    background: rgba(93, 88, 136, 0.62);
+    backdrop-filter: none;
+}
+
+body[data-page="seller-dashboard"] .seller-dialog {
+    width: min(530px, calc(100vw - 28px));
+    padding: 14px 14px 16px;
+    border-radius: 10px;
+    background: #7f7ba4;
+    box-shadow: 0 12px 26px rgba(38, 34, 69, 0.45);
+}
+
+body[data-page="seller-dashboard"] .seller-dialog-close {
+    top: 4px;
+    right: 6px;
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    font-size: 42px;
+    font-weight: 700;
+    background: transparent;
+    color: #000;
+}
+
+body[data-page="seller-dashboard"] .seller-dialog-form {
+    grid-template-columns: 150px minmax(0, 1fr) minmax(0, 1fr);
+    grid-auto-rows: minmax(36px, auto);
+    gap: 8px 10px;
+}
+
+body[data-page="seller-dashboard"] .seller-upload-tools {
+    grid-column: 1;
+    grid-row: 1;
+    display: inline-flex;
+    gap: 8px;
+}
+
+body[data-page="seller-dashboard"] .seller-upload-tool {
+    width: 40px;
+    height: 30px;
+    border: 2px solid #2f2a5f;
+    border-radius: 4px;
+    background: #edece8;
+    color: #2f2a5f;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+body[data-page="seller-dashboard"] .seller-upload-tool svg {
+    width: 24px;
+    height: 24px;
+}
+
+body[data-page="seller-dashboard"] .seller-upload-placeholder {
+    grid-column: 1;
+    grid-row: 2 / span 4;
+    min-height: 132px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    color: #1e1b39;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    padding: 0;
+    cursor: pointer;
+    background:
+        linear-gradient(45deg, rgba(255, 255, 255, 0.32) 25%, transparent 25%) 0 0/14px 14px,
+        linear-gradient(-45deg, rgba(255, 255, 255, 0.32) 25%, transparent 25%) 0 0/14px 14px,
+        linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.32) 75%) 0 0/14px 14px,
+        linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.32) 75%) 0 0/14px 14px,
+        #efeee9;
+}
+
+body[data-page="seller-dashboard"] .seller-upload-placeholder:focus-visible {
+    outline: 2px solid #2f2a5f;
+    outline-offset: 2px;
+}
+
+body[data-page="seller-dashboard"] .seller-upload-label {
+    padding: 8px;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #4a4562;
+}
+
+body[data-page="seller-dashboard"] .seller-upload-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+body[data-page="seller-dashboard"] .seller-upload-placeholder.is-filled .seller-upload-label {
+    display: none;
+}
+
+body[data-page="seller-dashboard"] .seller-dialog-form input,
+body[data-page="seller-dashboard"] .seller-dialog-form textarea {
+    border-radius: 6px;
+    background: #efeee9;
+    color: #4a4562;
+    font-size: 0.72rem;
+    padding: 7px 8px;
+}
+
+body[data-page="seller-dashboard"] .seller-dialog-form input[name="name"],
+body[data-page="seller-dashboard"] .seller-dialog-form input[name="category"],
+body[data-page="seller-dashboard"] .seller-dialog-form input[name="owner"],
+body[data-page="seller-dashboard"] .seller-dialog-form textarea[name="description"] {
+    grid-column: 2 / span 2;
+}
+
+body[data-page="seller-dashboard"] .seller-dialog-form input[name="price"] {
+    grid-column: 2;
+}
+
+body[data-page="seller-dashboard"] .seller-dialog-form input[name="stock"] {
+    grid-column: 3;
+}
+
+body[data-page="seller-dashboard"] .seller-dialog-form textarea[name="description"] {
+    min-height: 106px;
+}
+
+body[data-page="seller-dashboard"] .seller-dialog-actions {
+    grid-column: 2 / span 2;
+    justify-content: center;
+    gap: 10px;
+    padding-top: 2px;
+}
+
+body[data-page="seller-dashboard"] .seller-dialog-actions button {
+    min-width: 72px;
+    min-height: 28px;
+    border-radius: 6px;
+    font-size: 0.74rem;
+    font-weight: 500;
+    color: #5b566f;
+    background: #efeee9;
+}
+
+body[data-page="seller-dashboard"].seller-mode-returns .seller-dashboard-workbench {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+}
+
+body[data-page="seller-dashboard"].seller-mode-returns .seller-workbench-head {
+    display: none;
+}
+
+@media (max-width: 940px) {
+    body[data-page="seller-dashboard"] .seller-dashboard-layout {
+        grid-template-columns: 1fr;
+    }
+
+    body[data-page="seller-dashboard"] .seller-dashboard-tools {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 760px) {
+    body[data-page="seller-dashboard"] .seller-dashboard-tools {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    body[data-page="seller-dashboard"] .seller-returns-layout {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    body[data-page="seller-dashboard"] .seller-returns-actions {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    body[data-page="seller-dashboard"] .seller-returns-selected {
+        grid-column: 1 / -1;
+        font-size: 0.7rem;
+    }
+
+    body[data-page="seller-dashboard"] .seller-returns-actions .seller-workbench-button {
+        min-height: 34px;
+        font-size: 0.72rem;
+    }
+
+    body[data-page="seller-dashboard"] .seller-returns-table {
+        font-size: 0.72rem;
+    }
+
+    body[data-page="seller-dashboard"] .seller-returns-table th,
+    body[data-page="seller-dashboard"] .seller-returns-table tbody td {
+        padding: 7px 6px;
+    }
+
+    body[data-page="seller-dashboard"] .seller-returns-filler {
+        min-height: 124px;
+    }
+
+    body[data-page="seller-dashboard"].seller-mode-returns #sellerAddProductButton,
+    body[data-page="seller-dashboard"].seller-mode-returns [data-seller-mode="delete"],
+    body[data-page="seller-dashboard"].seller-mode-returns #sellerLogoutButton {
+        display: none;
+    }
+
+    body[data-page="seller-dashboard"] .seller-dialog {
+        width: min(420px, calc(100vw - 24px));
+        padding: 12px 10px 14px;
+    }
+
+    body[data-page="seller-dashboard"] .seller-dialog-form {
+        grid-template-columns: 1fr;
+    }
+
+    body[data-page="seller-dashboard"] .seller-upload-tools,
+    body[data-page="seller-dashboard"] .seller-upload-placeholder,
+    body[data-page="seller-dashboard"] .seller-dialog-form input[name="name"],
+    body[data-page="seller-dashboard"] .seller-dialog-form input[name="category"],
+    body[data-page="seller-dashboard"] .seller-dialog-form input[name="owner"],
+    body[data-page="seller-dashboard"] .seller-dialog-form textarea[name="description"],
+    body[data-page="seller-dashboard"] .seller-dialog-actions {
+        grid-column: auto;
+        grid-row: auto;
+    }
+}
+
+/* Auth pages */
+body[data-page="auth-login"] .auth-main,
+body[data-page="auth-register"] .auth-main,
+body[data-page="auth-seller-register"] .auth-main {
+    flex: 1;
+    padding: 22px 0 34px;
+}
+
+.auth-layout {
+    width: min(980px, 100%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(280px, 380px) minmax(0, 1fr);
+    gap: 20px;
+    align-items: stretch;
+}
+
+.auth-layout.auth-layout-wide {
+    width: min(1060px, 100%);
+    grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+}
+
+.auth-info-panel,
+.auth-form-panel {
+    border-radius: 14px;
+    background: #ece8db;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+}
+
+.auth-info-panel {
+    padding: 20px 20px 24px;
+    display: grid;
+    align-content: start;
+    gap: 12px;
+}
+
+.auth-kicker {
+    color: #8a839f;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.auth-info-panel h1 {
+    font-size: clamp(1.3rem, 2.3vw, 1.95rem);
+    line-height: 1.15;
+}
+
+.auth-info-panel p {
+    color: #756f89;
+    font-size: 0.93rem;
+    line-height: 1.45;
+}
+
+.auth-info-links {
+    display: grid;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.auth-info-links a {
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-size: 0.85rem;
+}
+
+.auth-form-panel {
+    padding: 20px;
+    display: grid;
+    gap: 14px;
+}
+
+.auth-form-panel h2 {
+    font-size: clamp(1.1rem, 1.8vw, 1.42rem);
+    line-height: 1.2;
+}
+
+.auth-form {
+    display: grid;
+    gap: 10px;
+}
+
+.auth-form.auth-grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 12px;
+}
+
+.auth-form label {
+    font-size: 0.85rem;
+    color: #726b87;
+}
+
+.auth-form input,
+.auth-form select {
+    min-height: 42px;
+    border: 1px solid rgba(71, 64, 127, 0.22);
+    border-radius: 8px;
+    padding: 8px 10px;
+    font: inherit;
+    font-size: 0.92rem;
+    color: var(--text);
+    background: #f6f4ea;
+    outline: none;
+}
+
+.auth-form input:focus,
+.auth-form select:focus {
+    border-color: rgba(71, 64, 127, 0.52);
+}
+
+.auth-inline-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #6f6784;
+    font-size: 0.83rem;
+}
+
+.auth-inline-check input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--footer);
+}
+
+.auth-inline-check a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.auth-submit {
+    margin-top: 2px;
+    min-height: 42px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--footer);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 10px 18px rgba(71, 64, 127, 0.18);
+}
+
+.auth-submit:hover,
+.auth-submit:focus-visible {
+    background: #57508f;
+}
+
+.auth-full-row {
+    grid-column: 1 / -1;
+}
+
+@media (max-width: 940px) {
+    .auth-layout,
+    .auth-layout.auth-layout-wide {
+        width: min(760px, 100%);
+        grid-template-columns: 1fr;
+    }
+
+    .auth-info-panel h1 {
+        font-size: clamp(1.16rem, 3.6vw, 1.5rem);
+    }
+}
+
+@media (max-width: 760px) {
+    body[data-page="auth-login"] .auth-main,
+    body[data-page="auth-register"] .auth-main,
+    body[data-page="auth-seller-register"] .auth-main {
+        padding: 18px 0 24px;
+    }
+
+    .auth-info-panel,
+    .auth-form-panel {
+        padding: 16px 14px;
+        border-radius: 12px;
+    }
+
+    .auth-form.auth-grid-2 {
+        grid-template-columns: 1fr;
+        column-gap: 0;
+    }
+
+    .auth-form label {
+        font-size: 0.82rem;
+    }
+
+    .auth-submit {
+        width: 100%;
+    }
+}
+
+/* Auth pages - Figma style */
+body[data-page="auth-login"] .auth-figma-main,
+body[data-page="auth-register"] .auth-figma-main {
+    flex: 1;
+    padding: 34px 0 40px;
+}
+
+.auth-figma-layout {
+    width: min(780px, 100%);
+    margin: 0 auto;
+    display: grid;
+    justify-items: center;
+    gap: 18px;
+}
+
+.auth-figma-panel {
+    width: min(420px, 100%);
+    min-height: 260px;
+    border-radius: 10px;
+    background: #e6e4db;
+    padding: 30px 22px 20px;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 14px;
+}
+
+.auth-figma-avatar-label {
+    font-size: 0.74rem;
+    color: #24233f;
+    margin-bottom: 10px;
+}
+
+.auth-figma-form {
+    width: min(210px, 100%);
+    display: grid;
+    gap: 10px;
+}
+
+.auth-figma-form input[type="email"],
+.auth-figma-form input[type="password"] {
+    min-height: 34px;
+    border: 0;
+    border-radius: 7px;
+    padding: 8px 10px;
+    background: #f3f2ee;
+    color: #5d5b65;
+    font: inherit;
+    font-size: 0.92rem;
+}
+
+.auth-figma-form input[type="email"]::placeholder,
+.auth-figma-form input[type="password"]::placeholder {
+    color: #9f9c9a;
+}
+
+.auth-figma-actions {
+    width: min(420px, 100%);
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+}
+
+.auth-figma-button {
+    min-width: 142px;
+    min-height: 38px;
+    border: 0;
+    border-radius: 999px;
+    padding: 0 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #3f3a78;
+    color: #fff;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.auth-figma-button:hover,
+.auth-figma-button:focus-visible {
+    background: #312c63;
+}
+
+.auth-figma-register-layout {
+    width: min(900px, 100%);
+    grid-template-columns: minmax(260px, 1fr) auto;
+    gap: 18px 28px;
+    align-items: center;
+    justify-items: start;
+}
+
+.auth-figma-register-panel {
+    min-height: 310px;
+    width: 100%;
+    max-width: 430px;
+    justify-self: end;
+}
+
+.auth-figma-role-stack {
+    display: grid;
+    gap: 10px;
+}
+
+.auth-role-card {
+    width: 116px;
+    min-height: 142px;
+    border: 0;
+    border-radius: 14px;
+    background: #6f67cf;
+    color: #fff;
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    gap: 6px;
+    padding: 8px 8px 10px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+}
+
+.auth-role-card.is-active {
+    box-shadow: inset 0 0 0 4px #3f3a78;
+}
+
+.auth-role-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 1.35rem;
+    font-weight: 700;
+    background: radial-gradient(circle at 35% 25%, #f9d3b8 0, #f1c19e 45%, #deaf8c 100%);
+    color: #2f2a5f;
+}
+
+.auth-role-card strong {
+    font-size: 0.85rem;
+}
+
+.auth-role-card small {
+    font-size: 0.56rem;
+    opacity: 0.96;
+}
+
+.auth-figma-register-actions {
+    grid-column: 1 / span 2;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 430px;
+    justify-self: center;
+    padding-left: 34px;
+}
+
+.auth-figma-register-actions .auth-figma-button {
+    min-width: 146px;
+}
+
+@media (max-width: 860px) {
+    .auth-figma-layout {
+        width: min(620px, 100%);
+    }
+
+    .auth-figma-register-layout {
+        width: min(760px, 100%);
+        grid-template-columns: minmax(230px, 1fr) auto;
+        justify-items: stretch;
+    }
+}
+
+@media (max-width: 640px) {
+    body[data-page="auth-login"] .auth-figma-main,
+    body[data-page="auth-register"] .auth-figma-main {
+        padding: 22px 0 24px;
+    }
+
+    .auth-figma-panel {
+        min-height: 156px;
+        width: min(220px, 100%);
+        padding: 22px 14px 14px;
+    }
+
+    .auth-figma-form {
+        width: 100%;
+    }
+
+    .auth-figma-actions {
+        width: min(260px, 100%);
+        gap: 12px;
+    }
+
+    .auth-figma-button {
+        min-width: 108px;
+        min-height: 32px;
+        font-size: 0.7rem;
+    }
+
+    .auth-figma-register-layout {
+        width: min(320px, 100%);
+        grid-template-columns: minmax(160px, 1fr) 96px;
+        gap: 10px;
+    }
+
+    .auth-figma-register-panel {
+        max-width: none;
+        min-height: 190px;
+    }
+
+    .auth-figma-register-panel .auth-figma-form input[type="email"],
+    .auth-figma-register-panel .auth-figma-form input[type="password"] {
+        min-height: 30px;
+        font-size: 0.8rem;
+    }
+
+    .auth-role-card {
+        width: 92px;
+        min-height: 112px;
+        border-radius: 10px;
+        padding: 8px 6px;
+    }
+
+    .auth-role-avatar {
+        width: 50px;
+        height: 50px;
+        font-size: 1rem;
+    }
+
+    .auth-role-card strong {
+        font-size: 0.7rem;
+    }
+
+    .auth-role-card small {
+        font-size: 0.48rem;
+    }
+
+    .auth-figma-register-actions {
+        grid-column: 1;
+        padding-left: 0;
+        justify-self: start;
+    }
+}
+
+/* Login page - bamboo variant */
+body[data-page="auth-login"] .login-figma-main {
+    padding: 40px 0 42px;
+}
+
+body[data-page="auth-login"] .login-figma-layout {
+    width: min(840px, 100%);
+    gap: 22px;
+}
+
+body[data-page="auth-login"] .login-figma-panel {
+    width: min(540px, 100%);
+    min-height: 298px;
+    border-radius: 12px;
+    background: #dfddd3;
+    padding: 26px 20px 24px;
+}
+
+body[data-page="auth-login"] .login-figma-form {
+    width: min(286px, 100%);
+    gap: 14px;
+}
+
+body[data-page="auth-login"] .login-bamboo-image {
+    width: 132px;
+    height: 76px;
+    object-fit: contain;
+    justify-self: center;
+    user-select: none;
+    pointer-events: none;
+    margin-bottom: 4px;
+}
+
+body[data-page="auth-login"] .login-figma-form input[type="email"],
+body[data-page="auth-login"] .login-password-row input[type="password"],
+body[data-page="auth-login"] .login-password-row input[type="text"] {
+    min-height: 36px;
+    border: 0;
+    border-radius: 8px;
+    background: #f2f1ec;
+    color: #8f8d87;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 9px 12px;
+}
+
+body[data-page="auth-login"] .login-password-row {
+    position: relative;
+    width: 100%;
+}
+
+body[data-page="auth-login"] .login-password-row input[type="password"],
+body[data-page="auth-login"] .login-password-row input[type="text"] {
+    width: 100%;
+    padding-right: 42px;
+}
+
+body[data-page="auth-login"] .login-password-toggle {
+    position: absolute;
+    right: 9px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: #2f2a5f;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body[data-page="auth-login"] .login-password-toggle svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+body[data-page="auth-login"] .login-password-toggle:focus-visible {
+    outline: 2px solid #3f3a78;
+    outline-offset: 2px;
+}
+
+body[data-page="auth-login"] .login-figma-actions {
+    width: min(540px, 100%);
+    gap: 34px;
+}
+
+body[data-page="auth-login"] .login-figma-actions .auth-figma-button {
+    min-width: 164px;
+    min-height: 38px;
+    font-size: 0.93rem;
+}
+
+@media (max-width: 640px) {
+    body[data-page="auth-login"] .login-figma-main {
+        padding: 22px 0 24px;
+    }
+
+    body[data-page="auth-login"] .login-figma-layout {
+        width: min(330px, 100%);
+        gap: 14px;
+    }
+
+    body[data-page="auth-login"] .login-figma-panel {
+        width: 100%;
+        min-height: 176px;
+        padding: 12px 10px 14px;
+        border-radius: 10px;
+    }
+
+    body[data-page="auth-login"] .login-figma-form {
+        width: min(170px, 100%);
+        gap: 8px;
+    }
+
+    body[data-page="auth-login"] .login-bamboo-image {
+        width: 100px;
+        height: 58px;
+        margin-bottom: 2px;
+    }
+
+    body[data-page="auth-login"] .login-figma-form input[type="email"],
+    body[data-page="auth-login"] .login-password-row input[type="password"],
+    body[data-page="auth-login"] .login-password-row input[type="text"] {
+        min-height: 34px;
+        font-size: 0.83rem;
+        padding: 8px 10px;
+    }
+
+    body[data-page="auth-login"] .login-password-row input[type="password"],
+    body[data-page="auth-login"] .login-password-row input[type="text"] {
+        padding-right: 34px;
+    }
+
+    body[data-page="auth-login"] .login-password-toggle {
+        right: 7px;
+        width: 18px;
+        height: 18px;
+    }
+
+    body[data-page="auth-login"] .login-password-toggle svg {
+        width: 16px;
+        height: 16px;
+        stroke-width: 2.2;
+    }
+
+    body[data-page="auth-login"] .login-figma-actions {
+        width: min(260px, 100%);
+        gap: 16px;
+    }
+
+    body[data-page="auth-login"] .login-figma-actions .auth-figma-button {
+        min-width: 108px;
+        min-height: 34px;
+        font-size: 0.72rem;
+    }
+}
+
+/* Register pages - figma remake */
+body[data-page="auth-register"] .register-v2-main,
+body[data-page="auth-seller-register"] .register-v2-main {
+    padding: 26px 0 30px;
+}
+
+body[data-page="auth-register"] .register-v2-layout,
+body[data-page="auth-seller-register"] .register-v2-layout {
+    width: min(920px, 100%);
+    grid-template-columns: minmax(260px, 1fr) auto;
+    gap: 16px 22px;
+    align-items: center;
+}
+
+body[data-page="auth-register"] .register-v2-panel,
+body[data-page="auth-seller-register"] .register-v2-panel {
+    max-width: 420px;
+    min-height: 228px;
+    padding: 16px 14px;
+    background: #dfddd3;
+    border-radius: 12px;
+}
+
+body[data-page="auth-register"] .register-v2-form,
+body[data-page="auth-seller-register"] .register-v2-form {
+    width: min(250px, 100%);
+    gap: 10px;
+}
+
+body[data-page="auth-register"] .register-v2-form input[type="email"],
+body[data-page="auth-register"] .register-v2-form input[type="password"],
+body[data-page="auth-seller-register"] .register-v2-form input[type="text"],
+body[data-page="auth-seller-register"] .register-v2-form input[type="email"],
+body[data-page="auth-seller-register"] .register-v2-form input[type="password"],
+body[data-page="auth-seller-register"] .register-v2-form input[type="tel"] {
+    min-height: 34px;
+    border: 0;
+    border-radius: 8px;
+    background: #f2f1ec;
+    color: #8f8d87;
+    font-size: 0.95rem;
+    padding: 8px 12px;
+}
+
+body[data-page="auth-seller-register"] .register-v2-panel-seller {
+    min-height: 302px;
+}
+
+body[data-page="auth-seller-register"] .register-v2-form-seller {
+    width: min(252px, 100%);
+}
+
+body[data-page="auth-seller-register"] .register-v2-phone-row {
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    gap: 6px;
+}
+
+body[data-page="auth-seller-register"] #sellerPhonePrefix {
+    text-align: center;
+    font-weight: 700;
+    color: #3f3a78;
+    padding: 0;
+}
+
+body[data-page="auth-register"] .register-v2-role-stack,
+body[data-page="auth-seller-register"] .register-v2-role-stack {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 14px;
+}
+
+body[data-page="auth-register"] .register-v2-role-stack .auth-role-card,
+body[data-page="auth-seller-register"] .register-v2-role-stack .auth-role-card {
+    width: 118px;
+    min-height: 168px;
+    background: #6764ca;
+    border-radius: 18px;
+    padding: 6px 8px 10px;
+    gap: 6px;
+}
+
+body[data-page="auth-register"] .register-v2-role-stack .auth-role-card.is-active,
+body[data-page="auth-seller-register"] .register-v2-role-stack .auth-role-card.is-active {
+    box-shadow: inset 0 0 0 5px #3f3a78;
+}
+
+.auth-role-avatar-seller,
+.auth-role-avatar-customer {
+    position: relative;
+    width: 98px;
+    height: 98px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+.auth-role-avatar-seller {
+    background: radial-gradient(circle at 35% 30%, #ffe3c1 0, #f6bd8f 34%, #8f8ad8 35%, #7a76ca 100%);
+}
+
+.auth-role-avatar-customer {
+    background: radial-gradient(circle at 35% 30%, #ffe6c8 0, #f5c89f 34%, #8086df 35%, #6e73d2 100%);
+}
+
+.auth-role-avatar-seller::before,
+.auth-role-avatar-customer::before {
+    content: '🙂';
+    font-size: 44px;
+    line-height: 1;
+    transform: translateY(-2px);
+}
+
+body[data-page="auth-register"] .register-v2-role-stack .auth-role-card strong,
+body[data-page="auth-seller-register"] .register-v2-role-stack .auth-role-card strong {
+    font-size: 0.96rem;
+}
+
+body[data-page="auth-register"] .register-v2-role-stack .auth-role-card small,
+body[data-page="auth-seller-register"] .register-v2-role-stack .auth-role-card small {
+    font-size: 0.66rem;
+}
+
+body[data-page="auth-register"] .register-v2-actions,
+body[data-page="auth-seller-register"] .register-v2-actions {
+    max-width: 420px;
+    justify-self: start;
+    padding-left: 36px;
+}
+
+body[data-page="auth-register"] .register-v2-actions .auth-figma-button,
+body[data-page="auth-seller-register"] .register-v2-actions .auth-figma-button {
+    min-width: 148px;
+    min-height: 40px;
+    font-size: 0.96rem;
+}
+
+@media (max-width: 640px) {
+    body[data-page="auth-register"] .register-v2-main,
+    body[data-page="auth-seller-register"] .register-v2-main {
+        padding: 20px 0 24px;
+    }
+
+    body[data-page="auth-register"] .register-v2-layout,
+    body[data-page="auth-seller-register"] .register-v2-layout {
+        width: min(340px, 100%);
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 10px;
+        align-items: start;
+    }
+
+    body[data-page="auth-register"] .register-v2-panel,
+    body[data-page="auth-seller-register"] .register-v2-panel {
+        max-width: 170px;
+        min-height: 162px;
+        padding: 10px 8px;
+        border-radius: 10px;
+    }
+
+    body[data-page="auth-register"] .register-v2-panel-seller,
+    body[data-page="auth-seller-register"] .register-v2-panel-seller {
+        min-height: 280px;
+    }
+
+    body[data-page="auth-register"] .register-v2-form,
+    body[data-page="auth-seller-register"] .register-v2-form {
+        width: 100%;
+        gap: 8px;
+    }
+
+    body[data-page="auth-register"] .register-v2-form input[type="email"],
+    body[data-page="auth-register"] .register-v2-form input[type="password"],
+    body[data-page="auth-seller-register"] .register-v2-form input[type="text"],
+    body[data-page="auth-seller-register"] .register-v2-form input[type="email"],
+    body[data-page="auth-seller-register"] .register-v2-form input[type="password"],
+    body[data-page="auth-seller-register"] .register-v2-form input[type="tel"] {
+        min-height: 30px;
+        font-size: 0.8rem;
+        padding: 7px 10px;
+    }
+
+    body[data-page="auth-seller-register"] .register-v2-phone-row {
+        grid-template-columns: 30px 1fr;
+        gap: 4px;
+    }
+
+    body[data-page="auth-register"] .register-v2-role-stack,
+    body[data-page="auth-seller-register"] .register-v2-role-stack {
+        grid-auto-flow: row;
+        gap: 4px;
+    }
+
+    body[data-page="auth-register"] .register-v2-role-stack .auth-role-card,
+    body[data-page="auth-seller-register"] .register-v2-role-stack .auth-role-card {
+        width: 102px;
+        min-height: 118px;
+        border-radius: 14px;
+        padding: 4px 6px 8px;
+    }
+
+    body[data-page="auth-register"] .register-v2-role-stack .auth-role-card .auth-role-avatar,
+    body[data-page="auth-seller-register"] .register-v2-role-stack .auth-role-card .auth-role-avatar {
+        width: 70px;
+        height: 70px;
+    }
+
+    body[data-page="auth-register"] .register-v2-role-stack .auth-role-card strong,
+    body[data-page="auth-seller-register"] .register-v2-role-stack .auth-role-card strong {
+        font-size: 0.78rem;
+    }
+
+    body[data-page="auth-register"] .register-v2-role-stack .auth-role-card small,
+    body[data-page="auth-seller-register"] .register-v2-role-stack .auth-role-card small {
+        font-size: 0.52rem;
+    }
+
+    body[data-page="auth-register"] .register-v2-role-stack .auth-role-card:not(.is-active),
+    body[data-page="auth-seller-register"] .register-v2-role-stack .auth-role-card:not(.is-active) {
+        min-height: 24px;
+        border-radius: 7px;
+        gap: 2px;
+        padding: 2px 6px 4px;
+    }
+
+    body[data-page="auth-register"] .register-v2-role-stack .auth-role-card:not(.is-active) .auth-role-avatar,
+    body[data-page="auth-seller-register"] .register-v2-role-stack .auth-role-card:not(.is-active) .auth-role-avatar {
+        display: none;
+    }
+
+    body[data-page="auth-register"] .register-v2-role-stack .auth-role-card:not(.is-active) strong,
+    body[data-page="auth-seller-register"] .register-v2-role-stack .auth-role-card:not(.is-active) strong {
+        font-size: 0.6rem;
+        line-height: 1;
+    }
+
+    body[data-page="auth-register"] .register-v2-role-stack .auth-role-card:not(.is-active) small,
+    body[data-page="auth-seller-register"] .register-v2-role-stack .auth-role-card:not(.is-active) small {
+        font-size: 0.42rem;
+        line-height: 1;
+    }
+
+    body[data-page="auth-register"] .register-v2-actions,
+    body[data-page="auth-seller-register"] .register-v2-actions {
+        grid-column: 1;
+        justify-self: start;
+        padding-left: 0;
+        margin-top: 2px;
+    }
+
+    body[data-page="auth-register"] .register-v2-actions .auth-figma-button,
+    body[data-page="auth-seller-register"] .register-v2-actions .auth-figma-button {
+        min-width: 86px;
+        min-height: 32px;
+        font-size: 0.66rem;
+    }
+}
+
+/* Profile orders redesign */
+body[data-page="profile"] .profile-orders-v2-main {
+    flex: 1;
+    padding: 18px 0 34px;
+}
+
+body[data-page="profile"] .profile-orders-v2-layout {
+    display: grid;
+    grid-template-columns: 156px minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+}
+
+body[data-page="profile"] .profile-orders-v2-sidebar {
+    display: grid;
+    gap: 4px;
+}
+
+body[data-page="profile"] .profile-orders-v2-title,
+body[data-page="profile"] .profile-orders-v2-filter {
+    min-height: 38px;
+    border: 0;
+    border-radius: 0;
+    text-align: center;
+    padding: 8px 10px;
+    font-size: 1.02rem;
+    line-height: 1.1;
+}
+
+body[data-page="profile"] .profile-orders-v2-title {
+    background: #3f3a78;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 10px 10px 0 0;
+}
+
+body[data-page="profile"] .profile-orders-v2-filter {
+    background: #e5e3d9;
+    color: #3f3a78;
+    font-weight: 600;
+}
+
+body[data-page="profile"] .profile-orders-v2-filter.is-active,
+body[data-page="profile"] .profile-orders-v2-filter:hover {
+    background: #3f3a78;
+    color: #fff;
+}
+
+body[data-page="profile"] .profile-orders-v2-stage {
+    position: relative;
+    min-height: 520px;
+}
+
+body[data-page="profile"] .profile-orders-v2-mobile-bar {
+    display: none;
+}
+
+body[data-page="profile"] .profile-orders-v2-view {
+    display: none;
+}
+
+body[data-page="profile"] .profile-orders-v2-view.is-active {
+    display: grid;
+    gap: 18px;
+}
+
+body[data-page="profile"] .profile-orders-v2-empty {
+    width: 100%;
+    min-height: 230px;
+    border-radius: 10px;
+    background: #dfddd3;
+    display: grid;
+    place-content: start center;
+    padding: 22px;
+    text-align: center;
+}
+
+body[data-page="profile"] .profile-orders-v2-empty p {
+    color: #3f3a78;
+    font-size: 2rem;
+    margin: 0;
+}
+
+body[data-page="profile"] .profile-orders-v2-empty strong {
+    color: #3f3a78;
+    font-size: 2.85rem;
+    font-weight: 500;
+}
+
+body[data-page="profile"] .profile-orders-v2-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 18px;
+}
+
+body[data-page="profile"] .profile-orders-v2-card {
+    border-radius: 12px;
+    background: #dfddd3;
+    padding: 12px 14px;
+    display: grid;
+    gap: 10px;
+}
+
+body[data-page="profile"] .profile-orders-v2-card-head,
+body[data-page="profile"] .profile-orders-v2-card-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+}
+
+body[data-page="profile"] .profile-orders-v2-card-head span,
+body[data-page="profile"] .profile-orders-v2-card-total span {
+    color: #3f3a78;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+body[data-page="profile"] .profile-orders-v2-card-head strong,
+body[data-page="profile"] .profile-orders-v2-card-total strong {
+    color: #7a7780;
+    font-size: 0.86rem;
+    font-weight: 500;
+}
+
+body[data-page="profile"] .profile-orders-v2-card-products {
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+}
+
+body[data-page="profile"] .profile-orders-v2-card-products img:first-child {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+body[data-page="profile"] .profile-orders-v2-card-products img:last-child {
+    width: 22px;
+    height: 58px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+body[data-page="profile"] .profile-orders-v2-card-qty {
+    display: flex;
+    gap: 10px;
+}
+
+body[data-page="profile"] .profile-orders-v2-card-qty span {
+    min-width: 52px;
+    height: 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.92);
+    color: #3f3a78;
+    font-size: 0.82rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+}
+
+body[data-page="profile"] .profile-orders-v2-card-total {
+    border-top: 7px solid rgba(255, 255, 255, 0.92);
+    padding-top: 12px;
+}
+
+body[data-page="profile"] .profile-orders-v2-pagination {
+    margin-top: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    color: #9a9790;
+}
+
+body[data-page="profile"] .profile-orders-v2-pagination button,
+body[data-page="profile"] .profile-orders-v2-pagination span {
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font-size: 1rem;
+    font: inherit;
+    padding: 0;
+}
+
+body[data-page="profile"] .profile-orders-v2-pagination button.is-active {
+    color: #3f3a78;
+    font-weight: 700;
+}
+
+body[data-page="profile"] .profile-orders-v2-cta {
+    width: min(100%, 232px);
+    min-height: 32px;
+    border: 0;
+    border-radius: 8px;
+    background: #3f3a78;
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    justify-self: start;
+}
+
+body[data-page="profile"] .profile-orders-v2-review-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 280px;
+    gap: 18px;
+    align-items: start;
+}
+
+body[data-page="profile"] .profile-orders-v2-review-orders {
+    display: grid;
+    gap: 14px;
+}
+
+body[data-page="profile"] .profile-orders-v2-review-panel {
+    border-radius: 12px;
+    background: #7e7ba7;
+    box-shadow: 0 8px 16px rgba(49, 43, 99, 0.28);
+    padding: 14px;
+    display: grid;
+    gap: 8px;
+}
+
+body[data-page="profile"] .profile-orders-v2-review-panel .order-review-label,
+body[data-page="profile"] .profile-orders-v2-review-panel .order-review-score {
+    color: #fff;
+    font-size: 1.02rem;
+}
+
+body[data-page="profile"] .profile-orders-v2-review-panel .order-review-stars {
+    display: flex;
+    gap: 8px;
+}
+
+body[data-page="profile"] .profile-orders-v2-review-panel .order-star {
+    border: 0;
+    background: transparent;
+    color: #f2d23f;
+    font-size: 1.5rem;
+    line-height: 1;
+    opacity: 0.55;
+    padding: 0;
+}
+
+body[data-page="profile"] .profile-orders-v2-review-panel .order-star.is-active {
+    opacity: 1;
+}
+
+body[data-page="profile"] .profile-orders-v2-review-panel textarea {
+    width: 100%;
+    min-height: 72px;
+    border: 0;
+    border-radius: 4px;
+    padding: 8px 10px;
+    font: inherit;
+    font-size: 0.94rem;
+    color: #3f3a78;
+}
+
+body[data-page="profile"] .profile-orders-v2-review-panel .order-review-submit {
+    justify-self: center;
+    width: 104px;
+    min-height: 30px;
+    border: 0;
+    border-radius: 9px;
+    background: #3f3a78;
+    color: #fff;
+    font-size: 0.94rem;
+    font-weight: 700;
+}
+
+@media (max-width: 900px) {
+    body[data-page="profile"] .profile-orders-v2-layout {
+        grid-template-columns: 130px minmax(0, 1fr);
+        gap: 14px;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-title,
+    body[data-page="profile"] .profile-orders-v2-filter {
+        font-size: 0.92rem;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-card-head span,
+    body[data-page="profile"] .profile-orders-v2-card-total span {
+        font-size: 0.98rem;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-card-head strong,
+    body[data-page="profile"] .profile-orders-v2-card-total strong {
+        font-size: 0.8rem;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-review-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 760px) {
+    body[data-page="profile"] .profile-orders-v2-main {
+        padding: 10px 0 18px;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-layout {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-sidebar {
+        display: none;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-mobile-bar {
+        display: block;
+        position: relative;
+        margin-bottom: 8px;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-mobile-toggle {
+        min-height: 30px;
+        border: 0;
+        border-radius: 12px;
+        background: #3f3a78;
+        color: #fff;
+        padding: 0 12px 0 8px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.98rem;
+        font-weight: 700;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-mobile-toggle svg {
+        width: 24px;
+        height: 24px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.6;
+        background: #fff;
+        border-radius: 6px;
+        color: #3f3a78;
+        padding: 2px;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-mobile-panel {
+        position: absolute;
+        left: 0;
+        top: calc(100% + 8px);
+        width: min(276px, calc(100vw - 32px));
+        border-radius: 14px;
+        background: rgba(105, 102, 152, 0.92);
+        box-shadow: 0 8px 16px rgba(49, 43, 99, 0.35);
+        padding: 12px 14px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        z-index: 25;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-mobile-panel-title {
+        grid-column: 1 / -1;
+        margin: 0;
+        color: #fff;
+        font-size: 1rem;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-mobile-option {
+        min-height: 24px;
+        border: 0;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.16);
+        color: #fff;
+        font-size: 0.85rem;
+        text-align: left;
+        padding: 4px 8px;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-mobile-option.is-active {
+        background: rgba(255, 255, 255, 0.32);
+        font-weight: 700;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-view.is-active {
+        gap: 12px;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-card {
+        width: min(100%, 232px);
+        justify-self: center;
+        border-radius: 10px;
+        padding: 8px 10px;
+        gap: 7px;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-card-head span,
+    body[data-page="profile"] .profile-orders-v2-card-total span {
+        font-size: 0.92rem;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-card-head strong,
+    body[data-page="profile"] .profile-orders-v2-card-total strong {
+        font-size: 0.72rem;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-card-products {
+        gap: 12px;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-card-products img:first-child {
+        width: 48px;
+        height: 48px;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-card-products img:last-child {
+        width: 18px;
+        height: 47px;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-card-total {
+        border-top-width: 6px;
+        padding-top: 8px;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-card-qty span {
+        min-width: 42px;
+        height: 14px;
+        font-size: 0.72rem;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-pagination {
+        display: none;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-cta {
+        width: min(100%, 232px);
+        min-height: 30px;
+        justify-self: center;
+        border-radius: 8px;
+        font-size: 0.96rem;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-empty {
+        min-height: 180px;
+        width: min(100%, 280px);
+        justify-self: center;
+        place-content: center;
+        padding: 16px 12px;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-empty p {
+        font-size: 1.16rem;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-empty strong {
+        font-size: 2.15rem;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-review-layout {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-review-orders {
+        gap: 10px;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-review-panel {
+        width: min(100%, 276px);
+        justify-self: center;
+        border-radius: 12px;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-review-panel .order-review-label,
+    body[data-page="profile"] .profile-orders-v2-review-panel .order-review-score {
+        font-size: 0.95rem;
+    }
+
+    body[data-page="profile"] .profile-orders-v2-review-panel textarea {
+        font-size: 0.9rem;
+        min-height: 74px;
+    }
+}
+
+/* Seller page - restore desktop scale */
+@media (min-width: 761px) {
+    body[data-page="seller-dashboard"] .seller-dashboard-layout {
+        grid-template-columns: 220px minmax(0, 1fr);
+        gap: 24px;
+        align-items: start;
+    }
+
+    body[data-page="seller-dashboard"] .seller-dashboard-tools {
+        gap: 10px;
+    }
+
+    body[data-page="seller-dashboard"] .seller-tool-button {
+        min-height: 40px;
+        border-radius: 10px;
+        padding: 8px 14px;
+        font-size: 0.96rem;
+        line-height: 1.15;
+    }
+
+    body[data-page="seller-dashboard"] .seller-dashboard-head {
+        display: grid;
+    }
+
+    body[data-page="seller-dashboard"] .seller-dashboard-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 16px;
+    }
+
+    body[data-page="seller-dashboard"] .seller-dashboard-card {
+        border-radius: 12px;
+        padding: 12px;
+        gap: 9px;
+    }
+
+    body[data-page="seller-dashboard"] .seller-dashboard-card h2 {
+        font-size: 1.25rem;
+        line-height: 1.2;
+    }
+
+    body[data-page="seller-dashboard"] .seller-dashboard-card .seller-name {
+        font-size: 0.86rem;
+    }
+
+    body[data-page="seller-dashboard"] .seller-dashboard-meta {
+        font-size: 1.2rem;
+    }
+
+    body[data-page="seller-dashboard"] .seller-dashboard-meta span {
+        font-size: 0.86rem;
+    }
+
+    body[data-page="seller-dashboard"] .seller-dashboard-edit,
+    body[data-page="seller-dashboard"] .seller-dashboard-cart {
+        min-height: 34px;
+        font-size: 0.95rem;
+    }
+
+    body[data-page="seller-dashboard"] .seller-dialog {
+        width: min(760px, calc(100vw - 32px));
+        padding: 22px 22px 20px;
+        border-radius: 14px;
+    }
+
+    body[data-page="seller-dashboard"] .seller-dialog-close {
+        top: 10px;
+        right: 12px;
+        width: 54px;
+        height: 54px;
+        border-radius: 10px;
+        font-size: 48px;
+        background: #fff;
+        color: #000;
+        line-height: 1;
+    }
+
+    body[data-page="seller-dashboard"] .seller-dialog-form {
+        grid-template-columns: 180px minmax(0, 1fr) minmax(0, 1fr);
+        gap: 12px 14px;
+    }
+
+    body[data-page="seller-dashboard"] .seller-upload-tools {
+        gap: 10px;
+    }
+
+    body[data-page="seller-dashboard"] .seller-upload-tool {
+        width: 48px;
+        height: 36px;
+    }
+
+    body[data-page="seller-dashboard"] .seller-upload-placeholder {
+        min-height: 160px;
+    }
+
+    body[data-page="seller-dashboard"] .seller-dialog-form input,
+    body[data-page="seller-dashboard"] .seller-dialog-form textarea {
+        font-size: 0.95rem;
+        padding: 10px 12px;
+    }
+
+    body[data-page="seller-dashboard"] .seller-dialog-form textarea[name="description"] {
+        min-height: 160px;
+    }
+
+    body[data-page="seller-dashboard"] .seller-dialog-actions button {
+        min-width: 108px;
+        min-height: 40px;
+        font-size: 1.05rem;
+        font-weight: 700;
+    }
+}

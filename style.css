@@ -207,6 +207,20 @@ img {
     line-height: 1;
 }
 
+.seller-profile-link {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.seller-profile-link:hover {
+    color: #3B376C;
+}
+
+.seller-card.is-clickable {
+    cursor: pointer;
+}
+
 .mobile-menu-btn {
     display: none !important;
     background: none;

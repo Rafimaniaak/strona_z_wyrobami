@@ -1,6 +1,7 @@
 (function () {
     var body = document.body;
     var cartStore = window.cartStore;
+    var SESSION_KEY = 'srp_auth_session_v1';
 
     if (!body) {
         return;
@@ -26,6 +27,9 @@
         { href: 'ulubione.html', terms: 'ulubione zapisane produkty' },
         { href: 'koszyk.html', terms: 'koszyk zamowienie platnosc' },
         { href: 'about.html', terms: 'o nas faq informacje kontakt' },
+        { href: 'logowanie.html', terms: 'logowanie login haslo konto wejdz' },
+        { href: 'rejestracja.html', terms: 'rejestracja konto klient zaloz konto' },
+        { href: 'rejestracja-sprzedawcy.html', terms: 'sprzedawca rejestracja firmy nip panel sprzedawcy' },
         { href: 'profil.html', terms: 'profil konto zamowienia klient' },
         { href: 'regulamin.html', terms: 'regulamin zwroty rodo polityka prywatnosci' },
         { href: 'produkt.html', terms: 'produkt karta produktu dzem z gruszki' }
@@ -53,6 +57,43 @@
         toastTimer = window.setTimeout(function () {
             pageToast.classList.remove('is-visible');
         }, 1800);
+    }
+
+    function readSession() {
+        try {
+            var raw = window.localStorage.getItem(SESSION_KEY);
+            var parsed = raw ? JSON.parse(raw) : null;
+            if (!parsed || typeof parsed !== 'object') {
+                return null;
+            }
+
+            return parsed;
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function setupProfileLinks() {
+        var profileLinks = Array.prototype.slice.call(document.querySelectorAll('a[href^="profil.html"]'));
+        if (profileLinks.length === 0) {
+            return;
+        }
+
+        var session = readSession();
+        var hasSession = Boolean(session && session.email);
+        var isSeller = Boolean(session && session.role === 'seller');
+        var sellerName = session && session.sellerName ? String(session.sellerName).trim() : '';
+        var targetHref = 'logowanie.html';
+
+        if (hasSession && isSeller) {
+            targetHref = 'seller.html?seller=' + encodeURIComponent(sellerName || 'Sprzedawca regionalny');
+        } else if (hasSession) {
+            targetHref = 'profil.html';
+        }
+
+        profileLinks.forEach(function (link) {
+            link.setAttribute('href', targetHref);
+        });
     }
 
     function syncCartCounters() {
@@ -160,5 +201,6 @@
         syncCartCounters: syncCartCounters
     };
 
+    setupProfileLinks();
     syncCartCounters();
 })();

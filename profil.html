@@ -41,106 +41,237 @@
         </div>
     </header>
 
-    <main class="profile-main customer-orders-main">
-        <div class="container customer-orders-layout">
-            <aside class="orders-side-nav" aria-label="Filtry zam&oacute;wie&#324;">
-                <div class="orders-side-title">Moje zam&oacute;wienia</div>
-                <button class="orders-filter-button" type="button" data-view="preparing" aria-pressed="false">Przygotowania</button>
-                <button class="orders-filter-button" type="button" data-view="transit" aria-pressed="false">W drodze</button>
-                <button class="orders-filter-button is-active" type="button" data-view="delivered" aria-pressed="true">Dostarczone</button>
-                <button class="orders-filter-button" type="button" data-view="received" aria-pressed="false">Odebrane</button>
-                <button class="orders-filter-button" type="button" data-view="review" aria-pressed="false">Oce&#324;</button>
-                <button class="orders-filter-button" type="button" data-view="return" aria-pressed="false">Zwrot</button>
+    <main class="profile-main profile-orders-v2-main">
+        <div class="container profile-orders-v2-layout">
+            <aside class="profile-orders-v2-sidebar" aria-label="Filtry zam&oacute;wie&#324;">
+                <div class="profile-orders-v2-title">Moje zam&oacute;wienia</div>
+                <button class="profile-orders-v2-filter" type="button" data-view="preparing" aria-pressed="false">W realizacji</button>
+                <button class="profile-orders-v2-filter" type="button" data-view="transit" aria-pressed="false">W drodze</button>
+                <button class="profile-orders-v2-filter is-active" type="button" data-view="delivered" aria-pressed="true">Dostarczone</button>
+                <button class="profile-orders-v2-filter" type="button" data-view="received" aria-pressed="false">Odebrane</button>
+                <button class="profile-orders-v2-filter" type="button" data-view="returns" aria-pressed="false">Zwroty</button>
+                <button class="profile-orders-v2-filter" type="button" id="logoutButton">Wyloguj si&#281;</button>
             </aside>
 
-            <section class="orders-stage" id="orders" aria-label="Widok zam&oacute;wie&#324; klienta">
-                <div class="order-view" data-view="preparing">
-                    <div class="order-empty-state">
-                        <p>Nie masz zam&oacute;wie&#324; z takim statusem</p>
-                        <strong>Przygotowania</strong>
+            <section class="profile-orders-v2-stage" id="orders" aria-label="Widok zam&oacute;wie&#324; klienta">
+                <div class="profile-orders-v2-mobile-bar">
+                    <button id="mobileOrdersToggle" class="profile-orders-v2-mobile-toggle" type="button" aria-expanded="false" aria-controls="mobileOrdersPanel">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M3 6h18M3 12h18M3 18h18"></path>
+                            <circle cx="7" cy="6" r="1.4"></circle>
+                            <circle cx="15" cy="12" r="1.4"></circle>
+                            <circle cx="10" cy="18" r="1.4"></circle>
+                        </svg>
+                        <span id="mobileOrdersLabel">Moje zam&oacute;wienia</span>
+                    </button>
+                    <div id="mobileOrdersPanel" class="profile-orders-v2-mobile-panel" hidden>
+                        <p class="profile-orders-v2-mobile-panel-title">Status</p>
+                        <button class="profile-orders-v2-mobile-option" type="button" data-view="preparing">Przygotowanie</button>
+                        <button class="profile-orders-v2-mobile-option" type="button" data-view="delivered">Dostarczone</button>
+                        <button class="profile-orders-v2-mobile-option" type="button" data-view="transit">W drodze</button>
+                        <button class="profile-orders-v2-mobile-option" type="button" data-view="received">Odebrane</button>
+                        <button class="profile-orders-v2-mobile-option" type="button" data-view="returns">Zwroty</button>
                     </div>
                 </div>
 
-                <div class="order-view" data-view="transit">
-                    <article class="customer-order-card">
-                        <div class="customer-order-card-head">
+                <div class="profile-orders-v2-view" data-view="preparing">
+                    <div class="profile-orders-v2-empty">
+                        <p>Nie masz zam&oacute;wie&#324; ze statusem</p>
+                        <strong>W realizacji</strong>
+                    </div>
+                </div>
+
+                <div class="profile-orders-v2-view" data-view="transit">
+                    <article class="profile-orders-v2-card">
+                        <header class="profile-orders-v2-card-head">
                             <span>W drodze</span>
                             <strong>9 kwietnia 2026</strong>
-                        </div>
-                        <div class="customer-order-card-products">
+                        </header>
+                        <div class="profile-orders-v2-card-products">
                             <img src="images/Oscypek-goralski.jpg" alt="Oscypek g&oacute;ralski">
                             <img src="images/gorzelnia-dlugie-nalewka-wisniowa.png" alt="Nalewka wi&#347;niowa">
-                            <img src="images/miod-test.png" alt="Mi&oacute;d lipowy">
                         </div>
-                        <div class="customer-order-card-total">
+                        <div class="profile-orders-v2-card-qty">
+                            <span>1</span>
+                            <span>2</span>
+                        </div>
+                        <footer class="profile-orders-v2-card-total">
                             <span>Za wszystko</span>
                             <strong>126.00 z&#322;</strong>
-                        </div>
+                        </footer>
                     </article>
                 </div>
 
-                <div class="order-view is-active" data-view="delivered">
-                    <article class="customer-order-card">
-                        <div class="customer-order-card-head">
-                            <span>Dostarczone</span>
-                            <strong>9 kwietnia 2026</strong>
-                        </div>
-                        <div class="customer-order-card-products">
-                            <img src="images/Oscypek-goralski.jpg" alt="Oscypek g&oacute;ralski">
-                            <img src="images/gorzelnia-dlugie-nalewka-wisniowa.png" alt="Nalewka wi&#347;niowa">
-                            <img src="images/miod-test.png" alt="Mi&oacute;d lipowy">
-                        </div>
-                        <div class="customer-order-card-total">
-                            <span>Za wszystko</span>
-                            <strong>126.00 z&#322;</strong>
-                        </div>
-                    </article>
-                </div>
-
-                <div class="order-view" data-view="received">
-                    <div class="customer-order-stage-head">
-                        <button class="orders-stage-action" type="button">Czy masz problemy z zam&oacute;wieniem?</button>
+                <div class="profile-orders-v2-view is-active" data-view="delivered">
+                    <div class="profile-orders-v2-grid">
+                        <article class="profile-orders-v2-card">
+                            <header class="profile-orders-v2-card-head">
+                                <span>Dostarczone</span>
+                                <strong>9 kwietnia 2026</strong>
+                            </header>
+                            <div class="profile-orders-v2-card-products">
+                                <img src="images/Oscypek-goralski.jpg" alt="Oscypek g&oacute;ralski">
+                                <img src="images/gorzelnia-dlugie-nalewka-wisniowa.png" alt="Nalewka wi&#347;niowa">
+                            </div>
+                            <div class="profile-orders-v2-card-qty">
+                                <span>1</span>
+                                <span>2</span>
+                            </div>
+                            <footer class="profile-orders-v2-card-total">
+                                <span>Za wszystko</span>
+                                <strong>126.00 z&#322;</strong>
+                            </footer>
+                        </article>
+                        <article class="profile-orders-v2-card">
+                            <header class="profile-orders-v2-card-head">
+                                <span>Dostarczone</span>
+                                <strong>9 kwietnia 2026</strong>
+                            </header>
+                            <div class="profile-orders-v2-card-products">
+                                <img src="images/Oscypek-goralski.jpg" alt="Oscypek g&oacute;ralski">
+                                <img src="images/gorzelnia-dlugie-nalewka-wisniowa.png" alt="Nalewka wi&#347;niowa">
+                            </div>
+                            <div class="profile-orders-v2-card-qty">
+                                <span>1</span>
+                                <span>2</span>
+                            </div>
+                            <footer class="profile-orders-v2-card-total">
+                                <span>Za wszystko</span>
+                                <strong>126.00 z&#322;</strong>
+                            </footer>
+                        </article>
+                        <article class="profile-orders-v2-card">
+                            <header class="profile-orders-v2-card-head">
+                                <span>Dostarczone</span>
+                                <strong>9 kwietnia 2026</strong>
+                            </header>
+                            <div class="profile-orders-v2-card-products">
+                                <img src="images/Oscypek-goralski.jpg" alt="Oscypek g&oacute;ralski">
+                                <img src="images/gorzelnia-dlugie-nalewka-wisniowa.png" alt="Nalewka wi&#347;niowa">
+                            </div>
+                            <div class="profile-orders-v2-card-qty">
+                                <span>1</span>
+                                <span>2</span>
+                            </div>
+                            <footer class="profile-orders-v2-card-total">
+                                <span>Za wszystko</span>
+                                <strong>126.00 z&#322;</strong>
+                            </footer>
+                        </article>
+                        <article class="profile-orders-v2-card">
+                            <header class="profile-orders-v2-card-head">
+                                <span>Dostarczone</span>
+                                <strong>9 kwietnia 2026</strong>
+                            </header>
+                            <div class="profile-orders-v2-card-products">
+                                <img src="images/Oscypek-goralski.jpg" alt="Oscypek g&oacute;ralski">
+                                <img src="images/gorzelnia-dlugie-nalewka-wisniowa.png" alt="Nalewka wi&#347;niowa">
+                            </div>
+                            <div class="profile-orders-v2-card-qty">
+                                <span>1</span>
+                                <span>2</span>
+                            </div>
+                            <footer class="profile-orders-v2-card-total">
+                                <span>Za wszystko</span>
+                                <strong>126.00 z&#322;</strong>
+                            </footer>
+                        </article>
                     </div>
-                    <article class="customer-order-card">
-                        <div class="customer-order-card-head">
-                            <span>Sko&#324;czone</span>
-                            <strong>18 kwietnia 2026</strong>
-                        </div>
-                        <div class="customer-order-card-products">
-                            <img src="images/Oscypek-goralski.jpg" alt="Oscypek g&oacute;ralski">
-                            <img src="images/gorzelnia-dlugie-nalewka-wisniowa.png" alt="Nalewka wi&#347;niowa">
-                            <img src="images/miod-test.png" alt="Mi&oacute;d lipowy">
-                        </div>
-                        <div class="customer-order-card-total">
-                            <span>Za wszystko</span>
-                            <strong>126.00 z&#322;</strong>
-                        </div>
-                    </article>
-                    <button class="customer-order-cta" type="button" data-switch-view="review">Jak oceniasz?</button>
+
+                    <nav class="profile-orders-v2-pagination" aria-label="Paginacja zam&oacute;wie&#324;">
+                        <button class="is-active" type="button">1</button>
+                        <button type="button">2</button>
+                        <button type="button">3</button>
+                        <button type="button">4</button>
+                        <button type="button">5</button>
+                        <span>...</span>
+                        <button type="button">7</button>
+                    </nav>
                 </div>
 
-                <div class="order-view" data-view="review">
-                    <div class="customer-order-stage-grid">
-                        <div class="customer-order-stage-column">
-                            <article class="customer-order-card">
-                                <div class="customer-order-card-head">
-                                    <span>Sko&#324;czone</span>
-                                    <strong>18 kwietnia 2026</strong>
-                                </div>
-                                <div class="customer-order-card-products">
+                <div class="profile-orders-v2-view" data-view="received">
+                    <article class="profile-orders-v2-card">
+                        <header class="profile-orders-v2-card-head">
+                            <span>Sko&#324;czone</span>
+                            <strong>10 kwietnia 2026</strong>
+                        </header>
+                        <div class="profile-orders-v2-card-products">
+                            <img src="images/Oscypek-goralski.jpg" alt="Oscypek g&oacute;ralski">
+                            <img src="images/gorzelnia-dlugie-nalewka-wisniowa.png" alt="Nalewka wi&#347;niowa">
+                        </div>
+                        <div class="profile-orders-v2-card-qty">
+                            <span>1</span>
+                            <span>2</span>
+                        </div>
+                        <footer class="profile-orders-v2-card-total">
+                            <span>Za wszystko</span>
+                            <strong>126.00 z&#322;</strong>
+                        </footer>
+                    </article>
+                    <button class="profile-orders-v2-cta" type="button" data-switch-view="review">Jak oceniasz?</button>
+                </div>
+
+                <div class="profile-orders-v2-view" data-view="review">
+                    <div class="profile-orders-v2-review-layout">
+                        <div class="profile-orders-v2-review-orders">
+                            <article class="profile-orders-v2-card">
+                                <header class="profile-orders-v2-card-head">
+                                    <span>W realizacji</span>
+                                    <strong>8 kwietnia 2026</strong>
+                                </header>
+                                <div class="profile-orders-v2-card-products">
                                     <img src="images/Oscypek-goralski.jpg" alt="Oscypek g&oacute;ralski">
                                     <img src="images/gorzelnia-dlugie-nalewka-wisniowa.png" alt="Nalewka wi&#347;niowa">
-                                    <img src="images/miod-test.png" alt="Mi&oacute;d lipowy">
                                 </div>
-                                <div class="customer-order-card-total">
+                                <div class="profile-orders-v2-card-qty">
+                                    <span>1</span>
+                                    <span>2</span>
+                                </div>
+                                <footer class="profile-orders-v2-card-total">
                                     <span>Za wszystko</span>
                                     <strong>126.00 z&#322;</strong>
-                                </div>
+                                </footer>
                             </article>
-                            <button class="customer-order-cta" type="button">Jak oceniasz?</button>
+                            <article class="profile-orders-v2-card">
+                                <header class="profile-orders-v2-card-head">
+                                    <span>W drodze</span>
+                                    <strong>9 kwietnia 2026</strong>
+                                </header>
+                                <div class="profile-orders-v2-card-products">
+                                    <img src="images/Oscypek-goralski.jpg" alt="Oscypek g&oacute;ralski">
+                                    <img src="images/gorzelnia-dlugie-nalewka-wisniowa.png" alt="Nalewka wi&#347;niowa">
+                                </div>
+                                <div class="profile-orders-v2-card-qty">
+                                    <span>1</span>
+                                    <span>2</span>
+                                </div>
+                                <footer class="profile-orders-v2-card-total">
+                                    <span>Za wszystko</span>
+                                    <strong>126.00 z&#322;</strong>
+                                </footer>
+                            </article>
+                            <article class="profile-orders-v2-card">
+                                <header class="profile-orders-v2-card-head">
+                                    <span>Sko&#324;czone</span>
+                                    <strong>10 kwietnia 2026</strong>
+                                </header>
+                                <div class="profile-orders-v2-card-products">
+                                    <img src="images/Oscypek-goralski.jpg" alt="Oscypek g&oacute;ralski">
+                                    <img src="images/gorzelnia-dlugie-nalewka-wisniowa.png" alt="Nalewka wi&#347;niowa">
+                                </div>
+                                <div class="profile-orders-v2-card-qty">
+                                    <span>1</span>
+                                    <span>2</span>
+                                </div>
+                                <footer class="profile-orders-v2-card-total">
+                                    <span>Za wszystko</span>
+                                    <strong>126.00 z&#322;</strong>
+                                </footer>
+                            </article>
+                            <button class="profile-orders-v2-cta" type="button">Jak oceniasz?</button>
                         </div>
 
-                        <form class="order-review-panel">
+                        <form class="profile-orders-v2-review-panel order-review-panel">
                             <label class="order-review-label">Jak oceniasz produkt?</label>
                             <div class="order-review-stars" aria-label="Ocena produktu">
                                 <button class="order-star is-active" type="button" data-rating="1" aria-label="1 gwiazdka">&#9733;</button>
@@ -157,23 +288,25 @@
                     </div>
                 </div>
 
-                <div class="order-view" data-view="return">
-                    <article class="customer-order-card">
-                        <div class="customer-order-card-head">
-                            <span>Przygotowanie</span>
-                            <strong>9 kwietnia 2026</strong>
-                        </div>
-                        <div class="customer-order-card-products">
+                <div class="profile-orders-v2-view" data-view="returns">
+                    <article class="profile-orders-v2-card">
+                        <header class="profile-orders-v2-card-head">
+                            <span>Zwrot</span>
+                            <strong>11 kwietnia 2026</strong>
+                        </header>
+                        <div class="profile-orders-v2-card-products">
                             <img src="images/Oscypek-goralski.jpg" alt="Oscypek g&oacute;ralski">
                             <img src="images/gorzelnia-dlugie-nalewka-wisniowa.png" alt="Nalewka wi&#347;niowa">
-                            <img src="images/miod-test.png" alt="Mi&oacute;d lipowy">
                         </div>
-                        <div class="customer-order-card-total">
+                        <div class="profile-orders-v2-card-qty">
+                            <span>1</span>
+                            <span>2</span>
+                        </div>
+                        <footer class="profile-orders-v2-card-total">
                             <span>Za wszystko</span>
                             <strong>126.00 z&#322;</strong>
-                        </div>
+                        </footer>
                     </article>
-                    <button class="customer-order-cta" type="button">Chcesz zwr&oacute;ci&#263;?</button>
                 </div>
             </section>
         </div>

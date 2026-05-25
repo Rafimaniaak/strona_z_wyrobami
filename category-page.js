@@ -42,6 +42,10 @@
             .replace(/[\u0300-\u036f]/g, '');
     }
 
+    function sellerProfileHref(name) {
+        return 'seller.html?seller=' + encodeURIComponent((name || '').trim());
+    }
+
     function showToast(message) {
         if (!pageToast) {
             return;
@@ -124,6 +128,26 @@
         allCards().forEach(function (card) {
             var product = productPayload(card);
             applyAvailabilityState(card, Boolean(product.available));
+        });
+    }
+
+    function linkSellerNames() {
+        allCards().forEach(function (card) {
+            var sellerNode = card.querySelector('.seller-name');
+            var sellerName;
+            var link;
+
+            if (!sellerNode || sellerNode.querySelector('a')) {
+                return;
+            }
+
+            sellerName = (sellerNode.textContent || '').trim();
+            link = document.createElement('a');
+            link.className = 'seller-profile-link';
+            link.href = sellerProfileHref(sellerName);
+            link.textContent = sellerName;
+            sellerNode.textContent = '';
+            sellerNode.appendChild(link);
         });
     }
 
@@ -498,7 +522,7 @@
 
     allCards().forEach(function (card) {
         card.addEventListener('click', function (event) {
-            if (event.target.closest('button')) {
+            if (event.target.closest('button, a')) {
                 return;
             }
 
@@ -560,6 +584,7 @@
 
     createLimitControls();
     syncCardAvailability();
+    linkSellerNames();
     markCurrentShortcut();
     sortProducts(currentSort.mode, currentSort.direction);
     filterProducts();

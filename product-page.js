@@ -36,6 +36,10 @@
     var reviewLastFrameAt = 0;
     var reviewSpeed = 26;
 
+    function sellerProfileHref(name) {
+        return 'seller.html?seller=' + encodeURIComponent((name || '').trim());
+    }
+
     function fallbackProduct() {
         return {
             id: body.dataset.productId || 'produkt-dzem-z-gruszki',
@@ -309,7 +313,15 @@
 
         setText(titleNode, product.name);
         setText(leadNode, product.lead);
-        setText(feedbackSellerNode, product.seller);
+        if (feedbackSellerNode) {
+            feedbackSellerNode.textContent = '';
+
+            var sellerLink = document.createElement('a');
+            sellerLink.className = 'seller-profile-link';
+            sellerLink.href = sellerProfileHref(product.seller);
+            sellerLink.textContent = product.seller;
+            feedbackSellerNode.appendChild(sellerLink);
+        }
         setText(priceNode, product.price + ' z\u0142');
         setText(reviewCountNode, product.reviewCount);
 

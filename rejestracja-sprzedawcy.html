@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Rejestracja sprzedawcy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-kategoria.css">
+</head>
+<body data-page="auth-seller-register">
+<div class="page-shell auth-shell">
+    <header class="topbar topbar-simple">
+        <div class="container topbar-inner">
+            <div class="page-label"><a href="index.html">Skarby Region&oacute;w Polski</a></div>
+            <nav class="primary-nav" id="primaryNav" aria-label="G&#322;&oacute;wne">
+                <a href="profil.html">Profil</a>
+                <a href="about.html">O nas</a>
+                <a href="ulubione.html">Ulubione</a>
+                <a class="cart-link" href="koszyk.html">
+                    <span>Koszyk</span>
+                    <span class="nav-counter" data-cart-count hidden>0</span>
+                </a>
+
+                <div class="search-slot">
+                    <button class="search-trigger" type="button" aria-label="Szukaj" aria-expanded="false" aria-controls="searchInline">
+                        <svg width="24" height="24" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M26.25 26.25L20.8125 20.8125M23.75 13.75C23.75 19.2728 19.2728 23.75 13.75 23.75C8.22715 23.75 3.75 19.2728 3.75 13.75C3.75 8.22715 8.22715 3.75 13.75 3.75C19.2728 3.75 23.75 8.22715 23.75 13.75Z" stroke="#A5A39D" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Szukaj</span>
+                    </button>
+
+                    <div class="search-inline" id="searchInline">
+                        <label class="sr-only" for="searchInput">Szukaj produkt&oacute;w</label>
+                        <input type="search" id="searchInput" placeholder="Szukaj produkt&oacute;w...">
+                        <button class="search-clear" type="button" aria-label="Wyczy&#347;&#263; wyszukiwanie">&times;</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="auth-main auth-figma-main register-v2-main">
+        <div class="container auth-figma-layout auth-figma-register-layout register-v2-layout register-v2-layout-seller">
+            <section class="auth-figma-panel auth-figma-register-panel register-v2-panel register-v2-panel-seller" aria-label="Formularz rejestracji sprzedawcy">
+                <form id="sellerRegisterForm" class="auth-figma-form register-v2-form register-v2-form-seller">
+                    <input id="sellerLastName" type="text" name="ownerLastName" placeholder="Nazwisko" autocomplete="family-name" required>
+                    <input id="sellerFirstName" type="text" name="ownerFirstName" placeholder="Imi&#281;" autocomplete="given-name" required>
+                    <input id="sellerEmail" type="email" name="email" placeholder="gag_2020@mail.com" autocomplete="email" required>
+                    <input id="sellerPassword" type="password" name="password" minlength="8" placeholder="Has&#322;o" autocomplete="new-password" required>
+                    <input id="sellerPasswordConfirm" type="password" name="passwordConfirm" minlength="8" placeholder="Powt&oacute;rz has&#322;o" autocomplete="new-password" required>
+
+                    <div class="register-v2-phone-row">
+                        <input id="sellerPhonePrefix" type="text" value="PL" aria-label="Prefix kraju" readonly>
+                        <input id="sellerPhone" type="tel" name="phone" placeholder="+48 123 456 123" autocomplete="tel" required>
+                    </div>
+
+                    <input id="sellerCompanyName" type="text" name="companyName" placeholder="Nazwa firmy" required>
+
+                    <input type="hidden" name="ownerName" value="">
+                    <input type="hidden" name="nip" value="0000000000">
+                    <input type="hidden" name="category" value="przetwory">
+                    <input type="checkbox" name="acceptTerms" checked hidden>
+                </form>
+            </section>
+
+            <section class="auth-figma-role-stack register-v2-role-stack" aria-label="Wyb&oacute;r typu konta">
+                <button class="auth-role-card is-active" type="button" aria-pressed="true">
+                    <span class="auth-role-avatar auth-role-avatar-seller" aria-hidden="true"></span>
+                    <strong>Sprzedawca</strong>
+                    <small>rejestracja jako</small>
+                </button>
+                <button class="auth-role-card auth-role-card-compact-link" type="button" aria-pressed="false" onclick="window.location.href='rejestracja.html'">
+                    <span class="auth-role-avatar auth-role-avatar-customer" aria-hidden="true"></span>
+                    <strong>Klient</strong>
+                    <small>rejestracja jako</small>
+                </button>
+            </section>
+
+            <div class="auth-figma-actions auth-figma-register-actions register-v2-actions">
+                <button class="auth-figma-button" type="submit" form="sellerRegisterForm">Zarejestruj si&#281;</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-panel">
+                <div class="footer-brand">
+                    <p>Skarby Region&oacute;w Polski</p>
+                    <p class="footer-copy">&#321;&#261;czymy tradycyjnych producent&oacute;w z klientami ceni&#261;cymi autentyczne produkty regionalne.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Informacje</h3>
+                    <a href="about.html">O nas</a>
+                    <a href="index.html#sprzedawcy">Nasi producenci</a>
+                    <a href="regulamin.html">Regulamin</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Obs&#322;uga klienta</h3>
+                    <a href="regulamin.html#zwroty">Zwroty (14 dni)</a>
+                    <a href="profil.html#orders">Twoje zam&oacute;wienia</a>
+                    <a href="about.html#faq">FAQ</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Kontakt</h3>
+                    <a href="mailto:kontakt123@gmail.com">kontakt123@gmail.com</a>
+                    <a href="tel:+48123456789">+48 123 456 789</a>
+                    <p>ul. Regionalna 12<br>34-500 Zakopane</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast" id="pageToast" aria-live="polite" aria-atomic="true"></div>
+</div>
+
+<script src="cart-storage.js"></script>
+<script src="site-shell.js"></script>
+<script src="auth-page.js"></script>
+</body>
+</html>

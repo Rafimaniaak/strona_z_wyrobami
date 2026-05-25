@@ -79,6 +79,10 @@
             .replace(/'/g, '&#39;');
     }
 
+    function sellerProfileHref(name) {
+        return 'seller.html?seller=' + encodeURIComponent((name || '').trim());
+    }
+
     function filteredItems() {
         var items = favoriteStore.read();
 
@@ -166,7 +170,7 @@
             '</div>',
             '<div class="product-content">',
             '<h2>', escapeHtml(item.name), '</h2>',
-            '<p class="seller-name">', escapeHtml(item.seller), '</p>',
+            '<p class="seller-name"><a class="seller-profile-link" href="', sellerProfileHref(item.seller), '">', escapeHtml(item.seller), '</a></p>',
             '<p class="product-price">', escapeHtml(item.price), '</p>',
             '<button class="cart-button" type="button"', (available ? '' : ' disabled aria-disabled="true"'), '>', cartButtonLabel, '</button>',
             '</div>',
@@ -177,7 +181,7 @@
     function bindGridActions() {
         Array.prototype.slice.call(favoritesGrid.querySelectorAll('.product-card')).forEach(function (card) {
             card.addEventListener('click', function (event) {
-                if (event.target.closest('button')) {
+                if (event.target.closest('button, a')) {
                     return;
                 }
 
