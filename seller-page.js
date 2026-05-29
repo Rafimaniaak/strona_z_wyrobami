@@ -67,30 +67,41 @@
         var querySeller = (params.get('seller') || '').trim();
         var sessionSeller = session && session.sellerName ? String(session.sellerName).trim() : '';
 
+        if (querySeller) {
+            return querySeller;
+        }
+
         if (sessionSeller) {
             return sessionSeller;
         }
 
-        return querySeller || 'Sprzedawca regionalny';
+        return 'Sprzedawca regionalny';
     }
 
     var session = readSession();
-    if (!session || !session.email) {
-        window.location.replace('logowanie.html');
-        return;
-    }
-
-    if (session.role !== 'seller') {
-        window.location.replace('profil.html');
-        return;
-    }
-
     var sellerName = resolveSellerName(session);
+    var sellerProfile = productCatalog && typeof productCatalog.sellerProfile === 'function'
+        ? productCatalog.sellerProfile(sellerName)
+        : {
+            region: 'Polska lokalna',
+            shipping: 'wysylka do 48h',
+            badge: 'Wybor lokalny',
+            lead: 'Lokalny sprzedawca regionalny prezentujacy autentyczne produkty i szczegoly oferty.',
+            about: 'Kameralna oferta z naciskiem na opis, pochodzenie i wygodne zakupy dla klientow szukajacych regionalnych wyrobow.',
+            reviews: []
+        };
+    var isSellerSession = Boolean(session && session.role === 'seller' && session.email);
+    var sessionSellerName = isSellerSession && session.sellerName ? String(session.sellerName).trim() : '';
+    var canManage = isSellerSession && normalize(sessionSellerName) === normalize(sellerName);
     var sellerKey = normalize(sellerName).replace(/\s+/g, '_') || 'seller';
     var storageKey = 'srp_seller_dashboard_v2_' + sellerKey;
 
+    body.classList.toggle('seller-is-owner', canManage);
+    body.classList.toggle('seller-is-public', !canManage);
+
     var headingNode = document.getElementById('sellerNameHeading');
     var statsNode = document.getElementById('sellerStats');
+    var profileLeadNode = document.getElementById('sellerProfileLead');
     var gridNode = document.getElementById('sellerProductsGrid');
     var workbenchNode = document.getElementById('sellerWorkbench');
     var dialog = document.getElementById('sellerAddDialog');
@@ -105,9 +116,38 @@
     var uploadPreviewButton = document.querySelector('[data-upload-tool="preview"]');
     var uploadGalleryButton = document.querySelector('[data-upload-tool="gallery"]');
     var modeButtons = Array.prototype.slice.call(document.querySelectorAll('[data-seller-mode]'));
+    var dashboardToolsNode = document.querySelector('.seller-dashboard-tools');
 
     var activeMode = '';
     var selectedImageDataUrl = '';
+
+    function displayProduct(product) {
+        var candidate = product;
+
+        if (productCatalog && typeof productCatalog.enrichProduct === 'function') {
+            candidate = productCatalog.enrichProduct(product);
+        }
+
+        return candidate;
+    }
+
+    function shortText(text, maxLength) {
+        var value = String(text || '').replace(/\s+/g, ' ').trim();
+
+        if (value.length <= maxLength) {
+            return value;
+        }
+
+        return value.slice(0, Math.max(0, maxLength - 3)).replace(/\s+\S*$/, '') + '...';
+    }
+
+    if (dashboardToolsNode) {
+        dashboardToolsNode.hidden = !canManage;
+    }
+
+    if (workbenchNode) {
+        workbenchNode.hidden = !canManage;
+    }
 
     function createDefaultProducts() {
         var key = normalize(sellerName);
@@ -243,22 +283,22 @@
     }
 
     function cardMarkup(product) {
+        var display = displayProduct(product);
+
         return [
-            '<article class="seller-dashboard-card">',
+            '<article class="product-card seller-dashboard-card">',
             '<button class="favorite-button" type="button" aria-label="Ulubione" disabled>',
             '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path></svg>',
             '</button>',
-            '<a class="seller-product-media" href="', product.detailHref || 'produkt.html', '">',
-            '<img src="', product.image, '" alt="', product.alt || product.name, '">',
+            '<a class="product-media seller-product-media" href="', display.detailHref || 'produkt.html', '">',
+            '<img src="', display.image, '" alt="', display.alt || display.name, '">',
             '</a>',
-            '<div class="seller-dashboard-rating"><span class="rating-star">&#9734;</span><span>', product.rating || '4.8', '</span></div>',
-            '<h2>', product.name, '</h2>',
-            '<p class="seller-name"><a class="seller-profile-link" href="', sellerHref(product.seller), '">', product.seller, '</a></p>',
-            '<div class="seller-dashboard-meta"><strong>', formatPrice(product.price), '</strong><span>zl</span></div>',
-            '<p class="seller-stock">Stan: <strong>', Number(product.stock || 0), '</strong> szt.</p>',
-            '<div class="seller-dashboard-actions">',
-            '<a class="seller-dashboard-edit" href="', product.detailHref || 'produkt.html', '">Edytuj</a>',
-            '<button class="seller-dashboard-cart" type="button" data-product-id="', product.id || '', '">Dodaj do koszyka</button>',
+            '<div class="rating-badge"><span class="rating-star">&#9734;</span><span>', display.averageRating || display.rating || '4.8', '</span></div>',
+            '<div class="product-content">',
+            '<h2>', display.name, '</h2>',
+            '<p class="seller-name"><a class="seller-profile-link" href="', sellerHref(display.seller), '">', display.seller, '</a></p>',
+            '<div class="product-price">', formatPrice(display.price), ' zł</div>',
+            '<button class="cart-button seller-dashboard-cart" type="button" data-product-id="', display.id || '', '">Dodaj do koszyka</button>',
             '</div>',
             '</article>'
         ].join('');
@@ -270,10 +310,19 @@
         }
 
         if (statsNode) {
-            statsNode.textContent = 'Liczba produktow: ' + state.products.length;
+            statsNode.textContent = 'Liczba produktów: ' + state.products.length;
+        }
+
+        if (profileLeadNode) {
+            profileLeadNode.textContent = sellerProfile.lead || 'Autentyczne produkty regionalne prezentowane z prostą, czytelną ofertą.';
         }
 
         if (!gridNode) {
+            return;
+        }
+
+        if (state.products.length === 0) {
+            gridNode.innerHTML = '<p class="seller-workbench-empty">Brak produktów w ofercie.</p>';
             return;
         }
 
@@ -412,6 +461,11 @@
             return;
         }
 
+        if (!canManage) {
+            workbenchNode.innerHTML = '';
+            return;
+        }
+
         if (!activeMode) {
             workbenchNode.innerHTML = '<p class="seller-workbench-empty">Wybierz narzedzie z lewej strony, aby zarzadzac panelem.</p>';
             return;
@@ -438,6 +492,10 @@
     }
 
     function setActiveMode(mode) {
+        if (!canManage) {
+            return;
+        }
+
         activeMode = mode === activeMode ? '' : mode;
         body.classList.toggle('seller-has-workbench', activeMode !== '');
         body.classList.toggle('seller-mode-returns', activeMode === 'returns');
