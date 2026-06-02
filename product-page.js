@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
     var body = document.body;
     var cartStore = window.cartStore;
     var favoriteStore = window.favoriteStore;
@@ -24,17 +24,24 @@
     var stockBadgeNode = document.getElementById('productStockBadge');
     var stockInlineNode = document.getElementById('productStockInline');
     var reviewCountNode = document.getElementById('productReviewCount');
+    var sellerAverageRatingNode = document.getElementById('sellerAverageRating');
+    var productReviewTotalCountNode = document.getElementById('productReviewTotalCount');
+    var productReviewPaginationNode = document.getElementById('productReviewPagination');
+    var reviewFilterButton = document.getElementById('reviewFilterButton');
+    var reviewFilterMenu = document.getElementById('reviewFilterMenu');
+    var quantityValueNode = document.getElementById('productQuantityValue');
+    var quantityDecreaseButton = document.getElementById('productQuantityDecrease');
+    var quantityIncreaseButton = document.getElementById('productQuantityIncrease');
     var sellerFeedbackList = document.getElementById('sellerFeedbackList');
     var sellerFeedbackScrollbar = document.querySelector('.seller-feedback-scrollbar');
     var sellerFeedbackScrollbarThumb = document.querySelector('.seller-feedback-scrollbar-thumb');
     var productReviewTrack = document.getElementById('productReviewCards');
     var reviewLimitButtons = Array.prototype.slice.call(document.querySelectorAll('.review-limit-button'));
+    var reviewTotalCount = 240;
+    var currentReviewPage = 1;
     var reviewLimit = 6;
-    var reviewAnimationFrame = null;
-    var reviewOffset = 0;
-    var reviewLoopWidth = 0;
-    var reviewLastFrameAt = 0;
-    var reviewSpeed = 26;
+    var reviewRatingFilter = '';
+    var selectedQuantity = 1;
 
     function sellerProfileHref(name) {
         return 'seller.html?seller=' + encodeURIComponent((name || '').trim());
@@ -97,8 +104,141 @@
         return (product.sellerReviews || []).slice(0, 14);
     }
 
-    function reviewPool() {
-        return (product.productReviews || []).slice(0, reviewLimit);
+    function reviewSourcePool() {
+        var basePool = product.productReviews || [];
+        var pool = [];
+        var index;
+        var targetCount;
+        var blockIndex;
+        var rotatedIndex;
+        var sourcePool;
+
+        if (basePool.length === 0) {
+            return pool;
+        }
+
+        sourcePool = basePool.slice();
+
+        if (reviewRatingFilter) {
+            sourcePool = sourcePool.filter(function (review) {
+                var rating = Number(review.rating || 0);
+                var lower = Number(reviewRatingFilter);
+                var upper = lower + 1;
+                return reviewRatingFilter === '5' ? rating >= 5 : rating >= lower && rating < upper;
+            });
+        }
+
+        if (sourcePool.length === 0) {
+            return pool;
+        }
+
+        targetCount = reviewRatingFilter ? Math.max(reviewTotalCount, sourcePool.length) : reviewTotalCount;
+
+        for (index = 0; index < targetCount; index += 1) {
+            blockIndex = Math.floor(index / sourcePool.length);
+            rotatedIndex = (index + blockIndex) % sourcePool.length;
+            pool.push(sourcePool[rotatedIndex]);
+        }
+
+        return pool;
+    }
+
+    function reviewPageCount() {
+        var poolLength = reviewSourcePool().length;
+        return Math.max(1, Math.ceil(poolLength / reviewLimit));
+    }
+
+    function clampReviewPage(value) {
+        return Math.min(reviewPageCount(), Math.max(1, Number(value) || 1));
+    }
+
+    function currentReviewSlice() {
+        var pool = reviewSourcePool();
+        var total = pool.length;
+        var start = (currentReviewPage - 1) * reviewLimit;
+        var count = Math.min(reviewLimit, Math.max(0, total - start));
+        return pool.slice(start, start + count);
+    }
+
+    function paginationSequence() {
+        var pages = [];
+        var total = reviewPageCount();
+        var current = currentReviewPage;
+        var start;
+        var end;
+
+        function push(value) {
+            if (pages[pages.length - 1] !== value) {
+                pages.push(value);
+            }
+        }
+
+        if (total <= 7) {
+            for (var allIndex = 1; allIndex <= total; allIndex += 1) {
+                push(allIndex);
+            }
+            return pages;
+        }
+
+        push(1);
+
+        if (current > 4) {
+            push('...');
+        }
+
+        if (current <= 4) {
+            start = 2;
+            end = 5;
+        } else if (current >= total - 3) {
+            start = total - 4;
+            end = total - 1;
+        } else {
+            start = current - 1;
+            end = current + 1;
+        }
+
+        for (var page = start; page <= end; page += 1) {
+            if (page > 1 && page < total) {
+                push(page);
+            }
+        }
+
+        if (end < total - 1) {
+            push('...');
+        }
+
+        push(total);
+
+        return pages;
+    }
+
+    function clampQuantity(value) {
+        return Math.min(99, Math.max(1, Number(value) || 1));
+    }
+
+    function syncQuantityButtons() {
+        var unavailable = product.available === false;
+
+        if (quantityDecreaseButton) {
+            quantityDecreaseButton.disabled = unavailable || selectedQuantity <= 1;
+        }
+
+        if (quantityIncreaseButton) {
+            quantityIncreaseButton.disabled = unavailable || selectedQuantity >= 99;
+        }
+    }
+
+    function renderQuantity() {
+        if (quantityValueNode) {
+            quantityValueNode.textContent = String(selectedQuantity);
+        }
+
+        syncQuantityButtons();
+    }
+
+    function setQuantity(value) {
+        selectedQuantity = clampQuantity(value);
+        renderQuantity();
     }
 
     function syncLimitButtons() {
@@ -107,6 +247,57 @@
             button.classList.toggle('is-active', isActive);
             button.setAttribute('aria-pressed', String(isActive));
         });
+    }
+
+    function reviewFilterLabel() {
+        if (!reviewRatingFilter) {
+            return 'Wszystkie oceny';
+        }
+
+        if (reviewRatingFilter === '1') {
+            return '1 gwiazdka';
+        }
+
+        if (reviewRatingFilter === '5') {
+            return '5 gwiazdek';
+        }
+
+        return reviewRatingFilter + ' gwiazdki';
+    }
+
+    function syncReviewFilterButton() {
+        if (!reviewFilterButton) {
+            return;
+        }
+
+        var labelNode = reviewFilterButton.querySelector('[data-review-filter-label]') || reviewFilterButton.querySelector('span');
+
+        if (labelNode) {
+            labelNode.textContent = reviewFilterLabel();
+        }
+
+        reviewFilterButton.setAttribute('aria-expanded', String(reviewFilterMenu && !reviewFilterMenu.hidden));
+    }
+
+    function setReviewFilterMenuOpen(isOpen) {
+        if (!reviewFilterMenu) {
+            return;
+        }
+
+        reviewFilterMenu.hidden = !isOpen;
+        syncReviewFilterButton();
+    }
+
+    function closeReviewFilterMenu() {
+        setReviewFilterMenuOpen(false);
+    }
+
+    function toggleReviewFilterMenu() {
+        if (!reviewFilterMenu) {
+            return;
+        }
+
+        setReviewFilterMenuOpen(reviewFilterMenu.hidden);
     }
 
     function renderDetailParagraphs() {
@@ -141,20 +332,24 @@
             var text = document.createElement('p');
             var meta = document.createElement('div');
             var author = document.createElement('strong');
+            var ratingWrap = document.createElement('div');
             var rating = document.createElement('span');
             var star = document.createElement('span');
 
             card.className = 'seller-feedback-item seller-feedback-item-compact';
             bullet.className = 'seller-feedback-bullet';
+            meta.className = 'seller-feedback-meta';
+            ratingWrap.className = 'seller-feedback-rating';
             text.textContent = review.text;
             author.textContent = review.author;
             rating.textContent = review.rating;
             star.className = 'seller-feedback-star';
-            star.textContent = '☆';
+            star.textContent = '\u2606';
 
             meta.appendChild(author);
-            meta.appendChild(star);
-            meta.appendChild(rating);
+            ratingWrap.appendChild(star);
+            ratingWrap.appendChild(rating);
+            meta.appendChild(ratingWrap);
             card.appendChild(bullet);
             card.appendChild(text);
             card.appendChild(meta);
@@ -191,115 +386,91 @@
         sellerFeedbackScrollbarThumb.style.transform = 'translate(-50%, ' + thumbOffset + 'px)';
     }
 
-    function stopReviewLoop() {
-        if (reviewAnimationFrame) {
-            window.cancelAnimationFrame(reviewAnimationFrame);
-            reviewAnimationFrame = null;
-        }
-
-        reviewLastFrameAt = 0;
-    }
-
-    function setReviewTrackOffset(offset) {
-        if (!productReviewTrack) {
-            return;
-        }
-
-        productReviewTrack.style.transform = 'translateX(-' + offset + 'px)';
-    }
-
-    function measureReviewLoop() {
-        if (!productReviewTrack) {
-            return;
-        }
-
-        var cards = Array.prototype.slice.call(productReviewTrack.children);
-        var loopMarker = cards[Math.floor(cards.length / 2)];
-
-        if (!loopMarker) {
-            reviewLoopWidth = 0;
-            reviewOffset = 0;
-            setReviewTrackOffset(0);
-            return;
-        }
-
-        reviewLoopWidth = loopMarker.offsetLeft;
-
-        if (reviewLoopWidth <= 0) {
-            reviewOffset = 0;
-        } else if (reviewOffset >= reviewLoopWidth) {
-            reviewOffset = reviewOffset % reviewLoopWidth;
-        }
-
-        setReviewTrackOffset(reviewOffset);
-    }
-
-    function animateReviewLoop(timestamp) {
-        if (!productReviewTrack || reviewLoopWidth <= 0) {
-            reviewAnimationFrame = null;
-            return;
-        }
-
-        if (!reviewLastFrameAt) {
-            reviewLastFrameAt = timestamp;
-        }
-
-        reviewOffset += ((timestamp - reviewLastFrameAt) / 1000) * reviewSpeed;
-        reviewLastFrameAt = timestamp;
-
-        if (reviewOffset >= reviewLoopWidth) {
-            reviewOffset = reviewOffset % reviewLoopWidth;
-        }
-
-        setReviewTrackOffset(reviewOffset);
-        reviewAnimationFrame = window.requestAnimationFrame(animateReviewLoop);
-    }
-
-    function startReviewLoop() {
-        stopReviewLoop();
-        measureReviewLoop();
-
-        if (reviewLoopWidth <= 0) {
-            return;
-        }
-
-        reviewAnimationFrame = window.requestAnimationFrame(animateReviewLoop);
-    }
-
     function renderProductReviews() {
         if (!productReviewTrack) {
             return;
         }
 
-        var pool = reviewPool();
+        currentReviewPage = clampReviewPage(currentReviewPage);
+        var pool = currentReviewSlice();
 
         productReviewTrack.innerHTML = '';
 
-        pool.concat(pool).forEach(function (review, index) {
+        pool.forEach(function (review) {
             var card = document.createElement('article');
             var text = document.createElement('p');
             var footer = document.createElement('div');
             var author = document.createElement('strong');
             var stars = document.createElement('span');
+            var ratingValue = Math.max(0, Math.min(5, Math.floor(Number(review.rating || 0))));
 
-            card.className = 'mini-review-card mini-review-card-floating';
-            card.style.setProperty('--float-index', String(index % 4));
+            card.className = 'product-review-card';
+            text.className = 'product-review-text';
             text.textContent = review.text;
             author.textContent = review.author;
-            stars.textContent = '★★★★★';
+            stars.className = 'product-review-stars';
+            stars.setAttribute('aria-label', review.rating + ' na 5 gwiazdek');
 
-            footer.className = 'mini-review-meta mini-review-meta-stars';
-            footer.appendChild(author);
+            for (var starIndex = 0; starIndex < 5; starIndex += 1) {
+                var star = document.createElement('span');
+
+                star.className = starIndex < ratingValue ? 'product-review-star is-filled' : 'product-review-star';
+                star.textContent = '\u2605';
+                stars.appendChild(star);
+            }
+
+            footer.className = 'product-review-meta';
             footer.appendChild(stars);
-            card.appendChild(text);
+            footer.appendChild(author);
             card.appendChild(footer);
+            card.appendChild(text);
             productReviewTrack.appendChild(card);
         });
 
-        reviewOffset = 0;
+        if (productReviewTotalCountNode) {
+            productReviewTotalCountNode.textContent = String(reviewSourcePool().length);
+        }
 
-        requestAnimationFrame(function () {
-            startReviewLoop();
+        renderProductPagination();
+    }
+
+    function renderProductPagination() {
+        if (!productReviewPaginationNode) {
+            return;
+        }
+
+        var totalPages = reviewPageCount();
+        var sequence = paginationSequence();
+
+        productReviewPaginationNode.innerHTML = '';
+
+        sequence.forEach(function (entry) {
+            if (entry === '...') {
+                var ellipsis = document.createElement('span');
+                ellipsis.className = 'product-review-pagination-ellipsis';
+                ellipsis.textContent = '...';
+                productReviewPaginationNode.appendChild(ellipsis);
+                return;
+            }
+
+            var button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'product-review-pagination-button';
+            button.textContent = String(entry);
+            button.dataset.page = String(entry);
+            button.setAttribute('aria-label', 'Strona ' + entry);
+
+            if (entry === currentReviewPage) {
+                button.classList.add('is-active');
+                button.setAttribute('aria-current', 'page');
+            }
+
+            button.addEventListener('click', function () {
+                currentReviewPage = clampReviewPage(entry);
+                renderProductReviews();
+            });
+
+            productReviewPaginationNode.appendChild(button);
         });
     }
 
@@ -324,7 +495,11 @@
         }
         setText(priceNode, product.price + ' z\u0142');
         setText(reviewCountNode, product.reviewCount);
-
+        reviewTotalCount = Number(product.reviewCount) || reviewTotalCount || (product.productReviews || []).length;
+        setText(sellerAverageRatingNode, product.averageRating || product.rating || '4.9');
+        if (productReviewTotalCountNode) {
+            productReviewTotalCountNode.textContent = String(reviewTotalCount);
+        }
         if (stockBadgeNode && stockInlineNode) {
             var available = product.available !== false;
             var statusText = available ? 'Dost\u0119pny' : 'Niedost\u0119pny';
@@ -365,10 +540,55 @@
     reviewLimitButtons.forEach(function (button) {
         button.addEventListener('click', function () {
             reviewLimit = Number(button.dataset.limit || 6);
-            stopReviewLoop();
+            currentReviewPage = 1;
+
             syncLimitButtons();
             renderProductReviews();
         });
+    });
+
+    if (reviewFilterButton) {
+        reviewFilterButton.addEventListener('click', function (event) {
+            event.stopPropagation();
+            toggleReviewFilterMenu();
+        });
+    }
+
+    if (reviewFilterMenu) {
+        reviewFilterMenu.addEventListener('click', function (event) {
+            var target = event.target.closest('button[data-rating-filter]');
+
+            if (!target) {
+                return;
+            }
+
+            reviewRatingFilter = target.dataset.ratingFilter || '';
+            currentReviewPage = 1;
+            closeReviewFilterMenu();
+            renderProductReviews();
+        });
+    }
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            closeReviewFilterMenu();
+        }
+    });
+
+    document.addEventListener('click', function (event) {
+        if (!reviewFilterMenu || reviewFilterMenu.hidden) {
+            return;
+        }
+
+        if (reviewFilterButton && reviewFilterButton.contains(event.target)) {
+            return;
+        }
+
+        if (reviewFilterMenu.contains(event.target)) {
+            return;
+        }
+
+        closeReviewFilterMenu();
     });
 
     if (favoriteButton) {
@@ -393,10 +613,11 @@
             }
 
             var originalText = addToCartButton.textContent;
+            var quantityLabel = selectedQuantity > 1 ? selectedQuantity + ' szt.' : '1 szt.';
 
-            cartStore.add(product);
+            cartStore.add(Object.assign({}, product, { quantity: selectedQuantity }));
             pageShell.syncCartCounters();
-            pageShell.showToast('Produkt dodany do koszyka.');
+            pageShell.showToast('Dodano ' + quantityLabel + ' do koszyka.');
             addToCartButton.classList.add('is-added');
             addToCartButton.textContent = 'Dodano';
 
@@ -407,16 +628,32 @@
         });
     }
 
+    if (quantityDecreaseButton) {
+        quantityDecreaseButton.addEventListener('click', function () {
+            setQuantity(selectedQuantity - 1);
+        });
+    }
+
+    if (quantityIncreaseButton) {
+        quantityIncreaseButton.addEventListener('click', function () {
+            setQuantity(selectedQuantity + 1);
+        });
+    }
+
     if (sellerFeedbackList) {
         sellerFeedbackList.addEventListener('scroll', syncSellerFeedbackScrollbar, { passive: true });
     }
 
     window.addEventListener('resize', function () {
         syncSellerFeedbackScrollbar();
-        startReviewLoop();
+        renderProductPagination();
     });
 
     syncLimitButtons();
+    renderQuantity();
     renderProduct();
     syncFavoriteButton();
 })();
+
+
+

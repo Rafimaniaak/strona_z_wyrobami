@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style-kategoria.css">
+    <link rel="stylesheet" href="style-kategoria.css?v=20260602-2">
 </head>
 <body
     data-page="product"
@@ -78,6 +78,11 @@
 
                     <div class="product-buy-row">
                         <span class="product-stock-inline is-available" id="productStockInline">Dost&#281;pny</span>
+                        <div class="product-quantity-control" aria-label="Ilo&#347;&#263; produktu">
+                            <button class="product-quantity-button" id="productQuantityDecrease" type="button" aria-label="Zmniejsz ilo&#347;&#263;">&minus;</button>
+                            <span class="product-quantity-value" id="productQuantityValue" aria-live="polite">1</span>
+                            <button class="product-quantity-button" id="productQuantityIncrease" type="button" aria-label="Zwi&#281;ksz ilo&#347;&#263;">+</button>
+                        </div>
                         <button class="cart-button product-add-button" id="productAddToCart" type="button">Dodaj do koszyka</button>
                         <div class="product-price-tag">
                             <span>Cena:</span>
@@ -91,6 +96,10 @@
                 <div class="seller-feedback-main">
                     <div class="seller-feedback-header seller-feedback-header-compact">
                         <h2>Opinie o sprzedawcy: <span id="feedbackSellerName">Siostra Anastazja</span></h2>
+                        <div class="seller-feedback-average">
+                            <span>Średnia ocen:</span>
+                            <strong id="sellerAverageRating">4.7</strong>
+                        </div>
                     </div>
 
                     <div class="seller-feedback-board">
@@ -100,23 +109,39 @@
                         </div>
                     </div>
 
-                    <div class="review-cloud-head">
-                        <p class="review-total">Ilo&#347;&#263; opinii: <strong id="productReviewCount">240</strong></p>
-                        <div class="review-limit-tools">
-                            <span>Ilo&#347;&#263; opinii do wy&#347;wietlenia:</span>
-                            <div class="review-limit-group" id="reviewLimitControls">
-                                <button class="review-limit-button is-active" type="button" data-limit="6" aria-pressed="true">6</button>
-                                <button class="review-limit-button" type="button" data-limit="12" aria-pressed="false">12</button>
-                                <button class="review-limit-button" type="button" data-limit="24" aria-pressed="false">24</button>
+                    <div class="review-toolbar">
+                        <div class="review-filter-wrap">
+                            <button class="review-filter-button" id="reviewFilterButton" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="reviewFilterMenu">
+                                <span data-review-filter-label>Wszystkie oceny</span>
+                                <span class="review-filter-caret">∨</span>
+                            </button>
+                            <div class="review-filter-menu" id="reviewFilterMenu" hidden>
+                                <button type="button" data-rating-filter="">Wszystkie oceny</button>
+                                <button type="button" data-rating-filter="5">5 gwiazdek</button>
+                                <button type="button" data-rating-filter="4">4 gwiazdki</button>
+                                <button type="button" data-rating-filter="3">3 gwiazdki</button>
+                                <button type="button" data-rating-filter="2">2 gwiazdki</button>
+                                <button type="button" data-rating-filter="1">1 gwiazdka</button>
                             </div>
+                        </div>
+                        <div class="review-toolbar-count">
+                            Ilość opinii: <strong id="productReviewTotalCount">240</strong>
+                        </div>
+                        <div class="review-limit-toolbar">
+                            Ilość opinii do wyświetlenia:
+                            <button class="review-limit-button is-active" type="button" data-limit="6">6</button>
+                            <button class="review-limit-button" type="button" data-limit="12">12</button>
+                            <button class="review-limit-button" type="button" data-limit="24">24</button>
                         </div>
                     </div>
 
                     <div class="review-cloud-shell">
                         <div class="review-cloud-viewport" id="productReviewViewport">
-                            <div class="review-cloud-track" id="productReviewCards"></div>
+                            <div class="product-review-grid" id="productReviewCards"></div>
                         </div>
                     </div>
+
+                    <nav class="product-review-pagination" id="productReviewPagination" aria-label="Strony opinii"></nav>
                 </div>
             </section>
         </div>
@@ -154,11 +179,11 @@
     <div class="toast" id="pageToast" aria-live="polite" aria-atomic="true"></div>
 </div>
 
-<script src="favorites-storage.js"></script>
-<script src="cart-storage.js"></script>
-<script src="site-shell.js"></script>
-<script src="product-catalog.js"></script>
-<script src="product-page.js"></script>
+<script src="favorites-storage.js?v=20260602-1"></script>
+<script src="cart-storage.js?v=20260602-1"></script>
+<script src="site-shell.js?v=20260602-1"></script>
+<script src="product-catalog.js?v=20260602-1"></script>
+<script src="product-page.js?v=20260602-2"></script>
 </body>
 </html>
 
