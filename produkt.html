@@ -7,7 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style-kategoria.css?v=20260602-2">
+    <link rel="stylesheet" href="style-kategoria.css?v=20260605-3">
+    <link rel="stylesheet" href="produkt.css?v=20260609-11">
 </head>
 <body
     data-page="product"
@@ -52,98 +53,92 @@
     </header>
 
     <main class="product-main">
-        <div class="container product-layout">
-            <section class="product-hero-card">
+        <div class="container product-layout-redesign">
+            
+            <div class="product-column-left">
                 <div class="product-gallery">
                     <div class="product-gallery-frame">
                         <img id="productHeroImage" src="images/przetwory-z-gruszek-siostry-anastazji-4af3b39.jpg" alt="D&#380;em z gruszki">
                     </div>
-                    <p class="product-stock-badge is-available" id="productStockBadge">Dost&#281;pny</p>
+                    <p id="productStockBadge" hidden></p>
                 </div>
 
-                <div class="product-overview">
-                    <div class="product-overview-head">
-                        <div class="product-overview-copy-block">
-                            <h1 id="productTitle">D&#380;em z gruszki</h1>
-                            <p class="product-overview-copy" id="productLead">Naturalny d&#380;em z gruszki przygotowany wed&#322;ug tradycyjnej receptury, bez zb&#281;dnych dodatk&oacute;w i sztucznych konserwant&oacute;w.</p>
-                        </div>
-                        <button class="favorite-button product-favorite-button" id="productFavoriteButton" type="button" aria-label="Dodaj do ulubionych" aria-pressed="false">
-                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path></svg>
-                        </button>
-                    </div>
-
-                    <div class="product-detail-copy" id="productDescriptionStack">
-                        <p id="productDescription">Powstaje z dojrza&#322;ych, soczystych gruszek, kt&oacute;re nadaj&#261; mu delikatnie s&#322;odki smak i aksamitn&#261; konsystencj&#281;.</p>
-                    </div>
-
-                    <div class="product-buy-row">
-                        <span class="product-stock-inline is-available" id="productStockInline">Dost&#281;pny</span>
+                <div class="product-buy-row">
+                    <span class="product-stock-inline is-available" id="productStockInline">Dost&#281;pny</span>
+                    <div class="product-buy-actions">
                         <div class="product-quantity-control" aria-label="Ilo&#347;&#263; produktu">
                             <button class="product-quantity-button" id="productQuantityDecrease" type="button" aria-label="Zmniejsz ilo&#347;&#263;">&minus;</button>
                             <span class="product-quantity-value" id="productQuantityValue" aria-live="polite">1</span>
                             <button class="product-quantity-button" id="productQuantityIncrease" type="button" aria-label="Zwi&#281;ksz ilo&#347;&#263;">+</button>
                         </div>
                         <button class="cart-button product-add-button" id="productAddToCart" type="button">Dodaj do koszyka</button>
-                        <div class="product-price-tag">
-                            <span>Cena:</span>
-                            <strong id="productPrice">19.00 z&#322;</strong>
-                        </div>
+                    </div>
+                    <div class="product-price-tag">
+                        <span>Cena:</span>
+                        <strong id="productPrice">19.00 z&#322;</strong>
                     </div>
                 </div>
-            </section>
 
-            <section class="seller-feedback-card">
-                <div class="seller-feedback-main">
+                <div class="seller-feedback-section">
                     <div class="seller-feedback-header seller-feedback-header-compact">
                         <h2>Opinie o sprzedawcy: <span id="feedbackSellerName">Siostra Anastazja</span></h2>
-                        <div class="seller-feedback-average">
-                            <span>Średnia ocen:</span>
-                            <strong id="sellerAverageRating">4.7</strong>
-                        </div>
+                        <span class="seller-average-rating-text">Średnia ocen: <span id="sellerAverageRating">4.7</span></span>
                     </div>
-
                     <div class="seller-feedback-board">
                         <div class="seller-feedback-list seller-feedback-grid" id="sellerFeedbackList"></div>
                         <div class="seller-feedback-scrollbar" aria-hidden="true">
                             <span class="seller-feedback-scrollbar-thumb"></span>
                         </div>
                     </div>
-
-                    <div class="review-toolbar">
-                        <div class="review-filter-wrap">
-                            <button class="review-filter-button" id="reviewFilterButton" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="reviewFilterMenu">
-                                <span data-review-filter-label>Wszystkie oceny</span>
-                                <span class="review-filter-caret">∨</span>
-                            </button>
-                            <div class="review-filter-menu" id="reviewFilterMenu" hidden>
-                                <button type="button" data-rating-filter="">Wszystkie oceny</button>
-                                <button type="button" data-rating-filter="5">5 gwiazdek</button>
-                                <button type="button" data-rating-filter="4">4 gwiazdki</button>
-                                <button type="button" data-rating-filter="3">3 gwiazdki</button>
-                                <button type="button" data-rating-filter="2">2 gwiazdki</button>
-                                <button type="button" data-rating-filter="1">1 gwiazdka</button>
-                            </div>
-                        </div>
-                        <div class="review-toolbar-count">
-                            Ilość opinii: <strong id="productReviewTotalCount">240</strong>
-                        </div>
-                        <div class="review-limit-toolbar">
-                            Ilość opinii do wyświetlenia:
-                            <button class="review-limit-button is-active" type="button" data-limit="6">6</button>
-                            <button class="review-limit-button" type="button" data-limit="12">12</button>
-                            <button class="review-limit-button" type="button" data-limit="24">24</button>
-                        </div>
-                    </div>
-
-                    <div class="review-cloud-shell">
-                        <div class="review-cloud-viewport" id="productReviewViewport">
-                            <div class="product-review-grid" id="productReviewCards"></div>
-                        </div>
-                    </div>
-
-                    <nav class="product-review-pagination" id="productReviewPagination" aria-label="Strony opinii"></nav>
                 </div>
-            </section>
+            </div>
+
+            <div class="product-column-right">
+                <div class="product-overview-head">
+                    <div class="product-overview-copy-block">
+                        <h1 id="productTitle">D&#380;em z gruszki</h1>
+                    </div>
+                    <button class="favorite-button product-favorite-button" id="productFavoriteButton" type="button" aria-label="Dodaj do ulubionych" aria-pressed="false">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    </button>
+                </div>
+
+                <div class="product-detail-copy" id="productDescriptionStack">
+                    <p id="productDescription">Powstaje z dojrza&#322;ych, soczystych gruszek, kt&oacute;re nadaj&#261; mu delikatnie s&#322;odki smak i aksamitn&#261; konsystencj&#281;.</p>
+                </div>
+
+                <div class="product-reviews-section">
+                    <div class="review-toolbar-modern">
+                        <div class="review-toolbar-left">
+                            <button class="review-filter-button" id="reviewFilterButton" aria-expanded="false" aria-controls="reviewFilterMenu">
+                                <span data-review-filter-label>Wszystkie oceny</span> V
+                            </button>
+                            <div class="review-filter-dropdown" id="reviewFilterMenu" hidden>
+                                <div class="review-filter-dropdown-header" id="reviewFilterDropdownHeader">
+                                    <span data-review-filter-label>Wszystkie oceny</span> V
+                                </div>
+                                <button type="button" class="review-filter-option" data-rating-filter="">Wszystkie oceny</button>
+                                <button type="button" class="review-filter-option" data-rating-filter="5">5 gwiazdek</button>
+                                <button type="button" class="review-filter-option" data-rating-filter="4">4 gwiazdek</button>
+                                <button type="button" class="review-filter-option" data-rating-filter="3">3 gwiazdki</button>
+                                <button type="button" class="review-filter-option" data-rating-filter="2">2 gwiazdki</button>
+                                <button type="button" class="review-filter-option" data-rating-filter="1">1 gwiazdka</button>
+                            </div>
+                            <span class="review-total-count-text">Ilo&#347;&#263; opinii: <span id="productReviewTotalCount">240</span></span>
+                        </div>
+                        <span class="review-limit-text">Ilo&#347;&#263; opinii do wy&#347;wietlenia: 
+                            <button class="review-limit-button is-active" data-limit="6">6</button>
+                            <button class="review-limit-button" data-limit="12">12</button>
+                            <button class="review-limit-button" data-limit="24">24</button>
+                        </span>
+                    </div>
+                    <div class="product-review-grid" id="productReviewCards"></div>
+                </div>
+
+                <div class="product-return-policy">Zwrot 14 dni</div>
+                <div class="product-review-pagination-modern" id="productReviewPagination"></div>
+            </div>
+
         </div>
     </main>
 
@@ -179,11 +174,11 @@
     <div class="toast" id="pageToast" aria-live="polite" aria-atomic="true"></div>
 </div>
 
-<script src="favorites-storage.js?v=20260602-1"></script>
-<script src="cart-storage.js?v=20260602-1"></script>
-<script src="site-shell.js?v=20260602-1"></script>
-<script src="product-catalog.js?v=20260602-1"></script>
-<script src="product-page.js?v=20260602-2"></script>
+<script src="favorites-storage.js?v=20260609-1"></script>
+<script src="cart-storage.js?v=20260609-1"></script>
+<script src="site-shell.js?v=20260609-1"></script>
+<script src="product-catalog.js?v=20260609-1"></script>
+<script src="product-page.js?v=20260609-1"></script>
 </body>
 </html>
 

@@ -7,9 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style-kategoria.css?v=20260602-5">
+    <link rel="stylesheet" href="style-kategoria.css">
 </head>
-<body data-page="checkout" data-checkout-step="card">
+<body data-page="checkout">
 <div class="page-shell checkout-shell">
     <header class="topbar topbar-simple">
         <div class="container topbar-inner">
@@ -43,220 +43,29 @@
 
     <main class="checkout-main">
         <div class="container checkout-layout">
-            <aside class="checkout-billing-card" id="checkoutSidebar" style="cursor: pointer;" onclick="openModal('adresModal')">
-                <div class="checkout-billing-head">
-                    <img src="images/icons8-home-33.png" alt="">
-                    Dane rozliczeniowe
-                </div>
-                <div class="checkout-billing-form">
-                    <div class="checkout-billing-field">
-                        <span class="checkout-billing-label">Imię i nazwisko</span>
-                    </div>
-                    <div class="checkout-billing-field">
-                        <span class="checkout-billing-label">Ulica</span>
-                    </div>
-                    <div class="checkout-billing-field">
-                        <span class="checkout-billing-label">Nr domu/ Nr lokalu</span>
-                    </div>
-                    <div class="checkout-billing-field">
-                        <span class="checkout-billing-label">Kod pocztowy</span>
-                    </div>
-                    <div class="checkout-billing-field">
-                        <span class="checkout-billing-label">Miejscowość</span>
-                    </div>
-                    <div class="checkout-billing-field">
-                        <span class="checkout-billing-label">Numer telefonu</span>
-                    </div>
-                    <div class="checkout-billing-field">
-                        <span class="checkout-billing-label">Adres e-mail</span>
-                    </div>
-                </div>
-            </aside>
             <section class="checkout-summary-card">
-                <div class="checkout-summary-head">
-                    <h1>Podsumowanie zam&oacute;wienia</h1>
-                    <span><strong id="checkoutItemsCount">3</strong> produkty</span>
-                </div>
-                <div class="checkout-preview" id="checkoutPreview">
-                    <img src="images/Oscypek-goralski.jpg" alt="Oscypek G&oacute;ralski">
-                    <img src="images/gorzelnia-dlugie-nalewka-wisniowa.png" alt="Nalewka Wi&#347;niowa">
-                    <img src="images/miod-test.png" alt="Mi&oacute;d lipowy">
-                </div>
-                <dl class="checkout-summary-list">
-                    <div><dt>Suma za produkty</dt><dd id="checkoutSubtotal">119.00 z&#322;</dd></div>
-                    <div><dt>Zni&#380;ka na produkty</dt><dd id="checkoutDiscount">0.00 z&#322;</dd></div>
-                    <div><dt>Wysy&#322;ka</dt><dd id="checkoutShipping">7.00 z&#322;</dd></div>
-                </dl>
-                <div class="checkout-summary-total">
-                    <span>Za wszystko</span>
-                    <strong id="checkoutTotal">126.00 z&#322;</strong>
-                </div>
+                <div class="checkout-summary-head"><h1>Podsumowanie zam&oacute;wienia</h1><span><strong id="checkoutItemsCount">3</strong> produkty</span></div>
+                <div class="checkout-preview" id="checkoutPreview"><img src="images/Oscypek-goralski.jpg" alt="Oscypek"><img src="images/gorzelnia-dlugie-nalewka-wisniowa.png" alt="Nalewka"><img src="images/miod-test.png" alt="Mi&oacute;d"></div>
+                <dl class="checkout-summary-list"><div><dt>Suma za produkty</dt><dd id="checkoutSubtotal">119.00 z&#322;</dd></div><div><dt>Zni&#380;ka na produkty</dt><dd id="checkoutDiscount">0.00 z&#322;</dd></div><div><dt>Wysy&#322;ka</dt><dd id="checkoutShipping">7.00 z&#322;</dd></div></dl>
+                <div class="checkout-summary-total"><span>Za wszystko</span><strong id="checkoutTotal">126.00 z&#322;</strong></div>
             </section>
-            <section class="checkout-form-card" id="checkoutFormCard">
-                <div class="checkout-form-head">
-                    <h2>P&#322;atno&#347;&#263;</h2>
+
+            <section class="checkout-form-card">
+                <div class="checkout-form-head"><h2>P&#322;atno&#347;&#263;</h2><p>Wybierz metod&#281; p&#322;atno&#347;ci i uzupe&#322;nij dane karty.</p></div>
+                <div class="checkout-method-tabs">
+                    <a href="zaplata-karta.html" data-method-link aria-current="page">Karta p&#322;atnicza</a>
+                    <a href="zaplata-blik.html" data-method-link>Blik</a>
+                    <a href="zaplata-odbior.html" data-method-link>P&#322;atno&#347;&#263; przy odbiorze</a>
                 </div>
-                <div class="checkout-payment-panel">
-                    <div class="checkout-method-list">
-                        <p class="checkout-field-note">Metoda p&#322;atno&#347;ci:</p>
-                        
-                        <label class="checkout-method-option">
-                            <input type="radio" name="payment_method" value="card" checked onchange="window.location.href='zaplata-karta.html'">
-                            <div class="checkout-method-icon"><img src="images/icons8-credit-card-40.png" alt=""></div>
-                            <div class="checkout-method-copy">
-                                <strong>Karta p&#322;atnicza</strong>
-                            </div>
-                        </label>
-                        <div class="checkout-payment-fields" style="padding-left: 50px; margin-bottom: 12px;">
-                            <div class="checkout-input-field">
-                                <span>Numer karty</span>
-                                <div class="checkout-input-shell">
-                                    <input type="text" placeholder="1111 1111 1111 1111">
-                                </div>
-                            </div>
-                            <div class="checkout-form-grid">
-                                <div class="checkout-input-field">
-                                    <span>Data wa&#380;no&#347;ci</span>
-                                    <div class="checkout-input-shell">
-                                        <input type="text" placeholder="MM/RR">
-                                    </div>
-                                </div>
-                                <div class="checkout-input-field">
-                                    <span>CVV</span>
-                                    <div class="checkout-input-shell">
-                                        <input type="text" placeholder="XXX">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="checkout-input-field">
-                                <span>Imi&#281; i nazwisko</span>
-                                <div class="checkout-input-shell">
-                                    <input type="text" placeholder="IMI&#280; NAZWISKO">
-                                </div>
-                            </div>
-                        </div>
-
-                        <label class="checkout-method-option">
-                            <input type="radio" name="payment_method" value="blik" onchange="window.location.href='zaplata-blik.html'">
-                            <div class="checkout-method-icon"><img src="images/blikicon.webp" alt=""></div>
-                            <div class="checkout-method-copy">
-                                <strong>Blik</strong>
-                            </div>
-                        </label>
-
-                        <label class="checkout-method-option">
-                            <input type="radio" name="payment_method" value="cod" onchange="window.location.href='zaplata-odbior.html'">
-                            <div class="checkout-method-icon"><img src="images/icons8-payment-40.png" alt=""></div>
-                            <div class="checkout-method-copy">
-                                <strong>P&#322;atno&#347;&#263; przy odbiorze</strong>
-                            </div>
-                        </label>
-                    </div>
-
-                    <button class="checkout-continue" id="checkoutContinue" data-next-href="zaplata-sukces.html">Zap&#322;a&#263;</button>
-                </div>
+                <form class="checkout-form-grid">
+                    <label class="checkout-form-full"><span>Numer karty</span><input type="text" value="1111 1111 1111 1111"></label>
+                    <label><span>Data wa&#380;no&#347;ci</span><input type="text" value="MM/RR"></label>
+                    <label><span>CVV</span><input type="text" value="XXX"></label>
+                    <label class="checkout-form-full"><span>Imi&#281; i nazwisko</span><input type="text" value="IMIE NAZWISKO"></label>
+                </form>
+                <button class="checkout-continue" id="checkoutContinue" type="button">Zap&#322;a&#263;</button>
             </section>
-            <nav class="checkout-quick-links" id="checkoutQuickLinks" aria-label="Szybkie skr&oacute;ty">
-                <a href="zaplata-karta.html" class="checkout-quick-card">
-                    <span>Spos&oacute;b p&#322;atno&#347;ci</span>
-                    <strong>Karta</strong>
-                </a>
-                <a href="zaplata-dostawa.html" class="checkout-quick-card">
-                    <span>Spos&oacute;b dostawy</span>
-                    <strong>DHL</strong>
-                </a>
-            </nav>
         </div>
-        <div class="checkout-modal" id="adresModal">
-            <div class="checkout-modal-backdrop" onclick="closeModals()"></div>
-            <div class="checkout-modal-content">
-                <div class="checkout-modal-header">
-                    <img src="images/icons8-home-33.png" alt=""> Dane rozliczeniowe:
-                </div>
-                <div class="checkout-modal-body checkout-modal-grid-adres">
-                    <div class="checkout-modal-field full-width">
-                        <img src="images/icons8-person-30.png" alt="">
-                        <input type="text" placeholder="Imi&#281; i nazwisko">
-                    </div>
-                    <div class="checkout-modal-field full-width">
-                        <img src="images/icons8-phone-30.png" alt="">
-                        <input type="text" placeholder="Numer telefonu">
-                    </div>
-                    <div class="checkout-modal-field full-width">
-                        <img src="images/icons8-email-30.png" alt="">
-                        <input type="text" placeholder="Adres e-mail">
-                    </div>
-                    <div class="checkout-modal-field">
-                        <img src="images/icons8-apartment-30.png" alt="">
-                        <input type="text" placeholder="Nr domu/ Nr lokalu">
-                    </div>
-                    <div class="checkout-modal-field">
-                        <img src="images/icons8-road-30.png" alt="">
-                        <input type="text" placeholder="Ulica">
-                    </div>
-                    <div class="checkout-modal-field">
-                        <img src="images/icons8-post-office-30.png" alt="">
-                        <input type="text" placeholder="Kod pocztowy">
-                    </div>
-                    <div class="checkout-modal-field">
-                        <img src="images/icons8-country-30.png" alt="">
-                        <input type="text" placeholder="Miejscowo&#347;&#263;">
-                    </div>
-                    <button class="checkout-modal-save" onclick="closeModals()">
-                        <img src="images/icons8-save-30.png" alt=""> Zapisz
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div class="checkout-modal" id="dostawaModal">
-            <div class="checkout-modal-backdrop" onclick="closeModals()"></div>
-            <div class="checkout-modal-content">
-                <div class="checkout-modal-header">
-                    <img src="images/icons8-truck-35.png" alt=""> Dostawa
-                </div>
-                <div class="checkout-modal-body checkout-modal-grid-dostawa">
-                    <label class="checkout-modal-option">
-                        <input type="radio" name="modal_delivery" value="dhl" checked>
-                        <img src="images/dhl.webp" alt="">
-                        <span>Kurier DHL</span>
-                        <strong>9.99</strong>
-                    </label>
-                    <label class="checkout-modal-option">
-                        <input type="radio" name="modal_delivery" value="inpost">
-                        <img src="images/inpost.webp" alt="">
-                        <span>Kurier InPost</span>
-                        <strong>11.99</strong>
-                    </label>
-                    <label class="checkout-modal-option">
-                        <input type="radio" name="modal_delivery" value="kurier">
-                        <img src="images/icons8-truck-35.png" alt="">
-                        <span>Kurier</span>
-                        <strong>10.99</strong>
-                    </label>
-                    <button class="checkout-modal-save" onclick="closeModals()">
-                        <img src="images/icons8-save-30.png" alt=""> Zapisz
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <script>
-            function openModal(id) {
-                document.getElementById(id).classList.add('is-open');
-            }
-            function closeModals() {
-                document.querySelectorAll('.checkout-modal').forEach(m => m.classList.remove('is-open'));
-                const url = window.location.href;
-                if(url.includes('zaplata-adres.html')) window.location.href = 'zaplata-dostawa.html';
-                else if(url.includes('zaplata-dostawa.html')) window.location.href = 'zaplata-karta.html';
-            }
-            document.addEventListener('DOMContentLoaded', () => {
-                const url = window.location.href;
-                if(url.includes('zaplata-adres.html')) openModal('adresModal');
-                if(url.includes('zaplata-dostawa.html')) openModal('dostawaModal');
-            });
-        </script>
     </main>
 
     <footer class="footer">
@@ -266,7 +75,7 @@
 </div>
 <script src="cart-storage.js"></script>
 <script src="site-shell.js"></script>
-<script src="checkout-page.js?v=20260602-4"></script>
+<script src="checkout-page.js"></script>
 </body>
 </html>
 

@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     var body = document.body;
     var productCatalog = window.productCatalog;
     var cartStore = window.cartStore;
@@ -50,6 +50,15 @@
     }
 
     var sellerProductsByKey = {
+        'firma': [
+            { id: '1', name: 'Oscypek Góralski', seller: 'firma', price: '21.00', image: 'images/Oscypek-goralski.jpg', alt: 'Oscypek', category: 'sery', rating: '5.0', stock: 340 },
+            { id: '2', name: 'Orzechówka', seller: 'firma', price: '42.00', image: 'images/nalewka.jpg', alt: 'Nalewka', category: 'napoje', rating: '4.8', stock: 129 },
+            { id: '3', name: 'Ciupaga Góralska', seller: 'firma', price: '98.00', image: 'images/ciupaga.jpg', alt: 'Ciupaga', category: 'rekodzielo', rating: '4.9', stock: 6 },
+            { id: '4', name: 'Redykołka', seller: 'firma', price: '78.00', image: 'images/Redykołka.webp', alt: 'Serek', category: 'sery', rating: '4.7', stock: 25 },
+            { id: '5', name: 'Jałowcówka', seller: 'firma', price: '55.00', image: 'images/nalewka.jpg', alt: 'Nalewka', category: 'napoje', rating: '4.9', stock: 95 },
+            { id: '6', name: 'Pigwówka', seller: 'firma', price: '56.00', image: 'images/nalewka.jpg', alt: 'Nalewka', category: 'napoje', rating: '4.8', stock: 67 },
+            { id: '7', name: 'Dżem z gruszki', seller: 'firma', price: '19.00', image: 'images/dzem.jpg', alt: 'Dżem', category: 'przetwory', rating: '5.0', stock: 48 }
+        ],
         'bacowka u wojtka': [
             { name: 'Oscypek Goralski', seller: 'Bacowka u Wojtka', price: '78.00', image: 'images/Oscypek-goralski.jpg', alt: 'Oscypek Goralski', category: 'sery', rating: '5.0', stock: 18 },
             { name: 'Bundz', seller: 'Bacowka u Wojtka', price: '52.00', image: 'images/Sery - bundz.webp', alt: 'Bundz', category: 'sery', rating: '4.9', stock: 13 },
@@ -120,6 +129,29 @@
 
     var activeMode = '';
     var selectedImageDataUrl = '';
+    var editingProductId = null;
+
+    function openDialog(product) {
+        if (product) {
+            editingProductId = product.id;
+            addForm.elements.name.value = product.name || '';
+            addForm.elements.price.value = product.price || '';
+            addForm.elements.stock.value = product.stock || '0';
+            addForm.elements.category.value = product.category || 'home';
+            addForm.elements.owner.value = product.seller || '';
+            addForm.elements.description.value = product.description || '';
+            
+            if (product.image) {
+                selectedImageDataUrl = product.image;
+                updateImagePlaceholder();
+            }
+        } else {
+            editingProductId = null;
+            addForm.reset();
+            resetImageSelection();
+        }
+        setDialogOpen(true);
+    }
 
     function displayProduct(product) {
         var candidate = product;
@@ -152,7 +184,9 @@
     function createDefaultProducts() {
         var key = normalize(sellerName);
         var base = sellerProductsByKey[key] || [
-            { name: 'Produkt regionalny', seller: sellerName, price: '78.00', image: 'images/Oscypek-goralski.jpg', alt: 'Produkt regionalny', category: 'home', rating: '4.8', stock: 12 }
+            { name: 'Oscypek górski', seller: sellerName, price: '28.00', image: 'images/Oscypek-goralski.jpg', alt: 'Oscypek górski', category: 'sery', rating: '4.8', stock: 24 },
+            { name: 'Miód lipowy', seller: sellerName, price: '45.00', image: 'images/miod-lipowy-1100.jpg', alt: 'Miód lipowy', category: 'miody', rating: '4.6', stock: 15 },
+            { name: 'Kiełbasa śląska', seller: sellerName, price: '32.00', image: 'images/kielbasa-slaska.jpg', alt: 'Kiełbasa śląska', category: 'wedliny', rating: '4.9', stock: 8 }
         ];
 
         return base.map(function (item, index) {
@@ -176,53 +210,59 @@
         });
     }
 
-    function createDefaultOrders(products) {
+    function createDefaultOrders() {
         return [
-            {
-                id: 'ZAM-101',
-                customer: 'Jan Kowalski',
-                total: '126.00',
-                status: 'Nowe',
-                items: products.slice(0, 2).map(function (item) { return item.name; })
-            },
-            {
-                id: 'ZAM-102',
-                customer: 'Anna Nowak',
-                total: '92.00',
-                status: 'W realizacji',
-                items: products.slice(1, 3).map(function (item) { return item.name; })
-            }
+            { id: 'WX9348B', date: '2026-05-28', customer: 'Jan Kowalski', total: '149,99', paymentStatus: 'opłacone', deliveryStatus: 'dostarczone' },
+            { id: 'WX2175A', date: '2026-05-29', customer: 'Anna Nowak', total: '89,50', paymentStatus: 'opłacone', deliveryStatus: 'odebrane' },
+            { id: 'WX5821C', date: '2026-05-30', customer: 'Piotr Wiśniewski', total: '199,00', paymentStatus: 'nieopłacone', deliveryStatus: 'w realizacji' },
+            { id: 'WX7463D', date: '2026-05-31', customer: 'Katarzyna Zielińska', total: '45,90', paymentStatus: 'opłacone', deliveryStatus: 'w drodze' },
+            { id: 'WX1937E', date: '2026-06-01', customer: 'Tomasz Lewandowski', total: '127,40', paymentStatus: 'nieopłacone', deliveryStatus: 'w realizacji' },
+            { id: 'WX2175A_6', date: '2026-05-29', customer: 'Anna Nowak', total: '89,50', paymentStatus: 'opłacone', deliveryStatus: 'odebrane' },
+            { id: 'WX2175A_7', date: '2026-05-29', customer: 'Anna Nowak', total: '89,50', paymentStatus: 'opłacone', deliveryStatus: 'odebrane' },
+            { id: 'WX2175A_8', date: '2026-05-29', customer: 'Anna Nowak', total: '89,50', paymentStatus: 'opłacone', deliveryStatus: 'odebrane' },
+            { id: 'WX2175A_9', date: '2026-05-29', customer: 'Anna Nowak', total: '89,50', paymentStatus: 'opłacone', deliveryStatus: 'odebrane' },
+            { id: 'WX2175A_10', date: '2026-05-29', customer: 'Anna Nowak', total: '89,50', paymentStatus: 'opłacone', deliveryStatus: 'odebrane' },
+            { id: 'WX2175A_11', date: '2026-05-29', customer: 'Anna Nowak', total: '89,50', paymentStatus: 'opłacone', deliveryStatus: 'odebrane' },
+            { id: 'WX2175A_12', date: '2026-05-29', customer: 'Anna Nowak', total: '89,50', paymentStatus: 'opłacone', deliveryStatus: 'odebrane' },
+            { id: 'WX2175A_13', date: '2026-05-29', customer: 'Anna Nowak', total: '89,50', paymentStatus: 'opłacone', deliveryStatus: 'odebrane' },
+            { id: 'WX2175A_14', date: '2026-05-29', customer: 'Anna Nowak', total: '89,50', paymentStatus: 'opłacone', deliveryStatus: 'odebrane' },
+            { id: 'WX2175A_15', date: '2026-05-29', customer: 'Anna Nowak', total: '89,50', paymentStatus: 'opłacone', deliveryStatus: 'odebrane' },
+            { id: 'WX2175A_16', date: '2026-05-29', customer: 'Anna Nowak', total: '89,50', paymentStatus: 'opłacone', deliveryStatus: 'odebrane' }
         ];
     }
 
     function createDefaultReturns(products) {
         return [
-            {
-                id: 'ZW-201',
-                orderId: 'AB2389D',
-                product: products[0] ? products[0].name : 'Oscypek Góralski',
-                reason: 'Złe na wygląd',
-                status: 'Oczekuje'
-            }
+            { id: 'ZW-201', orderId: 'AB2389D', product: 'Oscypek Góralski', reason: 'Złe na wygląd', status: 'pending' },
+            { id: 'ZW-202', orderId: 'CK5721M', product: 'Orzechówka', reason: 'Sprzedawca wysłał inne przedmioty.', status: 'rejected' },
+            { id: 'ZW-203', orderId: 'DT8146Q', product: 'Ciupaga Góralska', reason: 'Nie odpowiada opisu', status: 'approved' },
+            { id: 'ZW-204', orderId: 'GH6287N', product: 'Redykołka', reason: 'Nie odpowiada Wyglądu z oferty.', status: 'pending' },
+            { id: 'ZW-205', orderId: 'QR5198V', product: 'Jałowcówka', reason: 'Długi czas dostarczenia.', status: 'pending' },
+            { id: 'ZW-206', orderId: 'UV1675Z', product: 'Pigwówka', reason: 'Uszkodzone podczas transportu', status: 'approved' },
+            { id: 'ZW-207', orderId: 'WX9348B', product: 'Dżem z gruszki', reason: 'Sprzedawca wysłał inne przedmioty.', status: 'rejected' }
         ];
     }
 
     function normalizeReturnStatus(status) {
         var normalized = normalize(status);
 
-        if (normalized === 'approved' || normalized === 'zaakceptowany' || normalized === 'zatwierdzony') {
-            return 'Zatwierdzony';
+        if (normalized === 'approved' || normalized === 'zatwierdzony') {
+            return 'approved';
         }
 
-        if (normalized === 'issue' || normalized === 'problem' || normalized === 'problem ze zwrotem') {
-            return 'Problem ze zwrotem';
+        if (normalized === 'rejected' || normalized === 'odrzucony') {
+            return 'rejected';
+        }
+
+        if (normalized === 'issue' || normalized === 'problem ze zwrotem') {
+            return 'problem';
         }
 
         if (normalized === 'contact' || normalized === 'kontakt z klientem') {
-            return 'Kontakt z klientem';
+            return 'contact';
         }
 
-        return 'Oczekuje';
+        return 'pending';
     }
 
     function loadState() {
@@ -253,8 +293,8 @@
         };
     })();
 
-    if (!Array.isArray(state.orders)) {
-        state.orders = createDefaultOrders(state.products);
+    if (!Array.isArray(state.orders) || !state.orders[0] || !state.orders[0].paymentStatus) {
+        state.orders = createDefaultOrders();
     }
 
     if (!Array.isArray(state.returns)) {
@@ -286,19 +326,23 @@
         var display = displayProduct(product);
 
         return [
-            '<article class="product-card seller-dashboard-card">',
-            '<button class="favorite-button" type="button" aria-label="Ulubione" disabled>',
-            '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5L4.9 13.6C3.2 11.9 3.2 9.1 4.9 7.4C6.6 5.7 9.3 5.7 11 7.4L12 8.4L13 7.4C14.7 5.7 17.4 5.7 19.1 7.4C20.8 9.1 20.8 11.9 19.1 13.6L12 20.5Z"></path></svg>',
-            '</button>',
-            '<a class="product-media seller-product-media" href="', display.detailHref || 'produkt.html', '">',
+            '<article class="seller-product-card">',
+            '<div class="seller-product-image-wrap">',
+            '<a href="', display.detailHref || 'produkt.html', '">',
             '<img src="', display.image, '" alt="', display.alt || display.name, '">',
             '</a>',
-            '<div class="rating-badge"><span class="rating-star">&#9734;</span><span>', display.averageRating || display.rating || '4.8', '</span></div>',
-            '<div class="product-content">',
+            '<div class="seller-product-rating"><span class="star">&#9734;</span> <span>', display.averageRating || display.rating || '5.0', '</span></div>',
+            '</div>',
+            '<div class="seller-product-details">',
             '<h2>', display.name, '</h2>',
-            '<p class="seller-name"><a class="seller-profile-link" href="', sellerHref(display.seller), '">', display.seller, '</a></p>',
-            '<div class="product-price">', formatPrice(display.price), ' zł</div>',
-            '<button class="cart-button seller-dashboard-cart" type="button" data-product-id="', display.id || '', '">Dodaj do koszyka</button>',
+            '<div class="seller-product-meta">',
+            '<span class="seller-name">Jakis sprzedawca</span>',
+            '<span class="seller-price">', formatPrice(display.price), '</span>',
+            '</div>',
+            '</div>',
+            '<div class="seller-product-actions">',
+            '<button class="btn-seller-edit" type="button" data-edit-product-id="', display.id || '', '">Edytuj</button>',
+            '<button class="btn-seller-delete" type="button" data-delete-product-id="', display.id || '', '">Usunąć Produkt</button>',
             '</div>',
             '</article>'
         ].join('');
@@ -326,21 +370,98 @@
             return;
         }
 
-        gridNode.innerHTML = state.products.map(cardMarkup).join('');
+        var activePage = state.productsPage || 1;
+        var paginationHtml = '';
+        for (var i = 1; i <= 5; i++) {
+            if (i === activePage) {
+                paginationHtml += '<strong>' + i + '</strong>';
+            } else {
+                paginationHtml += '<span data-products-page="' + i + '" style="cursor:pointer">' + i + '</span>';
+            }
+        }
 
-        Array.prototype.slice.call(gridNode.querySelectorAll('.seller-dashboard-cart')).forEach(function (button) {
-            button.addEventListener('click', function () {
-                var id = button.getAttribute('data-product-id');
-                var product = state.products.find(function (item) { return item.id === id; });
-                if (!product || !cartStore) {
-                    return;
-                }
+        gridNode.innerHTML = '<div class="seller-products-wrap">' + state.products.map(cardMarkup).join('') + '</div>' + 
+                             '<div class="seller-pagination-wrap"><div class="seller-pagination">' + paginationHtml + '</div></div>';
 
-                cartStore.add(product);
-                pageShell.syncCartCounters();
-                pageShell.showToast('Produkt dodany do koszyka.');
+        Array.prototype.slice.call(gridNode.querySelectorAll('[data-products-page]')).forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                state.productsPage = parseInt(btn.getAttribute('data-products-page'), 10);
+                renderProductGrid();
             });
         });
+
+        Array.prototype.slice.call(gridNode.querySelectorAll('.btn-seller-edit')).forEach(function (button) {
+            button.addEventListener('click', function () {
+                var id = button.getAttribute('data-edit-product-id');
+                var product = state.products.find(function (item) { return item.id === id; });
+                if (product) {
+                    openDialog(product);
+                }
+            });
+        });
+
+        Array.prototype.slice.call(gridNode.querySelectorAll('.btn-seller-delete')).forEach(function (button) {
+            button.addEventListener('click', function () {
+                var id = button.getAttribute('data-delete-product-id');
+                removeProduct(id);
+            });
+        });
+    }
+
+    function renderFinancesMode() {
+        var activeTab = state.financesActiveTab || 'Zapłacone';
+        var allCards = [
+            { type: 'Niezapłacone', date: '10 maj 2026', profit: '3500.00 zł', fee: '2%', total: '70.00 zł' },
+            { type: 'Zapłacone', date: '10 kwiecień 2026', profit: '3500.00 zł', fee: '2%', total: '70.00 zł' },
+            { type: 'Niezapłacone', date: '10 maj 2026', profit: '3500.00 zł', fee: '2%', total: '70.00 zł' },
+            { type: 'Zapłacone', date: '10 kwiecień 2026', profit: '3500.00 zł', fee: '2%', total: '70.00 zł' }
+        ];
+        
+        var filteredCards = allCards.filter(function(c) { return c.type === activeTab; });
+        if (filteredCards.length === 0) filteredCards = allCards;
+        
+        var cardsHtml = filteredCards.map(function(card) {
+            return [
+                '<div class="finances-card">',
+                '<div class="finances-card-header">',
+                '<h3>', card.type, '</h3><span>', card.date, '</span>',
+                '</div>',
+                '<div class="finances-card-row"><span>Miesięczny zysk</span><strong>', card.profit, '</strong></div>',
+                '<div class="finances-card-divider"></div>',
+                '<div class="finances-card-row"><span>Pobierane</span><strong>', card.fee, '</strong></div>',
+                '<div class="finances-card-row finances-card-total"><span>Do zapłaty</span><strong>', card.total, '</strong></div>',
+                '</div>'
+            ].join('');
+        }).join('');
+
+        var activeFinPage = state.financesPage || 1;
+        var finPaginationHtml = '';
+        for (var j = 1; j <= 5; j++) {
+            if (j === activeFinPage) {
+                finPaginationHtml += '<strong>' + j + '</strong>';
+            } else {
+                finPaginationHtml += '<span data-finances-page="' + j + '" style="cursor:pointer">' + j + '</span>';
+            }
+        }
+        finPaginationHtml += '<span>...</span><span data-finances-page="7" style="cursor:pointer">7</span>';
+
+        return [
+            '<div class="seller-finances-layout">',
+            '<div class="seller-finances-sidebar">',
+            '<div class="finances-menu-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg> Należności</div>',
+            '<ul class="finances-menu">',
+            '<li class="', activeTab === 'Zapłacone' ? 'is-active' : '', '" data-finances-tab="Zapłacone">Zapłacone</li>',
+            '<li class="', activeTab === 'Niezapłacone' ? 'is-active' : '', '" data-finances-tab="Niezapłacone">Niezapłacone</li>',
+            '</ul>',
+            '</div>',
+            '<div class="seller-finances-main">',
+            '<div class="finances-grid">',
+            cardsHtml,
+            '</div>',
+            '<div class="seller-pagination">', finPaginationHtml, '</div>',
+            '</div>',
+            '</div>'
+        ].join('');
     }
 
     function renderDeleteMode() {
@@ -368,26 +489,73 @@
             return '<p class="seller-workbench-empty">Brak zamowien.</p>';
         }
 
+        var activeTab = state.ordersActiveTab || 'Wszystkie';
+        var tabs = ['Wszystkie', 'W drodze', 'Nie opłacone', 'Odebrane', 'Otwarte', 'Zwrot', '+'];
+        
+        var tabsMarkup = tabs.map(function(tab) {
+            var isActive = tab === activeTab;
+            return '<button class="seller-orders-tab ' + (isActive ? 'is-active' : '') + '" data-order-tab="' + tab + '">' + tab + '</button>';
+        }).join('');
+
+        var filteredOrders = state.orders.filter(function(order) {
+            if (activeTab === 'Wszystkie' || activeTab === '+') return true;
+            if (activeTab === 'W drodze') return order.deliveryStatus === 'w drodze';
+            if (activeTab === 'Nie opłacone') return order.paymentStatus === 'nieopłacone';
+            if (activeTab === 'Odebrane') return order.deliveryStatus === 'odebrane';
+            if (activeTab === 'Otwarte') return order.deliveryStatus === 'w realizacji';
+            if (activeTab === 'Zwrot') return order.deliveryStatus === 'zwrot';
+            return true;
+        });
+
+        var selectedOrderId = state.selectedOrderId || (filteredOrders[0] ? filteredOrders[0].id : null);
+        var isEditPopupOpen = state.isOrderEditPopupOpen;
+        var selectedOrder = state.orders.find(function(o) { return o.id === selectedOrderId; }) || {};
+
+        var rowsMarkup = filteredOrders.map(function (order, index) {
+            var isSelected = order.id === selectedOrderId;
+            var num = index + 1;
+            return [
+                '<tr class="', isSelected ? 'is-selected' : '', '" data-order-row-id="', order.id, '">',
+                '<td class="order-num" data-label="Lp."><strong>', num, '</strong></td>',
+                '<td data-label="Zamówienie">', order.id.split('_')[0], '</td>',
+                '<td data-label="Data">', order.date, '</td>',
+                '<td data-label="Imię i nazwisko">', order.customer, '</td>',
+                '<td data-label="Kwota">', order.total, '</td>',
+                '<td data-label="Płatność">', order.paymentStatus, '</td>',
+                '<td data-label="Dostawa">', order.deliveryStatus, '</td>',
+                '</tr>'
+            ].join('');
+        }).join('');
+
         return [
-            '<div class="seller-workbench-head"><h3>Przeglad zamowien</h3><p>Aktualizuj status realizacji.</p></div>',
-            '<div class="seller-workbench-list">',
-            state.orders.map(function (order) {
-                return [
-                    '<article class="seller-workbench-item is-block">',
-                    '<div class="seller-order-row"><strong>', order.id, '</strong><span>', order.customer, '</span><span>', order.total, ' zl</span></div>',
-                    '<p class="seller-order-products">', (order.items || []).join(', '), '</p>',
-                    '<div class="seller-order-status">',
-                    '<label>Status</label>',
-                    '<select data-order-id="', order.id, '">',
-                    '<option', order.status === 'Nowe' ? ' selected' : '', '>Nowe</option>',
-                    '<option', order.status === 'W realizacji' ? ' selected' : '', '>W realizacji</option>',
-                    '<option', order.status === 'Wyslane' ? ' selected' : '', '>Wyslane</option>',
-                    '<option', order.status === 'Zakonczone' ? ' selected' : '', '>Zakonczone</option>',
-                    '</select>',
-                    '</div>',
-                    '</article>'
-                ].join('');
-            }).join(''),
+            '<div class="seller-orders-layout">',
+            '<div class="seller-orders-header">',
+            '<div class="seller-orders-tabs">', tabsMarkup, '</div>',
+            '</div>',
+            '<div class="seller-orders-table-and-btn">',
+            '<div class="seller-orders-table-wrap">',
+            '<table class="seller-orders-table">',
+            '<thead><tr><th><input type="checkbox" disabled></th><th>Zamówienie</th><th>Data</th><th>Imię i nazwisko klienta</th><th>Kwota zamówienia w zł</th><th>Status płatności</th><th>Status dostawy</th></tr></thead>',
+            '<tbody>', rowsMarkup, '</tbody>',
+            '</table>',
+            '</div>',
+            '<button class="btn-edit-order" data-order-command="openEdit">Edytuj<br>zamówienia</button>',
+            '</div>',
+            isEditPopupOpen ? [
+                '<div class="seller-order-edit-popup">',
+                '<div class="seller-order-edit-popup-inner">',
+                '<div class="form-group"><label>Id zamówienia</label><input type="text" value="', selectedOrder.id.split('_')[0], '" readonly></div>',
+                '<div class="form-group"><label>status dostawy</label>',
+                '<select data-order-edit-status>',
+                '<option value="w realizacji"', selectedOrder.deliveryStatus === 'w realizacji' ? ' selected' : '', '>w realizacji</option>',
+                '<option value="w drodze"', selectedOrder.deliveryStatus === 'w drodze' ? ' selected' : '', '>w drodze</option>',
+                '<option value="dostarczone"', selectedOrder.deliveryStatus === 'dostarczone' ? ' selected' : '', '>dostarczone</option>',
+                '<option value="odebrane"', selectedOrder.deliveryStatus === 'odebrane' ? ' selected' : '', '>odebrane</option>',
+                '</select></div>',
+                '</div>',
+                '<div style="text-align:right;"><button type="button" class="btn-popup-save" data-order-command="closeEdit">Edytuj</button></div>',
+                '</div>'
+            ].join('') : '',
             '</div>'
         ].join('');
     }
@@ -397,20 +565,33 @@
             return '<p class="seller-workbench-empty">Brak produktow w magazynie.</p>';
         }
 
+        var selectedInventoryId = state.selectedInventoryId || state.products[0].id;
+
+        var rowsMarkup = state.products.map(function (item, index) {
+            var isSelected = item.id === selectedInventoryId;
+            return [
+                '<tr class="', isSelected ? 'is-selected' : '', '" data-inventory-row-id="', item.id, '">',
+                '<td>', index + 1, '</td>',
+                '<td>', item.name, '</td>',
+                '<td>', Number(item.price || 0).toFixed(2), '</td>',
+                '<td>', Number(item.stock || 0), '</td>',
+                '</tr>'
+            ].join('');
+        }).join('');
+
         return [
-            '<div class="seller-workbench-head"><h3>Zarzadzanie magazynem</h3><p>Zmien stan i zapisz dla wybranego produktu.</p></div>',
-            '<div class="seller-workbench-list">',
-            state.products.map(function (item) {
-                return [
-                    '<article class="seller-workbench-item">',
-                    '<div><strong>', item.name, '</strong><p>Obecnie: ', Number(item.stock || 0), ' szt.</p></div>',
-                    '<div class="seller-stock-edit">',
-                    '<input type="number" min="0" value="', Number(item.stock || 0), '" data-stock-id="', item.id, '">',
-                    '<button class="seller-workbench-button" type="button" data-save-stock-id="', item.id, '">Zapisz</button>',
-                    '</div>',
-                    '</article>'
-                ].join('');
-            }).join(''),
+            '<div class="seller-inventory-layout">',
+            '<div class="seller-returns-table-wrap">', // Reusing returns table wrap for consistent scrollbar and styling
+            '<table class="seller-returns-table">', // Reusing returns table styling
+            '<colgroup><col style="width:10%"><col style="width:50%"><col style="width:20%"><col style="width:20%"></colgroup>',
+            '<thead><tr><th>Id</th><th>Nazwa produktu</th><th>Cena w zł</th><th>Ilość produktu</th></tr></thead>',
+            '<tbody>', rowsMarkup, '</tbody>',
+            '</table>',
+            '</div>',
+            '<div class="seller-inventory-bottom-actions">',
+            '<button class="seller-workbench-button btn-reject" type="button" data-inventory-command="delete">Usuń</button>',
+            '<button class="seller-workbench-button" type="button" data-inventory-command="edit">Edytuj</button>',
+            '</div>',
             '</div>'
         ].join('');
     }
@@ -421,9 +602,6 @@
         }
 
         var selectedReturnId = state.selectedReturnId || state.returns[0].id;
-        var selectedReturn = state.returns.find(function (item) {
-            return item.id === selectedReturnId;
-        }) || null;
 
         var rowsMarkup = state.returns.map(function (item) {
             var isSelected = item.id === selectedReturnId;
@@ -439,18 +617,21 @@
 
         return [
             '<div class="seller-returns-layout">',
+            '<div class="seller-returns-main">',
             '<div class="seller-returns-table-wrap">',
             '<table class="seller-returns-table">',
             '<thead><tr><th>Order id</th><th>Product name</th><th>Return reason</th><th>Status</th></tr></thead>',
             '<tbody>', rowsMarkup, '</tbody>',
             '</table>',
-            '<div class="seller-returns-filler" aria-hidden="true"></div>',
             '</div>',
-            '<div class="seller-returns-actions">',
-            '<p class="seller-returns-selected">Wybrany zwrot: ', selectedReturn ? selectedReturn.orderId : '-', '</p>',
-            '<button class="seller-workbench-button" type="button" data-return-command="approve">Zatwierdz zwrot</button>',
-            '<button class="seller-workbench-button" type="button" data-return-command="issue">Problem ze zwrotem</button>',
-            '<button class="seller-workbench-button" type="button" data-return-command="contact">Skontaktuj sie z klientem</button>',
+            '<div class="seller-returns-bottom-actions">',
+            '<button class="seller-workbench-button btn-reject" type="button" data-return-command="reject">Odrzuć</button>',
+            '<button class="seller-workbench-button btn-approve" type="button" data-return-command="approve">Potwierdź</button>',
+            '</div>',
+            '</div>',
+            '<div class="seller-returns-side-actions">',
+            '<button class="seller-workbench-button btn-issue" type="button" data-return-command="issue">Problemy ze zwrotem</button>',
+            '<button class="seller-workbench-button btn-contact" type="button" data-return-command="contact">Skontaktuj się z klientem</button>',
             '</div>',
             '</div>'
         ].join('');
@@ -488,6 +669,11 @@
 
         if (activeMode === 'returns') {
             workbenchNode.innerHTML = renderReturnsMode();
+            return;
+        }
+        
+        if (activeMode === 'finances') {
+            workbenchNode.innerHTML = renderFinancesMode();
         }
     }
 
@@ -497,8 +683,13 @@
         }
 
         activeMode = mode === activeMode ? '' : mode;
+        if (activeMode === 'orders') {
+            state.isOrderEditPopupOpen = false;
+        }
+        
         body.classList.toggle('seller-has-workbench', activeMode !== '');
         body.classList.toggle('seller-mode-returns', activeMode === 'returns');
+        body.classList.toggle('seller-mode-inventory', activeMode === 'inventory');
 
         modeButtons.forEach(function (button) {
             var isActive = button.getAttribute('data-seller-mode') === activeMode;
@@ -605,7 +796,7 @@
 
     if (openDialogButton) {
         openDialogButton.addEventListener('click', function () {
-            setDialogOpen(true);
+            openDialog(null);
         });
     }
 
@@ -645,20 +836,37 @@
                 return;
             }
 
-            var product = {
-                id: 'seller-' + Date.now(),
-                name: name,
-                seller: owner,
-                price: price,
-                image: selectedImageDataUrl || 'images/Oscypek-goralski.jpg',
-                alt: name,
-                category: category,
-                rating: '4.8',
-                stock: stock,
-                description: description
-            };
+            if (editingProductId) {
+                var existing = state.products.find(function (p) { return p.id === editingProductId; });
+                if (existing) {
+                    existing.name = name;
+                    existing.price = price;
+                    existing.stock = stock;
+                    existing.category = category;
+                    existing.seller = owner;
+                    existing.description = description;
+                    if (selectedImageDataUrl) {
+                        existing.image = selectedImageDataUrl;
+                    }
+                    pageShell.showToast('Zaktualizowano produkt.');
+                }
+            } else {
+                var product = {
+                    id: 'seller-' + Date.now(),
+                    name: name,
+                    seller: owner,
+                    price: price,
+                    image: selectedImageDataUrl || 'images/Oscypek-goralski.jpg',
+                    alt: name,
+                    category: category,
+                    rating: '4.8',
+                    stock: stock,
+                    description: description
+                };
+                state.products.unshift(product);
+                pageShell.showToast('Dodano nowy produkt.');
+            }
 
-            state.products.unshift(product);
             saveState();
             renderProductGrid();
             renderWorkbench();
@@ -740,6 +948,13 @@
                 return;
             }
 
+            var inventoryRow = event.target.closest('[data-inventory-row-id]');
+            if (inventoryRow) {
+                state.selectedInventoryId = inventoryRow.getAttribute('data-inventory-row-id');
+                renderWorkbench();
+                return;
+            }
+
             var deleteButton = event.target.closest('[data-delete-id]');
             if (deleteButton) {
                 removeProduct(deleteButton.getAttribute('data-delete-id'));
@@ -762,37 +977,110 @@
                 }
 
                 if (command === 'approve') {
-                    setReturnStatus(activeReturnId, 'Zatwierdzony');
+                    setReturnStatus(activeReturnId, 'approved');
+                    return;
+                }
+
+                if (command === 'reject') {
+                    setReturnStatus(activeReturnId, 'rejected');
                     return;
                 }
 
                 if (command === 'issue') {
-                    setReturnStatus(activeReturnId, 'Problem ze zwrotem');
+                    pageShell.showToast('Zgłoszono problem ze zwrotem.');
                     return;
                 }
 
-                setReturnStatus(activeReturnId, 'Kontakt z klientem');
-                pageShell.showToast('Wyslano wiadomosc do klienta.');
+                pageShell.showToast('Skontaktuj się z klientem.');
+            }
+
+            var inventoryCommandButton = event.target.closest('[data-inventory-command]');
+            if (inventoryCommandButton) {
+                var invCommand = inventoryCommandButton.getAttribute('data-inventory-command');
+                var activeInvId = state.selectedInventoryId || (state.products[0] ? state.products[0].id : '');
+                
+                if (!activeInvId) {
+                    pageShell.showToast('Wybierz produkt z tabeli.');
+                    return;
+                }
+
+                if (invCommand === 'delete') {
+                    removeProduct(activeInvId);
+                    return;
+                }
+
+                if (invCommand === 'edit') {
+                    var prod = state.products.find(function (p) { return p.id === activeInvId; });
+                    if (prod) {
+                        openDialog(prod);
+                    }
+                    return;
+                }
+            }
+        });
+
+        workbenchNode.addEventListener('click', function (event) {
+            var finTab = event.target.closest('[data-finances-tab]');
+            if (finTab) {
+                state.financesActiveTab = finTab.getAttribute('data-finances-tab');
+                state.financesPage = 1;
+                renderWorkbench();
+                return;
+            }
+
+            var finPage = event.target.closest('[data-finances-page]');
+            if (finPage) {
+                state.financesPage = parseInt(finPage.getAttribute('data-finances-page'), 10);
+                renderWorkbench();
+                return;
+            }
+
+            var orderTab = event.target.closest('[data-order-tab]');
+            if (orderTab) {
+                state.ordersActiveTab = orderTab.getAttribute('data-order-tab');
+                state.selectedOrderId = null;
+                state.isOrderEditPopupOpen = false;
+                renderWorkbench();
+                return;
+            }
+
+            var orderRow = event.target.closest('[data-order-row-id]');
+            if (orderRow) {
+                state.selectedOrderId = orderRow.getAttribute('data-order-row-id');
+                renderWorkbench();
+                return;
+            }
+
+            var orderCmdBtn = event.target.closest('[data-order-command]');
+            if (orderCmdBtn) {
+                var cmd = orderCmdBtn.getAttribute('data-order-command');
+                if (cmd === 'openEdit') {
+                    if (!state.selectedOrderId) {
+                        pageShell.showToast('Wybierz zamówienie z tabeli.');
+                        return;
+                    }
+                    state.isOrderEditPopupOpen = true;
+                    renderWorkbench();
+                    return;
+                }
+                if (cmd === 'closeEdit') {
+                    state.isOrderEditPopupOpen = false;
+                    renderWorkbench();
+                    return;
+                }
             }
         });
 
         workbenchNode.addEventListener('change', function (event) {
-            var select = event.target.closest('select[data-order-id]');
-            if (!select) {
-                return;
+            var selectNode = event.target.closest('[data-order-edit-status]');
+            if (selectNode && state.selectedOrderId) {
+                var order = state.orders.find(function(o) { return o.id === state.selectedOrderId; });
+                if (order) {
+                    order.deliveryStatus = selectNode.value;
+                    saveState();
+                    renderWorkbench();
+                }
             }
-
-            var order = state.orders.find(function (item) {
-                return item.id === select.getAttribute('data-order-id');
-            });
-
-            if (!order) {
-                return;
-            }
-
-            order.status = select.value;
-            saveState();
-            pageShell.showToast('Status zamowienia zapisany.');
         });
     }
 

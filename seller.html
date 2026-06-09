@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -49,6 +49,7 @@
                 <button id="sellerAddProductButton" class="seller-tool-button" type="button">Dodaj produkt</button>
                 <button class="seller-tool-button" type="button" data-seller-mode="delete">Usuń produkt</button>
                 <button class="seller-tool-button" type="button" data-seller-mode="orders">Przegląd zamówień</button>
+                <button class="seller-tool-button" type="button" data-seller-mode="finances">Należności</button>
                 <button class="seller-tool-button" type="button" data-seller-mode="inventory">Zarządzanie magazynem</button>
                 <button class="seller-tool-button" type="button" data-seller-mode="returns">Obsługa zwrotów</button>
                 <button id="sellerLogoutButton" class="seller-tool-button" type="button">Wyloguj się</button>
@@ -72,28 +73,52 @@
             <button class="seller-dialog-close" id="sellerCloseDialog" type="button" aria-label="Zamknij">&times;</button>
 
             <form id="sellerAddProductForm" class="seller-dialog-form">
-                <div class="seller-upload-tools" aria-label="Akcje zdjęcia">
-                    <button class="seller-upload-tool" type="button" data-upload-tool="preview" aria-label="Podgląd">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v11H3zM8 19h8M10 16v3m4-3v3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </button>
-                    <button class="seller-upload-tool" type="button" data-upload-tool="gallery" aria-label="Galeria">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM8 14l2.6-3 2.2 2.6 2.2-2.2 2 2.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="9" r="1.5" fill="currentColor"/></svg>
+                <div class="seller-form-left">
+                    <div class="seller-upload-tools" aria-label="Akcje zdjęcia">
+                        <button class="seller-upload-tool" type="button" data-upload-tool="preview" aria-label="Podgląd">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v11H3zM8 19h8M10 16v3m4-3v3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                        <button class="seller-upload-tool" type="button" data-upload-tool="gallery" aria-label="Galeria">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM8 14l2.6-3 2.2 2.6 2.2-2.2 2 2.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="9" r="1.5" fill="currentColor"/></svg>
+                        </button>
+                    </div>
+                    <input id="sellerProductImageInput" type="file" accept="image/*" hidden>
+                    <button id="sellerImagePlaceholder" class="seller-upload-placeholder" type="button">
+                        <span class="seller-upload-label">Zdjęcie</span>
+                        <img id="sellerImagePreview" class="seller-upload-preview" alt="Podgląd zdjęcia produktu" hidden>
                     </button>
                 </div>
-                <input id="sellerProductImageInput" type="file" accept="image/*" hidden>
-                <button id="sellerImagePlaceholder" class="seller-upload-placeholder" type="button">
-                    <span class="seller-upload-label">Wybierz zdjęcie</span>
-                    <img id="sellerImagePreview" class="seller-upload-preview" alt="Podgląd zdjęcia produktu" hidden>
-                </button>
-                <input type="text" name="name" placeholder="Nazwa Produktu" required>
-                <input type="number" name="price" placeholder="Cena" step="0.01" required>
-                <input type="number" name="stock" placeholder="Ilość" min="0" required>
-                <input type="text" name="category" placeholder="Kategoria" required>
-                <input type="text" name="owner" placeholder="Imię i nazwisko" required>
-                <textarea name="description" placeholder="Opis" rows="5"></textarea>
-                <div class="seller-dialog-actions">
-                    <button type="submit">Dodaj</button>
-                    <button type="button" id="sellerCancelDialog">Anuluj</button>
+                <div class="seller-form-right">
+                    <input type="text" name="name" placeholder="Nazwa Produktu" required>
+                    <div class="seller-form-row">
+                        <input type="number" name="price" placeholder="Cena" step="0.01" required>
+                        <input type="number" name="stock" placeholder="Ilość" min="0" required>
+                    </div>
+                    <input type="text" name="category" placeholder="Kategoria" required>
+                    <input type="text" name="owner" placeholder="Imię i nazwisko" required>
+                    
+                    <div class="seller-return-policy">
+                        <div class="seller-return-policy-header">
+                            <span>Polityka zwrotu:</span>
+                            <label class="seller-checkbox-label">
+                                <input type="checkbox" name="has_return_policy" checked>
+                                <span class="seller-checkbox-custom">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="check-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                </span>
+                            </label>
+                        </div>
+                        <select name="return_policy_days" class="seller-return-select">
+                            <option value="7">7 dni</option>
+                            <option value="14">14 dni</option>
+                        </select>
+                    </div>
+
+                    <textarea name="description" placeholder="Opis" rows="5"></textarea>
+                    
+                    <div class="seller-dialog-actions">
+                        <button type="submit">Dodaj</button>
+                        <button type="button" id="sellerCancelDialog">Anuluj</button>
+                    </div>
                 </div>
             </form>
         </section>

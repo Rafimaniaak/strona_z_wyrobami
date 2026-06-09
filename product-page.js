@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     var body = document.body;
     var cartStore = window.cartStore;
     var favoriteStore = window.favoriteStore;
@@ -559,6 +559,9 @@
             var target = event.target.closest('button[data-rating-filter]');
 
             if (!target) {
+                if (event.target.closest('#reviewFilterDropdownHeader')) {
+                    closeReviewFilterMenu();
+                }
                 return;
             }
 
