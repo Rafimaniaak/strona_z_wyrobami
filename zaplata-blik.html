@@ -7,36 +7,39 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style-kategoria.css">
+        <link rel="stylesheet" href="shared-nav-footer.css">
+<link rel="stylesheet" href="style-kategoria.css">
 </head>
 <body data-page="checkout">
 <div class="page-shell checkout-shell">
-    <header class="topbar topbar-simple">
-        <div class="container topbar-inner">
-            <div class="page-label"><a href="index.html">Skarby Region&oacute;w Polski</a></div>
-<nav class="primary-nav" id="primaryNav" aria-label="G&#322;&oacute;wne">
-                <a href="profil.html">Profil</a>
-                <a href="about.html">O nas</a>
-                <a href="ulubione.html">Ulubione</a>
-                <a class="cart-link" href="koszyk.html">
-                    <span>Koszyk</span>
-                    <span class="nav-counter" data-cart-count hidden>0</span>
-                </a>
-
-                <div class="search-slot">
-                    <button class="search-trigger" type="button" aria-label="Szukaj" aria-expanded="false" aria-controls="searchInline">
-                        <svg width="24" height="24" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M26.25 26.25L20.8125 20.8125M23.75 13.75C23.75 19.2728 19.2728 23.75 13.75 23.75C8.22715 23.75 3.75 19.2728 3.75 13.75C3.75 8.22715 8.22715 3.75 13.75 3.75C19.2728 3.75 23.75 8.22715 23.75 13.75Z" stroke="#A5A39D" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <span>Szukaj</span>
-                    </button>
-
-                    <div class="search-inline" id="searchInline">
-                        <label class="sr-only" for="searchInput">Szukaj produkt&#243;w</label>
-                        <input type="search" id="searchInput" placeholder="Szukaj produkt&#243;w...">
-                        <button class="search-clear" type="button" aria-label="Wyczy&#347;&#263; wyszukiwanie">&times;</button>
-                    </div>
-                </div>
+            <header class="header">
+        <div class="container header-container">
+            <div class="footer-logo" style="margin-bottom: 0;"><a href="index.html" style="text-decoration: none; color: inherit;">Skarby Regionów Polski</a></div>
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="profil.html" class="nav-link">Profil</a></li>
+                    <li><a href="about.html" class="nav-link">O nas</a></li>
+                    <li><a href="ulubione.html" class="nav-link">Ulubione</a></li>
+                    <li>
+                        <a href="koszyk.html" class="nav-link cart-link">
+                            <span>Koszyk</span>
+                            <span class="nav-counter" data-cart-count hidden>0</span>
+                        </a>
+                    </li>
+                    <li class="search-slot">
+                        <button class="search-trigger" type="button" aria-label="Szukaj" aria-expanded="false" aria-controls="searchInline">
+                            <svg width="24" height="24" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M26.25 26.25L20.8125 20.8125M23.75 13.75C23.75 19.2728 19.2728 23.75 13.75 23.75C8.22715 23.75 3.75 19.2728 3.75 13.75C3.75 8.22715 8.22715 3.75 13.75 3.75C19.2728 3.75 23.75 8.22715 23.75 13.75Z" stroke="#A5A39D" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Szukaj</span>
+                        </button>
+                        <div class="search-inline" id="searchInline">
+                            <label class="sr-only" for="searchInput">Szukaj produktów</label>
+                            <input type="search" id="searchInput" placeholder="Szukaj produktów...">
+                            <button class="search-clear" id="clearSearch" type="button" aria-label="Wyczyść wyszukiwanie">&times;</button>
+                        </div>
+                    </li>
+                </ul>
             </nav>
         </div>
     </header>
@@ -59,12 +62,44 @@
             </section>
         </div>
     </main>
-    <footer class="footer">
-        <div class="container"><div class="footer-panel"><div class="footer-brand"><p>Skarby Region&oacute;w Polski</p><p class="footer-copy">&#321;&#261;czymy tradycyjnych producent&oacute;w z klientami ceni&#261;cymi autentyczne produkty regionalne.</p></div><div class="footer-column"><h3>Informacje</h3><a href="about.html">O nas</a><a href="index.html#sprzedawcy">Nasi producenci</a><a href="regulamin.html">Regulamin</a></div><div class="footer-column"><h3>Obs&#322;uga klienta</h3><a href="regulamin.html#zwroty">Zwroty (14 dni)</a><a href="profil.html#orders">Twoje zam&oacute;wienia</a><a href="about.html#faq">FAQ</a></div><div class="footer-column"><h3>Kontakt</h3><a href="mailto:kontakt123@gmail.com">kontakt123@gmail.com</a><a href="tel:+48123456789">+48 123 456 789</a><p>ul. Regionalna 12<br>34-500 Zakopane</p></div></div></div>
+            <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">Skarby Regionów Polski</div>
+                <p>Łączymy tradycyjnych producentów z klientami ceniącymi autentyczne produkty regionalne.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Obsługa klienta</h4>
+                    <ul>
+                        <li><a href="regulamin.html#zwroty">Zwroty (14 dni)</a></li>
+                        <li><a href="profil.html#orders">Twoje<br>zamówienia</a></li>
+                        <li><a href="about.html#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Kontakt</h4>
+                    <ul>
+                        <li><a href="mailto:kontakt123@gmail.com">kontakt123@gmail.com</a></li>
+                        <li><a href="tel:+48123456789">+48 123 456 789</a></li>
+                        <li>ul. Regionalna 12<br>34-500 Zakopane</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Informacje</h4>
+                    <ul>
+                        <li><a href="about.html">O nas</a></li>
+                        <li><a href="#sprzedawcy">Nasi producenci</a></li>
+                        <li><a href="regulamin.html">Regulamin</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </footer>
     <div class="toast" id="pageToast" aria-live="polite" aria-atomic="true"></div>
 </div>
-<script src="cart-storage.js"></script>
+favorites-storage.js">
+    <script src="cart-storage.js"></script>
 <script src="site-shell.js"></script>
 <script src="checkout-page.js"></script>
 </body>

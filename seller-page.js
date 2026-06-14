@@ -113,6 +113,7 @@
     var profileLeadNode = document.getElementById('sellerProfileLead');
     var gridNode = document.getElementById('sellerProductsGrid');
     var workbenchNode = document.getElementById('sellerWorkbench');
+    var paginationNode = document.getElementById('sellerProductsPagination');
     var dialog = document.getElementById('sellerAddDialog');
     var openDialogButton = document.getElementById('sellerAddProductButton');
     var closeDialogButton = document.getElementById('sellerCloseDialog');
@@ -380,15 +381,17 @@
             }
         }
 
-        gridNode.innerHTML = '<div class="seller-products-wrap">' + state.products.map(cardMarkup).join('') + '</div>' + 
-                             '<div class="seller-pagination-wrap"><div class="seller-pagination">' + paginationHtml + '</div></div>';
+        gridNode.innerHTML = '<div class="seller-products-wrap">' + state.products.map(cardMarkup).join('') + '</div>';
 
-        Array.prototype.slice.call(gridNode.querySelectorAll('[data-products-page]')).forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                state.productsPage = parseInt(btn.getAttribute('data-products-page'), 10);
-                renderProductGrid();
+        if (paginationNode) {
+            paginationNode.innerHTML = '<div class="seller-pagination">' + paginationHtml + '</div>';
+            Array.prototype.slice.call(paginationNode.querySelectorAll('[data-products-page]')).forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    state.productsPage = parseInt(btn.getAttribute('data-products-page'), 10);
+                    renderProductGrid();
+                });
             });
-        });
+        }
 
         Array.prototype.slice.call(gridNode.querySelectorAll('.btn-seller-edit')).forEach(function (button) {
             button.addEventListener('click', function () {
@@ -648,7 +651,7 @@
         }
 
         if (!activeMode) {
-            workbenchNode.innerHTML = '<p class="seller-workbench-empty">Wybierz narzedzie z lewej strony, aby zarzadzac panelem.</p>';
+            workbenchNode.innerHTML = '';
             return;
         }
 
@@ -877,9 +880,24 @@
         });
     }
 
+    var modePageMap = {
+        'orders': 'seller-orders.html',
+        'finances': 'seller-finances.html',
+        'inventory': 'seller-inventory.html',
+        'returns': 'seller-returns.html',
+        'stats': 'seller-stats.html',
+        'products': 'seller.html'
+    };
+
     modeButtons.forEach(function (button) {
         button.addEventListener('click', function () {
-            setActiveMode(button.getAttribute('data-seller-mode') || '');
+            var mode = button.getAttribute('data-seller-mode') || '';
+            var page = modePageMap[mode];
+            if (page) {
+                window.open(page, '_blank');
+            } else {
+                setActiveMode(mode);
+            }
         });
     });
 
@@ -1087,4 +1105,10 @@
     renderProductGrid();
     renderWorkbench();
     updateImagePlaceholder();
+
+    // Automatyczne otwarcie trybu z atrybutu data-auto-mode (np. na podstronach)
+    var autoMode = body.getAttribute('data-auto-mode');
+    if (autoMode) {
+        setActiveMode(autoMode);
+    }
 })();

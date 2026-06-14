@@ -7,14 +7,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style-kategoria.css">
+    <link rel="stylesheet" href="shared-nav-footer.css?v=20260614-3">
+<link rel="stylesheet" href="style-kategoria.css">
+<link rel="stylesheet" href="seller.css?v=20260614-1">
 </head>
 <body data-page="seller-dashboard">
 <div class="page-shell seller-dashboard-shell">
     <header class="header">
         <div class="container header-container">
-            <div class="footer-logo"><a href="index.html" style="text-decoration: none; color: inherit;">Skarby Regionów Polski</a></div>
-            <nav class="nav-menu" id="primaryNav" aria-label="Główne">
+            <div class="footer-logo" style="margin-bottom: 0;"><a href="index.html" style="text-decoration: none; color: inherit;">Skarby Regionów Polski</a></div>
+            <nav class="nav-menu">
                 <ul class="nav-list">
                     <li><a href="profil.html" class="nav-link">Profil</a></li>
                     <li><a href="about.html" class="nav-link">O nas</a></li>
@@ -35,7 +37,7 @@
                         <div class="search-inline" id="searchInline">
                             <label class="sr-only" for="searchInput">Szukaj produkt&oacute;w</label>
                             <input type="search" id="searchInput" placeholder="Szukaj produkt&oacute;w...">
-                            <button class="search-clear" type="button" aria-label="Wyczy&#347;&#263; wyszukiwanie">&times;</button>
+                            <button class="search-clear" id="clearSearch" type="button" aria-label="Wyczy&#347;&#263; wyszukiwanie">&times;</button>
                         </div>
                     </li>
                 </ul>
@@ -46,24 +48,19 @@
     <main class="seller-dashboard-main">
         <div class="container seller-dashboard-layout">
             <aside class="seller-dashboard-tools" aria-label="Narzędzia sprzedawcy">
-                <button id="sellerAddProductButton" class="seller-tool-button" type="button">Dodaj produkt</button>
-                <button class="seller-tool-button" type="button" data-seller-mode="delete">Usuń produkt</button>
                 <button class="seller-tool-button" type="button" data-seller-mode="orders">Przegląd zamówień</button>
                 <button class="seller-tool-button" type="button" data-seller-mode="finances">Należności</button>
                 <button class="seller-tool-button" type="button" data-seller-mode="inventory">Zarządzanie magazynem</button>
                 <button class="seller-tool-button" type="button" data-seller-mode="returns">Obsługa zwrotów</button>
-                <button id="sellerLogoutButton" class="seller-tool-button" type="button">Wyloguj się</button>
+                <button id="sellerAddProductButton" class="seller-tool-button" type="button">Zobacz produkty</button>
+                <button class="seller-tool-button" type="button" data-seller-mode="stats">Statystyki</button>
+                <button id="sellerLogoutButton" class="seller-tool-button" type="button">Wyloguj</button>
             </aside>
 
             <section class="seller-dashboard-stage" aria-label="Oferta sprzedawcy">
-                <div class="seller-dashboard-head">
-                    <h1 id="sellerNameHeading">Sprzedawca</h1>
-                    <p id="sellerProfileLead" class="seller-dashboard-lead">Autentyczne produkty regionalne, krótkie serie i prosta prezentacja oferty.</p>
-                    <p id="sellerStats">Liczba produktów: 0</p>
-                </div>
-
                 <div class="seller-dashboard-grid" id="sellerProductsGrid"></div>
                 <section class="seller-dashboard-workbench" id="sellerWorkbench" aria-live="polite"></section>
+                <div class="seller-pagination-wrap seller-pagination-outer" id="sellerProductsPagination"></div>
             </section>
         </div>
     </main>
@@ -125,29 +122,35 @@
     </div>
 
     <footer class="footer">
-        <div class="container">
-            <div class="footer-panel">
-                <div class="footer-brand">
-                    <p>Skarby Region&oacute;w Polski</p>
-                    <p class="footer-copy">&#321;&#261;czymy tradycyjnych producent&oacute;w z klientami ceni&#261;cymi autentyczne produkty regionalne.</p>
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">Skarby Regionów Polski</div>
+                <p>Łączymy tradycyjnych producentów z klientami ceniącymi autentyczne produkty regionalne.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Informacje</h4>
+                    <ul>
+                        <li><a href="about.html">O nas</a></li>
+                        <li><a href="#sprzedawcy">Nasi producenci</a></li>
+                        <li><a href="regulamin.html">Regulamin</a></li>
+                    </ul>
                 </div>
-                <div class="footer-column">
-                    <h3>Informacje</h3>
-                    <a href="about.html">O nas</a>
-                    <a href="index.html#sprzedawcy">Nasi producenci</a>
-                    <a href="regulamin.html">Regulamin</a>
+                <div class="footer-col">
+                    <h4>Obsługa klienta</h4>
+                    <ul>
+                        <li><a href="regulamin.html#zwroty">Zwroty (14 dni)</a></li>
+                        <li><a href="profil.html#orders">Twoje<br>zamówienia</a></li>
+                        <li><a href="about.html#faq">FAQ</a></li>
+                    </ul>
                 </div>
-                <div class="footer-column">
-                    <h3>Obs&#322;uga klienta</h3>
-                    <a href="regulamin.html#zwroty">Zwroty (14 dni)</a>
-                    <a href="profil.html#orders">Twoje zam&oacute;wienia</a>
-                    <a href="about.html#faq">FAQ</a>
-                </div>
-                <div class="footer-column">
-                    <h3>Kontakt</h3>
-                    <a href="mailto:kontakt123@gmail.com">kontakt123@gmail.com</a>
-                    <a href="tel:+48123456789">+48 123 456 789</a>
-                    <p>ul. Regionalna 12<br>34-500 Zakopane</p>
+                <div class="footer-col">
+                    <h4>Kontakt</h4>
+                    <ul>
+                        <li><a href="mailto:kontakt123@gmail.com">kontakt123@gmail.com</a></li>
+                        <li><a href="tel:+48123456789">+48 123 456 789</a></li>
+                        <li>ul. Regionalna 12<br>34-500 Zakopane</li>
+                    </ul>
                 </div>
             </div>
         </div>
