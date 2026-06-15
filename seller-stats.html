@@ -9,9 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="shared-nav-footer.css?v=20260614-3">
 <link rel="stylesheet" href="style-kategoria.css">
-<link rel="stylesheet" href="seller.css?v=20260615-1">
+<link rel="stylesheet" href="seller.css?v=20260614-1">
 </head>
-<body data-page="seller-dashboard" data-auto-mode="products">
+<body data-page="seller-dashboard" data-auto-mode="stats">
 <div class="page-shell seller-dashboard-shell">
     <header class="header">
         <div class="container header-container">
@@ -46,44 +46,14 @@
     </header>
 
     <main class="seller-dashboard-main">
-        <div class="seller-public-profile" id="sellerPublicProfile" hidden>
-            <div class="container">
-                <div class="seller-public-top">
-                    <div class="seller-public-avatar-card">
-                        <div class="seller-public-avatar"></div>
-                        <h1 class="seller-public-name" id="sellerPublicName"></h1>
-                    </div>
-                    <div class="seller-public-about">
-                        <h2>Opis firmy:</h2>
-                        <p id="sellerPublicAbout"></p>
-                    </div>
-                </div>
-                <div class="seller-public-bottom">
-                    <div class="seller-public-reviews">
-                        <h2>Opinie o sprzedawcy: <span id="sellerPublicReviewsName"></span></h2>
-                        <div class="seller-public-reviews-rating" id="sellerPublicReviewsRating"></div>
-                        <div class="seller-public-reviews-list" id="sellerPublicReviewsList"></div>
-                    </div>
-                    <div class="seller-public-products">
-                        <div class="seller-public-products-grid" id="sellerPublicProductsGrid"></div>
-                        <div class="seller-public-products-nav">
-                            <button class="seller-public-nav-btn seller-public-nav-prev" type="button" aria-label="Poprzednie">&larr;</button>
-                            <button class="seller-public-nav-btn seller-public-nav-next" type="button" aria-label="Następne">&rarr;</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container seller-dashboard-layout" id="sellerDashboardLayout">
+        <div class="container seller-dashboard-layout">
             <aside class="seller-dashboard-tools" aria-label="Narzędzia sprzedawcy">
                 <button class="seller-tool-button" type="button" data-seller-mode="orders">Przegląd zamówień</button>
-                <button id="sellerAddProductButton" class="seller-tool-button" type="button">Dodaj produkt</button>
-                <button class="seller-tool-button" type="button" data-seller-mode="stats">Statystyki</button>
+                <button class="seller-tool-button" type="button" data-seller-mode="finances">Należności</button>
                 <button class="seller-tool-button" type="button" data-seller-mode="inventory">Zarządzanie magazynem</button>
                 <button class="seller-tool-button" type="button" data-seller-mode="returns">Obsługa zwrotów</button>
                 <button class="seller-tool-button" type="button" data-seller-mode="products">Zobacz produkty</button>
-                <button class="seller-tool-button" type="button" data-seller-mode="finances">Należności</button>
+                <button class="seller-tool-button" type="button" data-seller-mode="stats">Statystyki</button>
                 <button id="sellerLogoutButton" class="seller-tool-button" type="button" style="margin-top:auto">Wyloguj</button>
             </aside>
 

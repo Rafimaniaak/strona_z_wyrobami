@@ -174,12 +174,150 @@
         return value.slice(0, Math.max(0, maxLength - 3)).replace(/\s+\S*$/, '') + '...';
     }
 
-    if (dashboardToolsNode) {
-        dashboardToolsNode.hidden = !canManage;
-    }
+    /* ── Publiczny profil sprzedawcy ── */
+    function renderPublicProfile() {
+        var publicProfile = document.getElementById('sellerPublicProfile');
+        var dashboardLayout = document.getElementById('sellerDashboardLayout');
+        var dialogBackdrop = document.getElementById('sellerAddDialog');
 
-    if (workbenchNode) {
-        workbenchNode.hidden = !canManage;
+        if (!publicProfile) {
+            return;
+        }
+
+        if (canManage) {
+            publicProfile.hidden = true;
+            if (dashboardLayout) dashboardLayout.hidden = false;
+            if (dialogBackdrop) dialogBackdrop.hidden = true;
+            return;
+        }
+
+        publicProfile.hidden = false;
+        if (dashboardLayout) dashboardLayout.hidden = true;
+        if (dialogBackdrop) dialogBackdrop.hidden = true;
+
+        var nameNode = document.getElementById('sellerPublicName');
+        var aboutNode = document.getElementById('sellerPublicAbout');
+        var reviewsNameNode = document.getElementById('sellerPublicReviewsName');
+        var reviewsRatingNode = document.getElementById('sellerPublicReviewsRating');
+        var reviewsListNode = document.getElementById('sellerPublicReviewsList');
+        var productsGridNode = document.getElementById('sellerPublicProductsGrid');
+
+        if (nameNode) nameNode.textContent = sellerName;
+        if (aboutNode) aboutNode.textContent = sellerProfile.about || sellerProfile.lead || '';
+        if (reviewsNameNode) reviewsNameNode.textContent = sellerName;
+
+        var reviews = sellerProfile.reviews || [];
+        var avgRating = '0.0';
+        if (reviews.length > 0) {
+            var sum = reviews.reduce(function (acc, r) { return acc + parsePrice(r.rating); }, 0);
+            avgRating = (sum / reviews.length).toFixed(1);
+        }
+        if (reviewsRatingNode) reviewsRatingNode.textContent = avgRating;
+
+        if (reviewsListNode) {
+            reviewsListNode.innerHTML = reviews.map(function (review) {
+                return [
+                    '<div class="seller-public-review-card">',
+                    '<div class="seller-public-review-avatar"></div>',
+                    '<div class="seller-public-review-body">',
+                    '<p class="seller-public-review-text">', review.text || '', '</p>',
+                    '<div class="seller-public-review-meta">',
+                    '<span class="seller-public-review-author">', review.author || '', '</span>',
+                    '<span class="seller-public-review-rating"><span class="star">&#9733;</span> ', review.rating || '5.0', '</span>',
+                    '</div>',
+                    '</div>',
+                    '</div>'
+                ].join('');
+            }).join('');
+        }
+
+        if (productsGridNode) {
+            productsGridNode.innerHTML = state.products.map(function (product) {
+                var display = displayProduct(product);
+                var favoriteStore = window.favoriteStore;
+                var isFav = favoriteStore && typeof favoriteStore.exists === 'function'
+                    ? favoriteStore.exists(display.id || display.name)
+                    : false;
+
+                return [
+                    '<article class="seller-public-product-card">',
+                    '<div class="seller-public-product-image">',
+                    '<a href="', display.detailHref || 'produkt.html', '">',
+                    '<img src="', display.image, '" alt="', display.alt || display.name, '">',
+                    '</a>',
+                    '<button class="seller-public-product-fav', isFav ? ' is-active' : '', '" type="button" data-fav-id="', display.id || '', '" data-fav-name="', display.name || '', '">',
+                    '<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+                    '</button>',
+                    '<div class="seller-public-product-rating"><img src="images/Star.png" alt="*"> ', display.averageRating || display.rating || '5.0', '</div>',
+                    '</div>',
+                    '<div class="seller-public-product-info">',
+                    '<h3>', display.name, '</h3>',
+                    '<div class="seller-public-product-meta">',
+                    '<span class="seller-public-product-seller">', display.seller || sellerName, '</span>',
+                    '<span class="seller-public-product-price">', formatPrice(display.price), ' zl</span>',
+                    '</div>',
+                    '</div>',
+                    '<button class="seller-public-product-cart" type="button" data-cart-id="', display.id || '', '" data-cart-name="', display.name || '', '" data-cart-price="', display.price || '', '" data-cart-image="', display.image || '', '">Dodaj do koszyka</button>',
+                    '</article>'
+                ].join('');
+            }).join('');
+        }
+
+        var navPrev = document.querySelector('.seller-public-nav-prev');
+        var navNext = document.querySelector('.seller-public-nav-next');
+
+        if (navPrev) {
+            navPrev.addEventListener('click', function () {
+                var grid = document.getElementById('sellerPublicProductsGrid');
+                if (grid) grid.scrollBy({ left: -300, behavior: 'smooth' });
+            });
+        }
+        if (navNext) {
+            navNext.addEventListener('click', function () {
+                var grid = document.getElementById('sellerPublicProductsGrid');
+                if (grid) grid.scrollBy({ left: 300, behavior: 'smooth' });
+            });
+        }
+
+        if (publicProfile) {
+            publicProfile.addEventListener('click', function (event) {
+                var favBtn = event.target.closest('.seller-public-product-fav');
+                if (favBtn) {
+                    var favId = favBtn.getAttribute('data-fav-id');
+                    var favName = favBtn.getAttribute('data-fav-name');
+                    var favoriteStore = window.favoriteStore;
+                    if (favoriteStore && typeof favoriteStore.exists === 'function') {
+                        if (favoriteStore.exists(favId)) {
+                            favoriteStore.remove(favId);
+                            favBtn.classList.remove('is-active');
+                        } else {
+                            favoriteStore.add({ id: favId, name: favName });
+                            favBtn.classList.add('is-active');
+                        }
+                    }
+                    return;
+                }
+
+                var cartBtn = event.target.closest('.seller-public-product-cart');
+                if (cartBtn) {
+                    var cartId = cartBtn.getAttribute('data-cart-id');
+                    var cartName = cartBtn.getAttribute('data-cart-name');
+                    var cartPrice = cartBtn.getAttribute('data-cart-price');
+                    var cartImage = cartBtn.getAttribute('data-cart-image');
+                    var cartStore = window.cartStore;
+                    if (cartStore && typeof cartStore.add === 'function') {
+                        cartStore.add({ id: cartId, name: cartName, price: cartPrice, image: cartImage });
+                        cartBtn.textContent = 'Dodano!';
+                        setTimeout(function () { cartBtn.textContent = 'Dodaj do koszyka'; }, 1500);
+                        pageShell.showToast('Dodano do koszyka.');
+                        if (typeof pageShell.syncCartCounters === 'function') {
+                            pageShell.syncCartCounters();
+                        }
+                    }
+                    return;
+                }
+            });
+        }
     }
 
     function createDefaultProducts() {
@@ -330,9 +468,9 @@
             '<article class="seller-product-card">',
             '<div class="seller-product-image-wrap">',
             '<a href="', display.detailHref || 'produkt.html', '">',
-            '<img src="', display.image, '" alt="', display.alt || display.name, '">',
+            '<img src="', display.image, '" alt="', display.alt || display.name, '" class="seller-product-img">',
             '</a>',
-            '<div class="seller-product-rating"><span class="star">&#9734;</span> <span>', display.averageRating || display.rating || '5.0', '</span></div>',
+            '<div class="seller-product-rating"><img src="images/Star.png" alt="Star" class="rating-star-img"> <span>', display.averageRating || display.rating || '5.0', '</span></div>',
             '</div>',
             '<div class="seller-product-details">',
             '<h2>', display.name, '</h2>',
@@ -492,9 +630,10 @@
             return '<p class="seller-workbench-empty">Brak zamowien.</p>';
         }
 
+        var ORDERS_PER_PAGE = 10;
         var activeTab = state.ordersActiveTab || 'Wszystkie';
         var tabs = ['Wszystkie', 'W drodze', 'Nie opłacone', 'Odebrane', 'Otwarte', 'Zwrot', '+'];
-        
+
         var tabsMarkup = tabs.map(function(tab) {
             var isActive = tab === activeTab;
             return '<button class="seller-orders-tab ' + (isActive ? 'is-active' : '') + '" data-order-tab="' + tab + '">' + tab + '</button>';
@@ -510,13 +649,20 @@
             return true;
         });
 
-        var selectedOrderId = state.selectedOrderId || (filteredOrders[0] ? filteredOrders[0].id : null);
+        var totalPages = Math.max(1, Math.ceil(filteredOrders.length / ORDERS_PER_PAGE));
+        var currentPage = Math.min(Math.max(state.ordersPage || 1, 1), totalPages);
+        state.ordersPage = currentPage;
+
+        var pageStart = (currentPage - 1) * ORDERS_PER_PAGE;
+        var pageOrders = filteredOrders.slice(pageStart, pageStart + ORDERS_PER_PAGE);
+
+        var selectedOrderId = state.selectedOrderId || (pageOrders[0] ? pageOrders[0].id : null);
         var isEditPopupOpen = state.isOrderEditPopupOpen;
         var selectedOrder = state.orders.find(function(o) { return o.id === selectedOrderId; }) || {};
 
-        var rowsMarkup = filteredOrders.map(function (order, index) {
+        var rowsMarkup = pageOrders.map(function (order, index) {
             var isSelected = order.id === selectedOrderId;
-            var num = index + 1;
+            var num = pageStart + index + 1;
             return [
                 '<tr class="', isSelected ? 'is-selected' : '', '" data-order-row-id="', order.id, '">',
                 '<td class="order-num" data-label="Lp."><strong>', num, '</strong></td>',
@@ -529,6 +675,48 @@
                 '</tr>'
             ].join('');
         }).join('');
+
+        // Buduj paginację (przeniesiona do sellerProductsPagination)
+        var paginationHtml = '';
+        if (totalPages > 1) {
+            var pages = [];
+            // Zawsze pokaż pierwszą, ostatnią i sąsiednie bieżącej
+            for (var p = 1; p <= totalPages; p++) {
+                if (p === 1 || p === totalPages || (p >= currentPage - 2 && p <= currentPage + 2)) {
+                    pages.push(p);
+                }
+            }
+            // Usuń duplikaty i posortuj
+            pages = pages.filter(function(v, i, a) { return a.indexOf(v) === i; }).sort(function(a, b) { return a - b; });
+
+            var lastRendered = 0;
+            pages.forEach(function(p) {
+                if (lastRendered && p - lastRendered > 1) {
+                    paginationHtml += '<span>...</span>';
+                }
+                if (p === currentPage) {
+                    paginationHtml += '<strong>' + p + '</strong>';
+                } else {
+                    paginationHtml += '<span data-order-page="' + p + '" style="cursor:pointer">' + p + '</span>';
+                }
+                lastRendered = p;
+            });
+        }
+        
+        if (paginationNode) {
+            if (totalPages > 1) {
+                paginationNode.innerHTML = '<div class="seller-pagination">' + paginationHtml + '</div>';
+                Array.prototype.slice.call(paginationNode.querySelectorAll('[data-order-page]')).forEach(function(btn) {
+                    btn.addEventListener('click', function() {
+                        state.ordersPage = parseInt(btn.getAttribute('data-order-page'), 10);
+                        state.selectedOrderId = null;
+                        renderWorkbench();
+                    });
+                });
+            } else {
+                paginationNode.innerHTML = '';
+            }
+        }
 
         return [
             '<div class="seller-orders-layout">',
@@ -640,6 +828,99 @@
         ].join('');
     }
 
+    function renderStatsMode() {
+        var slicesHtml = [
+            '<path d="M 70 70 L 70 15 A 55 55 0 0 1 125 70 Z" fill="#4472c4" stroke="#EDECE6" stroke-width="1.5" />',
+            '<text x="93.3" y="46.7" fill="#fff" font-family="\'Roboto Mono\', monospace" font-size="10" font-weight="bold" text-anchor="middle" dominant-baseline="middle">25%</text>',
+            '<path d="M 70 70 L 125 70 A 55 55 0 0 1 87 122.3 Z" fill="#ed7d31" stroke="#EDECE6" stroke-width="1.5" />',
+            '<text x="96.7" y="89.4" fill="#fff" font-family="\'Roboto Mono\', monospace" font-size="10" font-weight="bold" text-anchor="middle" dominant-baseline="middle">20%</text>',
+            '<path d="M 70 70 L 87 122.3 A 55 55 0 0 1 29.9 107.7 Z" fill="#a5a5a5" stroke="#EDECE6" stroke-width="1.5" />',
+            '<text x="61.8" y="102.0" fill="#fff" font-family="\'Roboto Mono\', monospace" font-size="10" font-weight="bold" text-anchor="middle" dominant-baseline="middle">18%</text>',
+            '<path d="M 70 70 L 29.9 107.7 A 55 55 0 0 1 17.7 53 Z" fill="#ffc000" stroke="#EDECE6" stroke-width="1.5" />',
+            '<text x="37.8" y="77.2" fill="#fff" font-family="\'Roboto Mono\', monospace" font-size="10" font-weight="bold" text-anchor="middle" dominant-baseline="middle">17%</text>',
+            '<path d="M 70 70 L 17.7 53 A 55 55 0 0 1 70 15 Z" fill="#5b9bd5" stroke="#EDECE6" stroke-width="1.5" />',
+            '<text x="50.6" y="43.3" fill="#fff" font-family="\'Roboto Mono\', monospace" font-size="10" font-weight="bold" text-anchor="middle" dominant-baseline="middle">20%</text>'
+        ].join('');
+
+        var linePath = 'M 40 215 L 50 218 L 60 207 L 70 223 L 80 215 L 90 191 L 100 199 L 110 218 L 120 212 L 130 231 L 140 228 L 150 248 L 160 256 L 170 267 L 180 272 L 190 277 L 200 270 L 210 256 L 220 244 L 230 239 L 240 235 L 250 228 L 260 215 L 270 212 L 280 218 L 290 212 L 300 202 L 310 207 L 320 196 L 330 199 L 340 186 L 350 191 L 360 179 L 370 186 L 380 174 L 390 179 L 400 170 L 410 166 L 420 158 L 430 126 L 440 134 L 450 98 L 460 109 L 470 72 L 480 69 L 490 82 L 500 56 L 510 85 L 520 66 L 530 61 L 540 77 L 550 72 L 560 92 L 570 88 L 580 105 L 590 111 L 600 118 L 610 142 L 620 166 L 630 191 L 640 183';
+        var areaPoints = '40 280 ' + linePath.replace(/M|L/g, '') + ' 640 280';
+
+        var legendHtml = [
+            '<div class="pie-legend-item"><span class="pie-legend-color" style="background:#4472c4"></span>Nalewka wiśniowa</div>',
+            '<div class="pie-legend-item"><span class="pie-legend-color" style="background:#ed7d31"></span>Oscypek</div>',
+            '<div class="pie-legend-item"><span class="pie-legend-color" style="background:#5b9bd5"></span>Ciupaga</div>',
+            '<div class="pie-legend-item"><span class="pie-legend-color" style="background:#a5a5a5"></span>Dżem pomarańczowy</div>',
+            '<div class="pie-legend-item"><span class="pie-legend-color" style="background:#ffc000"></span>Dżem wiśniowy</div>'
+        ].join('');
+
+        var displaySellerName = sellerName;
+        if (displaySellerName === 'Sprzedawca regionalny') {
+            displaySellerName = 'Nazwa firmy';
+        }
+
+        return [
+            '<div class="stats-stage-layout">',
+            '    <div class="stats-profile-panel">',
+            '        <div class="stats-profile-card">',
+            '            <div class="stats-profile-avatar-container">',
+            '                <div class="stats-profile-avatar"></div>',
+            '            </div>',
+            '            <h1 class="stats-profile-name">' + displaySellerName + '</h1>',
+            '        </div>',
+            '        <button class="stats-profile-logout-btn" id="statsProfileLogoutBtn" type="button">Wylogowanie</button>',
+            '    </div>',
+            '    <div class="stats-charts-container">',
+            '        <div class="stats-chart-card pie-chart-card">',
+            '            <h3 class="stats-chart-card-title">Najczęściej kupowane produkty</h3>',
+            '            <div class="pie-chart-inner">',
+            '                <div class="pie-chart-graphic">',
+            '                    <svg viewBox="0 0 140 140" width="160" height="160">',
+            slicesHtml,
+            '                    </svg>',
+            '                </div>',
+            '                <div class="pie-chart-legend">',
+            legendHtml,
+            '                </div>',
+            '            </div>',
+            '        </div>',
+            '        <div class="stats-chart-card line-chart-card">',
+            '            <h3 class="stats-chart-card-title">Ilość produktów sprzedanych w ostatnich miesiącach</h3>',
+            '            <div class="line-chart-inner">',
+            '                <div class="line-chart-graphic">',
+            '                    <svg viewBox="0 0 680 320" width="100%" height="280" preserveAspectRatio="none">',
+            '                        <line x1="40" y1="85" x2="640" y2="85" stroke="#A5A39D" stroke-opacity="0.2" stroke-dasharray="3,3" />',
+            '                        <line x1="40" y1="150" x2="640" y2="150" stroke="#A5A39D" stroke-opacity="0.2" stroke-dasharray="3,3" />',
+            '                        <line x1="40" y1="215" x2="640" y2="215" stroke="#A5A39D" stroke-opacity="0.2" stroke-dasharray="3,3" />',
+            '                        <line x1="160" y1="20" x2="160" y2="280" stroke="#A5A39D" stroke-opacity="0.3" stroke-width="1" />',
+            '                        <line x1="280" y1="20" x2="280" y2="280" stroke="#A5A39D" stroke-opacity="0.3" stroke-width="1" />',
+            '                        <line x1="400" y1="20" x2="400" y2="280" stroke="#A5A39D" stroke-opacity="0.3" stroke-width="1" />',
+            '                        <line x1="520" y1="20" x2="520" y2="280" stroke="#A5A39D" stroke-opacity="0.3" stroke-width="1" />',
+            '                        <rect x="40" y="20" width="600" height="260" fill="none" stroke="#D0CFC7" stroke-width="1.5" />',
+            '                        <line x1="40" y1="280" x2="180" y2="280" stroke="#a855f7" stroke-width="4" stroke-linecap="round" />',
+            '                        <polygon points="' + areaPoints + '" fill="rgba(68, 114, 196, 0.08)" />',
+            '                        <path d="' + linePath + '" fill="none" stroke="#5b9bd5" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" />',
+            '                        <g class="chart-nav-prev" style="cursor: pointer;">',
+            '                            <circle cx="20" cy="280" r="10" fill="none" stroke="#A5A39D" stroke-width="1.5" />',
+            '                            <path d="M22,276 L18,280 L22,284" fill="none" stroke="#A5A39D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />',
+            '                        </g>',
+            '                        <g class="chart-nav-next" style="cursor: pointer;">',
+            '                            <circle cx="660" cy="280" r="10" fill="none" stroke="#A5A39D" stroke-width="1.5" />',
+            '                            <path d="M658,276 L662,280 L658,284" fill="none" stroke="#A5A39D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />',
+            '                        </g>',
+            '                        <text x="100" y="305" fill="#A5A39D" font-family="\'Roboto Mono\', monospace" font-size="10" text-anchor="middle">Styczeń 2026</text>',
+            '                        <text x="220" y="305" fill="#A5A39D" font-family="\'Roboto Mono\', monospace" font-size="10" text-anchor="middle">Luty 2026</text>',
+            '                        <text x="340" y="305" fill="#A5A39D" font-family="\'Roboto Mono\', monospace" font-size="10" text-anchor="middle">Marzec 2026</text>',
+            '                        <text x="460" y="305" fill="#A5A39D" font-family="\'Roboto Mono\', monospace" font-size="10" text-anchor="middle">Kwiecień 2026</text>',
+            '                        <text x="580" y="305" fill="#A5A39D" font-family="\'Roboto Mono\', monospace" font-size="10" text-anchor="middle">Maj 2026</text>',
+            '                    </svg>',
+            '                </div>',
+            '            </div>',
+            '        </div>',
+            '    </div>',
+            '</div>'
+        ].join('');
+    }
+
     function renderWorkbench() {
         if (!workbenchNode) {
             return;
@@ -650,7 +931,7 @@
             return;
         }
 
-        if (!activeMode) {
+        if (!activeMode || activeMode === 'products') {
             workbenchNode.innerHTML = '';
             return;
         }
@@ -677,6 +958,12 @@
         
         if (activeMode === 'finances') {
             workbenchNode.innerHTML = renderFinancesMode();
+            return;
+        }
+
+        if (activeMode === 'stats') {
+            workbenchNode.innerHTML = renderStatsMode();
+            return;
         }
     }
 
@@ -690,7 +977,7 @@
             state.isOrderEditPopupOpen = false;
         }
         
-        body.classList.toggle('seller-has-workbench', activeMode !== '');
+        body.classList.toggle('seller-has-workbench', activeMode !== '' && activeMode !== 'products');
         body.classList.toggle('seller-mode-returns', activeMode === 'returns');
         body.classList.toggle('seller-mode-inventory', activeMode === 'inventory');
 
@@ -699,6 +986,14 @@
             button.classList.toggle('is-active', isActive);
             button.setAttribute('aria-pressed', String(isActive));
         });
+        
+        if (paginationNode) {
+            paginationNode.hidden = (activeMode !== '' && activeMode !== 'products' && activeMode !== 'orders');
+        }
+
+        if (activeMode === '' || activeMode === 'products') {
+            renderProductGrid();
+        }
 
         renderWorkbench();
     }
@@ -894,7 +1189,7 @@
             var mode = button.getAttribute('data-seller-mode') || '';
             var page = modePageMap[mode];
             if (page) {
-                window.open(page, '_blank');
+                window.location.href = page;
             } else {
                 setActiveMode(mode);
             }
@@ -959,6 +1254,12 @@
 
     if (workbenchNode) {
         workbenchNode.addEventListener('click', function (event) {
+            var statsLogout = event.target.closest('#statsProfileLogoutBtn');
+            if (statsLogout) {
+                logout();
+                return;
+            }
+
             var returnRow = event.target.closest('[data-return-row-id]');
             if (returnRow) {
                 state.selectedReturnId = returnRow.getAttribute('data-return-row-id');
@@ -1058,6 +1359,15 @@
                 state.ordersActiveTab = orderTab.getAttribute('data-order-tab');
                 state.selectedOrderId = null;
                 state.isOrderEditPopupOpen = false;
+                state.ordersPage = 1;
+                renderWorkbench();
+                return;
+            }
+
+            var orderPageBtn = event.target.closest('[data-order-page]');
+            if (orderPageBtn) {
+                state.ordersPage = parseInt(orderPageBtn.getAttribute('data-order-page'), 10);
+                state.selectedOrderId = null;
                 renderWorkbench();
                 return;
             }
@@ -1102,13 +1412,17 @@
         });
     }
 
-    renderProductGrid();
-    renderWorkbench();
-    updateImagePlaceholder();
+    renderPublicProfile();
 
-    // Automatyczne otwarcie trybu z atrybutu data-auto-mode (np. na podstronach)
-    var autoMode = body.getAttribute('data-auto-mode');
-    if (autoMode) {
-        setActiveMode(autoMode);
+    if (canManage) {
+        renderProductGrid();
+        renderWorkbench();
+        updateImagePlaceholder();
+
+        // Automatyczne otwarcie trybu z atrybutu data-auto-mode (np. na podstronach)
+        var autoMode = body.getAttribute('data-auto-mode');
+        if (autoMode) {
+            setActiveMode(autoMode);
+        }
     }
 })();
