@@ -52,12 +52,12 @@
     var sellerProductsByKey = {
         'firma': [
             { id: '1', name: 'Oscypek Góralski', seller: 'firma', price: '21.00', image: 'images/Oscypek-goralski.jpg', alt: 'Oscypek', category: 'sery', rating: '5.0', stock: 340 },
-            { id: '2', name: 'Orzechówka', seller: 'firma', price: '42.00', image: 'images/nalewka.jpg', alt: 'Nalewka', category: 'napoje', rating: '4.8', stock: 129 },
-            { id: '3', name: 'Ciupaga Góralska', seller: 'firma', price: '98.00', image: 'images/ciupaga.jpg', alt: 'Ciupaga', category: 'rekodzielo', rating: '4.9', stock: 6 },
+            { id: '2', name: 'Orzechówka', seller: 'firma', price: '42.00', image: 'images/orzechowka.jpg', alt: 'Nalewka', category: 'napoje', rating: '4.8', stock: 129 },
+            { id: '3', name: 'Ciupaga Góralska', seller: 'firma', price: '98.00', image: 'images/ciupaga.webp', alt: 'Ciupaga', category: 'rekodzielo', rating: '4.9', stock: 6 },
             { id: '4', name: 'Redykołka', seller: 'firma', price: '78.00', image: 'images/Redykołka.webp', alt: 'Serek', category: 'sery', rating: '4.7', stock: 25 },
-            { id: '5', name: 'Jałowcówka', seller: 'firma', price: '55.00', image: 'images/nalewka.jpg', alt: 'Nalewka', category: 'napoje', rating: '4.9', stock: 95 },
-            { id: '6', name: 'Pigwówka', seller: 'firma', price: '56.00', image: 'images/nalewka.jpg', alt: 'Nalewka', category: 'napoje', rating: '4.8', stock: 67 },
-            { id: '7', name: 'Dżem z gruszki', seller: 'firma', price: '19.00', image: 'images/dzem.jpg', alt: 'Dżem', category: 'przetwory', rating: '5.0', stock: 48 }
+            { id: '5', name: 'Jałowcówka', seller: 'firma', price: '55.00', image: 'images/Jałowcówka.png', alt: 'Nalewka', category: 'napoje', rating: '4.9', stock: 95 },
+            { id: '6', name: 'Pigwówka', seller: 'firma', price: '56.00', image: 'images/pigwowka-697x1000.webp', alt: 'Nalewka', category: 'napoje', rating: '4.8', stock: 67 },
+            { id: '7', name: 'Dżem z gruszki', seller: 'firma', price: '19.00', image: 'images/przetwory-z-gruszek-siostry-anastazji-4af3b39.jpg', alt: 'Dżem', category: 'przetwory', rating: '5.0', stock: 48 }
         ],
         'bacowka u wojtka': [
             { name: 'Oscypek Goralski', seller: 'Bacowka u Wojtka', price: '78.00', image: 'images/Oscypek-goralski.jpg', alt: 'Oscypek Goralski', category: 'sery', rating: '5.0', stock: 18 },
